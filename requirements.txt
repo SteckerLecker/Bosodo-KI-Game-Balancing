@@ -1,0 +1,28 @@
+# BOSODO RL-Balancing — Python Dependencies
+# Kompatibel mit Python 3.10+
+
+# RL Framework
+stable-baselines3>=2.3.0
+gymnasium>=1.0.0
+
+# ML / Numerik
+numpy>=1.24.0
+torch>=2.2.0
+
+# Konfiguration
+pyyaml>=6.0
+
+# Analyse & Visualisierung
+matplotlib>=3.7.0
+pandas>=2.0.0
+seaborn>=0.13.0
+
+# Testing
+pytest>=7.4.0
+
+# Logging
+tensorboard>=2.15.0
+
+# Fortschrittsbalken
+tqdm>=4.66.0
+rich>=13.0.0

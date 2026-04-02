@@ -1,0 +1,169 @@
+{
+  "kategorie": "Monster-Karten",
+  "spiel": "BOSODO - Digitale Achtsamkeit - Teen-Edition",
+  "version": "1.0",
+  "karten": [
+    {
+      "id": "M01",
+      "name": "In-App-Abzocker",
+      "kurzbeschreibung": "Verlockende In-App-Käufe",
+      "kampfwerte": ["BO"],
+      "beschreibung": "Diese irre Kreatur drängt dich dazu, echtes Geld für Diamanten und Extras in deinem Mobile Game auszugeben. Es verspricht dir, dass du so deinen Highscore knackst.",
+      "zitat": "Nur 5€, Sonderangebot!",
+      "belohnung_expert": "Simons Peitsche"
+    },
+    {
+      "id": "M02",
+      "name": "Bimsta-Perfektionistin",
+      "kurzbeschreibung": "Schönheitsdruck durch Filter",
+      "kampfwerte": ["BO"],
+      "beschreibung": "Diese Perfektionistin zeigt dir makellose Bilder auf Bimstagram und setzt dich unter Druck, genauso auszusehen. Sie wirbt damit für Schminke und Diäten.",
+      "zitat": "Nur perfekt ist schön!",
+      "belohnung_expert": "Buffys Pflock"
+    },
+    {
+      "id": "M03",
+      "name": "Zocker-Zombie",
+      "kurzbeschreibung": "Spielsucht statt Hausaufgaben",
+      "kampfwerte": ["BO"],
+      "beschreibung": "Dieser Zombie fesselt dich an dein Handy, damit du nur noch spielst und keine Zeit mehr für Freundeskreis oder Hausaufgaben hast. Er saugt deine Zeit auf.",
+      "zitat": "Noch das nächste Level!",
+      "belohnung_expert": "Geralts Schwert"
+    },
+    {
+      "id": "M04",
+      "name": "Meme-Mobberin",
+      "kurzbeschreibung": "Fiese Memes in Gruppen",
+      "kampfwerte": ["SO"],
+      "beschreibung": "Dieses Monster postet in der Klassengruppe unangemessene Memes, die Menschen aus deiner Klasse beleidigen oder rassistisch sind. Es liebt es, Ärger zu machen.",
+      "zitat": "Ist doch nur Spaß!",
+      "belohnung_expert": "Simons Peitsche"
+    },
+    {
+      "id": "M05",
+      "name": "Verschwörungs-Virus",
+      "kurzbeschreibung": "Schwurbler auf Social Media",
+      "kampfwerte": ["SO"],
+      "beschreibung": "Dieses Virus verbreitet auf Social Media Lügen, die dir logisch erscheinen. Es lässt dich glauben, dass bestimmte Personengruppen an Krisen schuld sind.",
+      "zitat": "Das klingt doch logisch!",
+      "belohnung_expert": "Buffys Pflock"
+    },
+    {
+      "id": "M06",
+      "name": "Nachrichten-Nervbolzen",
+      "kurzbeschreibung": "Angst durch schlechte News",
+      "kampfwerte": ["SO"],
+      "beschreibung": "Dieser Nervbolzen überflutet dich mit negativen Nachrichten über Kriege, Krisen und Katastrophen, die dich nachts wachhalten und nicht mehr loslassen.",
+      "zitat": "Alles ist furchtbar!",
+      "belohnung_expert": "Geralts Schwert"
+    },
+    {
+      "id": "M07",
+      "name": "Bild-Betrüger",
+      "kurzbeschreibung": "Unangebrachte Forderungen",
+      "kampfwerte": ["DO"],
+      "beschreibung": "Diese Person, die du nur online kennst, wirkt eigentlich nett, doch jetzt will sie Nacktfotos von dir. Sie macht Druck und überschreitet Grenzen.",
+      "zitat": "Du bist toll, schickst du mir ein Nude?",
+      "belohnung_expert": "Simons Peitsche"
+    },
+    {
+      "id": "M08",
+      "name": "www-Weirdo",
+      "kurzbeschreibung": "Ungefragte Nacktfotos",
+      "kampfwerte": ["DO"],
+      "beschreibung": "Diese Person schickt dir ungefragt ein Nacktfoto und will nun auch eines von dir. Die Grenzüberschreitungen sind unangenehm.",
+      "zitat": "Schick mir eins zurück!",
+      "belohnung_expert": "Buffys Pflock"
+    },
+    {
+      "id": "M09",
+      "name": "Ungewisser Unbekannter",
+      "kurzbeschreibung": "Unbekannter will sich treffen",
+      "kampfwerte": ["DO"],
+      "beschreibung": "Dieser Schmeichler schreibt dir nette Nachrichten und will sich jetzt plötzlich mit dir treffen, obwohl ihr euch noch nie persönlich gesehen habt.",
+      "zitat": "Treffen wir uns mal!",
+      "belohnung_expert": "Geralts Schwert"
+    },
+    {
+      "id": "M10",
+      "name": "Schlafräuber",
+      "kurzbeschreibung": "Schlafprobleme durch Videos",
+      "kampfwerte": ["BO", "SO"],
+      "beschreibung": "Dieser Räuber stiehlt dir den Schlaf, weil du bis spät in die Nacht Videos auf MeTube schaust. Deine Gedanken hängen noch bei den Videos, statt beim Schlaf.",
+      "zitat": "Nur noch ein Video!",
+      "belohnung_expert": "Simons Peitsche"
+    },
+    {
+      "id": "M11",
+      "name": "Kommentar-Hater",
+      "kurzbeschreibung": "Bösartige Kommentare",
+      "kampfwerte": ["BO", "SO"],
+      "beschreibung": "Diese Hater hinterlassen fiese Kommentare unter deinen Posts, um dich an dir zweifeln zu lassen. Sie genießen es, dein Selbstwertgefühl zu zerstören.",
+      "zitat": "Du bist nichts wert!",
+      "belohnung_expert": "Buffys Pflock"
+    },
+    {
+      "id": "M12",
+      "name": "Wutausbruch-Wicht",
+      "kurzbeschreibung": "Wütend bei jeder Handy-Pause",
+      "kampfwerte": ["SO", "DO"],
+      "beschreibung": "Der Wicht tobt, weil du dein Handy beiseite gelegt hast und nicht sofort auf seine Nachrichten reagiert hast. Dein Bildschirm explodiert vor Wut.",
+      "zitat": "Friendship over - du hast nicht geantwortet!",
+      "belohnung_expert": "Geralts Schwert"
+    },
+    {
+      "id": "M13",
+      "name": "Video-Vandale",
+      "kurzbeschreibung": "Verstörende Inhalte teilen",
+      "kampfwerte": ["SO", "DO"],
+      "beschreibung": "Der Vandale postet pornografische, rassistische oder gewalttätige Videos in der Klassengruppe, um zu schockieren und die Gruppe zu stören. Nichts ist ihm zu extrem.",
+      "zitat": "Guck mal, wie heftig!",
+      "belohnung_expert": "Simons Peitsche"
+    },
+    {
+      "id": "M14",
+      "name": "Chat-Klette",
+      "kurzbeschreibung": "Non-Stop Chatten",
+      "kampfwerte": ["BO", "DO"],
+      "beschreibung": "Diese Klette lässt dich nicht los, auch wenn du gerade nicht kannst. Sie will den ganzen Tag chatten oder telefonieren und versteht nicht, warum du offline sein willst.",
+      "zitat": "Hallo! Wo bist du?!",
+      "belohnung_expert": "Buffys Pflock"
+    },
+    {
+      "id": "M15",
+      "name": "Pillen-Influencer",
+      "kurzbeschreibung": "Doping-Pillen auf Social Media",
+      "kampfwerte": ["BO", "DO"],
+      "beschreibung": "Dieser Influencer hyped auf Social Media Pillen, die angeblich schnell fit machen. Du sollst glauben, dass nur diese Pillen den Erfolg bringen.",
+      "zitat": "Schnell fit, kein Problem!",
+      "belohnung_expert": "Geralts Schwert"
+    },
+    {
+      "id": "M16",
+      "name": "Mobber-Monarchin",
+      "kurzbeschreibung": "Du wirst das Ziel",
+      "kampfwerte": ["BO", "SO", "DO"],
+      "beschreibung": "Diese Monarchin macht dich in der Klassengruppe zum Mobbing-Opfer. Sie zieht dich in die Schusslinie, während andere hilflos zusehen.",
+      "zitat": "Warum wehrst du dich nicht?",
+      "belohnung_expert": "Simons Peitsche + Buffys Pflock"
+    },
+    {
+      "id": "M17",
+      "name": "Trend-Tyrann",
+      "kurzbeschreibung": "Druck durch stylische Trends",
+      "kampfwerte": ["BO", "SO", "DO"],
+      "beschreibung": "Dieser Tyrann zeigt dir ständig teure und stylische Klamotten, die du haben musst, um in zu sein. Er macht dir klar, dass dein Look veraltet ist.",
+      "zitat": "Was, das trägst noch?",
+      "belohnung_expert": "Geralts Schwert + Simons Peitsche"
+    },
+    {
+      "id": "M18",
+      "name": "Verschwörungs-Kumpel",
+      "kurzbeschreibung": "Abgerutschte Freunde",
+      "kampfwerte": ["BO", "SO", "DO"],
+      "beschreibung": "Eine Freundin oder ein Frend glaubt plötzlich an Verschwörungsmythen und verbreitet sie überall. Sie oder er versucht, dich mit hineinzuziehen und beeinflusst dein Denken.",
+      "zitat": "Das ist die Wahrheit!",
+      "belohnung_expert": "Buffys Pflock + Geralts Schwert"
+    }
+  ]
+}

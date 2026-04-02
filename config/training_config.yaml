@@ -1,0 +1,56 @@
+# ============================================================
+# BOSODO RL-Balancing — Trainingskonfiguration
+# ============================================================
+# Diese Datei steuert alle Parameter für das PPO-Training.
+# Anpassungen hier ändern das Trainingsverhalten, ohne Code
+# zu modifizieren.
+
+# --- Spiel-Parameter ---
+game:
+  data_dir: "data/"                  # Pfad zu den Kartendaten-JSONs
+  num_players: 4                     # Anzahl Spieler pro Runde (2-6)
+  trophies_to_win: 3                 # Trophäen zum Sieg
+
+# --- PPO Hyperparameter ---
+training:
+  total_timesteps: 1_000_000        # Gesamte Trainingsschritte
+  n_envs: 8                         # Parallele Environments (= CPU-Kerne)
+  learning_rate: 0.0003             # Lernrate (3e-4)
+  batch_size: 256                   # Mini-Batch-Größe
+  n_epochs: 10                      # PPO-Epochen pro Update
+  gamma: 0.99                       # Diskontierungsfaktor
+  gae_lambda: 0.95                  # GAE Lambda
+  clip_range: 0.2                   # PPO Clipping
+  ent_coef: 0.01                    # Entropie-Koeffizient
+  vf_coef: 0.5                      # Value-Function-Koeffizient
+  max_grad_norm: 0.5                # Gradient Clipping
+  device: "auto"                    # "auto", "cuda", "cpu"
+
+# --- Reward-Gewichte ---
+# Diese Gewichte steuern, was der Agent als "gutes Spiel" lernt.
+# Sie sind der zentrale Hebel für das Balancing.
+rewards:
+  defense_success: 1.0              # Erfolgreich verteidigt
+  defense_fail: -0.3                # Verteidigung fehlgeschlagen
+  trophy_earned: 2.0                # Trophäe gewonnen
+  game_won: 10.0                    # Spiel gewonnen
+  game_lost: -5.0                   # Spiel verloren
+  game_length_bonus: 0.5            # Bonus für optimale Spiellänge
+  ideal_game_length: 30             # Ideale Rundenzahl
+  game_length_tolerance: 15         # Toleranz
+  close_game_bonus: 1.0             # Knappes Ergebnis
+  blowout_penalty: -1.0             # Einseitiges Ergebnis
+  stalemate_penalty: -2.0           # Spiel dauert zu lange
+
+# --- Ausgabe ---
+output:
+  dir: "output/"                    # Ausgabeverzeichnis
+  save_freq: 50_000                 # Checkpoint-Frequenz
+  eval_freq: 10_000                 # Evaluations-Frequenz
+  n_eval_episodes: 20               # Episoden pro Evaluation
+  tensorboard: true                 # TensorBoard-Logging
+
+# --- Analyse ---
+analysis:
+  n_analysis_episodes: 500          # Episoden für Balancing-Analyse
+  report_path: "output/reports/"    # Pfad für Analyse-Berichte

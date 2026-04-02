@@ -1,0 +1,151 @@
+{
+  "kategorie": "Wissens-Karten",
+  "spiel": "BOSODO - Digitale Achtsamkeit - Teen-Edition",
+  "version": "1.0",
+  "karten": [
+    {
+      "id": "W01",
+      "name": "Smart shoppen",
+      "kurzbeschreibung": "Überlege vor dem Kauf",
+      "kampfwerte": ["BO"],
+      "beschreibung": "Bevor du Geld für virtuelle Items wie Skins und Ingamewährungen ausgibst, überlege, ob es sich wirklich lohnt. Gibt es coole Alternativen ohne Kosten?",
+      "zitat": "Think before you buy!"
+    },
+    {
+      "id": "W02",
+      "name": "Social Media planen",
+      "kurzbeschreibung": "Offline-Zeiten festlegen",
+      "kampfwerte": ["BO"],
+      "beschreibung": "Plane feste Zeiten für Social Media ein. Es ist nice, auch mal offline zu sein und Zeit mit Freundinnen und Freunden oder draußen zu verbringen.",
+      "zitat": "Offline tut gut!"
+    },
+    {
+      "id": "W03",
+      "name": "Offline-Zeiten planen",
+      "kurzbeschreibung": "Ab und zu offline sein",
+      "kampfwerte": ["BO"],
+      "beschreibung": "Leg das Handy zur Seite und setze dir bewusst Offline-Zeiten für Freundeskreis, Familie und dich selbst. Das hilft, deinen Kopf frei zu bekommen und fokussiert zu bleiben.",
+      "zitat": "Offline ist auch cool!"
+    },
+    {
+      "id": "W04",
+      "name": "Mythen aufklären",
+      "kurzbeschreibung": "Verschwörungsmythen entlarven",
+      "kampfwerte": ["SO"],
+      "beschreibung": "Sprich an, wenn jemand Verschwörungstheorien teilt und erkläre, warum solche Infos oft falsch sind und wo glaubwürdige Quellen zu finden sind.",
+      "zitat": "Fakten statt Mythen!"
+    },
+    {
+      "id": "W05",
+      "name": "News hinterfragen",
+      "kurzbeschreibung": "Verlässliche Quellen wählen",
+      "kampfwerte": ["SO"],
+      "beschreibung": "Glaub nicht alles, was du liest! Wähle zuverlässige Quellen und hinterfrage Nachrichten, um keine Fehlinformationen zu verbreiten.",
+      "zitat": "Check die Quelle!"
+    },
+    {
+      "id": "W06",
+      "name": "Mobbing stoppen",
+      "kurzbeschreibung": "Auch online!",
+      "kampfwerte": ["SO"],
+      "beschreibung": "Mobbing ist nie okay, egal ob in der Klassengruppe oder in Kommentaren. Zeig Zivilcourage, indem du das ansprichst und dir Unterstützung holst.",
+      "zitat": "Aufstehen für andere!"
+    },
+    {
+      "id": "W07",
+      "name": "Sicher surfen",
+      "kurzbeschreibung": "Grenzen setzen online",
+      "kampfwerte": ["DO"],
+      "beschreibung": "Schütze deine Daten und setze klare Grenzen im Netz. Blockiere, wenn nötig, und hab keine Angst Nein zu sagen. Entscheide selbst, was von dir im Netz landet.",
+      "zitat": "Einmal da, immer da."
+    },
+    {
+      "id": "W08",
+      "name": "Grenzen setzen",
+      "kurzbeschreibung": "Nein sagen ist okay",
+      "kampfwerte": ["DO"],
+      "beschreibung": "Wenn dich jemand nach privaten Infos oder Nacktbildern fragt, sag klar Nein. Deine Grenzen zählen mehr als die Angst, jemanden zu enttäuschen.",
+      "zitat": "Dein Schutz zählt!"
+    },
+    {
+      "id": "W09",
+      "name": "Bleib du selbst",
+      "kurzbeschreibung": "Lass dich nicht stressen",
+      "kampfwerte": ["DO"],
+      "beschreibung": "Perfekte Bimstagram-Bilder? Die sind meistens bearbeitet! Sei stolz auf dich, wie du bist, und lass dir nicht einreden, dass du nicht mithalten kannst.",
+      "zitat": "Du bist genug!"
+    },
+    {
+      "id": "W10",
+      "name": "Nachrichten limitieren",
+      "kurzbeschreibung": "Schlechte Nachrichten in Maßen",
+      "kampfwerte": ["BO", "SO"],
+      "beschreibung": "Setz dir Grenzen bei schlechten Nachrichten, um dich nicht zu überfordern. Hol dir die Infos, die du brauchst, aber achte auf dein Wohlbefinden.",
+      "zitat": "Weniger ist mehr!"
+    },
+    {
+      "id": "W11",
+      "name": "Fakten checken",
+      "kurzbeschreibung": "Nicht alles glauben",
+      "kampfwerte": ["BO", "SO"],
+      "beschreibung": "Hinterfrage Videos oder Posts kritisch, bevor du ihnen Glauben schenkst. Besonders bei Verschwörungstheorien oder Fake News sind gut recherchierte Infos wichtig.",
+      "zitat": "Check die Fakten!"
+    },
+    {
+      "id": "W12",
+      "name": "Hilfe bei Cybermobbing",
+      "kurzbeschreibung": "Sprich über Mobbing",
+      "kampfwerte": ["SO", "DO"],
+      "beschreibung": "Wenn du gemobbt wirst oder Hasskommentare bekommst, rede mit Menschen, die zu dir stehen oder mit Vertrauenspersonen. Hol dir die Unterstützung, die du brauchst.",
+      "zitat": "Du bist nicht allein!"
+    },
+    {
+      "id": "W13",
+      "name": "Bleib respektvoll",
+      "kurzbeschreibung": "Keine Toleranz für Mobbing",
+      "kampfwerte": ["SO", "DO"],
+      "beschreibung": "Wenn du siehst, dass jemand in der Klassengruppe gemobbt wird, sag was! Setz dich für andere ein und mach klar, dass Mobbing nicht okay ist. Respekt an erster Stelle.",
+      "zitat": "Respekt ist das A und O."
+    },
+    {
+      "id": "W14",
+      "name": "Sicheres Treffen planen",
+      "kurzbeschreibung": "Treffen mit Online-Freunden",
+      "kampfwerte": ["BO", "DO"],
+      "beschreibung": "Wenn du jemanden von Social Media triffst, mach es sicher: Trefft euch an einem öffentlichen Ort und sag jemandem Bescheid. Deine Sicherheit geht vor!",
+      "zitat": "Sicher ist sicher!"
+    },
+    {
+      "id": "W15",
+      "name": "Vorsicht bei Angeboten",
+      "kurzbeschreibung": "Wenn es zu gut klingt",
+      "kampfwerte": ["BO", "DO"],
+      "beschreibung": "Schnell fit mit einer Pille oder Spiel gewinnen durch einen Kauf? Lass dich nicht täuschen. Was zu gut klingt, um wahr zu sein, ist es meistens auch.",
+      "zitat": "Falsche Versprechen!"
+    },
+    {
+      "id": "W16",
+      "name": "Melden und Blockieren",
+      "kurzbeschreibung": "Schütze dich online",
+      "kampfwerte": ["BO", "SO", "DO"],
+      "beschreibung": "Wenn du gemobbt wirst oder krasse Sachen siehst, nutze die Melden- und Blockieren-Funktion! Schütze dich und mach die Plattform sicherer.",
+      "zitat": "Blockier den Stress!"
+    },
+    {
+      "id": "W17",
+      "name": "Reden hilft",
+      "kurzbeschreibung": "Über Online-Probleme sprechen",
+      "kampfwerte": ["BO", "SO", "DO"],
+      "beschreibung": "Wenn dich etwas im Netz belastet, ob Mobbing oder besorgniserregende Nachrichten, rede mit jemandem, dem du vertraust. Es gibt immer Hilfe.",
+      "zitat": "Reden tut gut!"
+    },
+    {
+      "id": "W18",
+      "name": "Achtsamkeit am Handy",
+      "kurzbeschreibung": "Handy-Pausen helfen",
+      "kampfwerte": ["BO", "SO", "DO"],
+      "beschreibung": "Gönn dir regelmäßig Pausen vom Handy. So bleibst du fokussiert und entspannter. Achtsamkeit hilft dir, nicht ständig an dein Handy denken zu müssen.",
+      "zitat": "Leg es mal weg!"
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+# BOSODO RL-Balancing — Docker Compose
+# Startet Training + TensorBoard auf H100 GPU Server
+
+services:
+  training:
+    build: .
+    container_name: bosodo-training
+    runtime: nvidia
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    volumes:
+      - ./data:/app/data:ro
+      - ./output:/app/output
+      - ./config:/app/config:ro
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - CUDA_VISIBLE_DEVICES=0
+    command: ["--config", "config/training_config.yaml"]
+
+  tensorboard:
+    image: tensorflow/tensorflow:latest
+    container_name: bosodo-tensorboard
+    ports:
+      - "6006:6006"
+    volumes:
+      - ./output/tensorboard:/logs:ro
+    command: tensorboard --logdir=/logs --host=0.0.0.0 --port=6006
+
+  analyze:
+    build: .
+    container_name: bosodo-analyze
+    volumes:
+      - ./data:/app/data:ro
+      - ./output:/app/output
+    entrypoint: ["python", "scripts/analyze.py"]
+    command: ["--model", "output/best_model/best_model.zip", "--episodes", "500"]
+    profiles:
+      - analyze
