@@ -20,6 +20,19 @@ from bosodo_env.card_loader import CardPool, SYMBOLS
 
 
 @dataclass
+class LLMPairingIssue:
+    """Eine Paarung, bei der Symbol und Inhalt nicht übereinstimmen."""
+    monster_id: str
+    monster_name: str
+    wisdom_id: str
+    wisdom_name: str
+    shared_symbols: List[str]
+    llm_score: float
+    begruendung: str
+    category: str  # "fehlzuordnung" | "grauzone" | "perfekt"
+
+
+@dataclass
 class CardBalanceReport:
     """Balancing-Bericht für eine einzelne Karte."""
     card_id: str
@@ -49,6 +62,8 @@ class BalancingReport:
     symbol_starvation_rate: Dict[str, float] = field(default_factory=dict)
     avg_symbol_on_hand: Dict[str, float] = field(default_factory=dict)
     multi_symbol_defense_rate: float = 0.0
+    # LLM-basierte Inhaltsprüfung (Abschnitt 3.4 Stufe 1)
+    llm_analysis: Dict[str, Any] = field(default_factory=dict)
 
 
 class BalancingAnalyzer:
@@ -61,8 +76,9 @@ class BalancingAnalyzer:
         report = analyzer.analyze()
     """
 
-    def __init__(self, card_pool: CardPool):
+    def __init__(self, card_pool: CardPool, llm_cache: Optional[Dict[str, Any]] = None):
         self.card_pool = card_pool
+        self.llm_cache = llm_cache or {}
         self.episodes: List[Dict[str, Any]] = []
 
         # Aggregierte Statistiken
@@ -181,6 +197,10 @@ class BalancingAnalyzer:
                 self.agg_multi_symbol_defenses / self.agg_multi_symbol_attacks, 3
             )
 
+        # --- LLM-Inhaltsprüfung ---
+        if self.llm_cache:
+            report.llm_analysis = self._analyze_llm_scores()
+
         # --- Probleme identifizieren ---
         self._identify_issues(report)
 
@@ -219,6 +239,66 @@ class BalancingAnalyzer:
             "monster_symbols": dict(monster_symbols),
             "wisdom_symbols": dict(wisdom_symbols),
             "coverage": coverage,
+        }
+
+    def _analyze_llm_scores(self) -> Dict[str, Any]:
+        """Analysiert LLM-Scores für alle symbolisch passenden Paarungen.
+
+        Findet Paarungen, bei denen Symbole matchen aber Inhalt nicht passt
+        (Fehlzuordnung) oder nur indirekt passt (Grauzone).
+
+        Kategorien (gemäß Bericht Abschnitt 3.5):
+          - perfekt:        0.8 – 1.0
+          - grauzone:       0.4 – 0.7
+          - fehlzuordnung:  0.0 – 0.3
+        """
+        fehlzuordnungen: List[Dict] = []
+        grauzone: List[Dict] = []
+        perfekt: List[Dict] = []
+
+        for monster in self.card_pool.monsters:
+            for wisdom in self.card_pool.wisdoms:
+                # Nur Paarungen prüfen, bei denen Symbole überlappen
+                shared = [s for s in monster.kampfwerte if s in wisdom.kampfwerte]
+                if not shared:
+                    continue
+
+                key = f"{monster.id}_{wisdom.id}"
+                entry = self.llm_cache.get(key)
+                if entry is None:
+                    continue
+
+                score = entry["score"]
+                begruendung = entry.get("begruendung", "")
+                pairing = {
+                    "monster_id": monster.id,
+                    "monster_name": monster.name,
+                    "wisdom_id": wisdom.id,
+                    "wisdom_name": wisdom.name,
+                    "shared_symbols": shared,
+                    "llm_score": score,
+                    "begruendung": begruendung,
+                }
+
+                if score >= 0.8:
+                    perfekt.append(pairing)
+                elif score >= 0.4:
+                    grauzone.append(pairing)
+                else:
+                    fehlzuordnungen.append(pairing)
+
+        # Sortierung: schlechteste zuerst
+        fehlzuordnungen.sort(key=lambda x: x["llm_score"])
+        grauzone.sort(key=lambda x: x["llm_score"])
+
+        total = len(fehlzuordnungen) + len(grauzone) + len(perfekt)
+        return {
+            "total_symbol_matching_pairs": total,
+            "perfekt_count": len(perfekt),
+            "grauzone_count": len(grauzone),
+            "fehlzuordnung_count": len(fehlzuordnungen),
+            "fehlzuordnungen": fehlzuordnungen,
+            "grauzone": grauzone,
         }
 
     def _identify_issues(self, report: BalancingReport) -> None:
@@ -356,6 +436,7 @@ class BalancingAnalyzer:
                 }
                 for k, v in report.card_reports.items()
             },
+            "llm_analysis": report.llm_analysis,
         }
         Path(path).parent.mkdir(parents=True, exist_ok=True)
         with open(path, "w", encoding="utf-8") as f:

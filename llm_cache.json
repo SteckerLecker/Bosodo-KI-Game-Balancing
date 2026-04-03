@@ -1,0 +1,1298 @@
+{
+  "M01_W01": {
+    "score": 0.7,
+    "begruendung": "Die Karte regt zum Nachdenken über Ausgaben an, ist aber nicht umfassend."
+  },
+  "M01_W02": {
+    "score": 0.2,
+    "begruendung": "Die Karte fördert Offline-Zeiten, aber nicht den Umgang mit In-App-Käufen."
+  },
+  "M01_W03": {
+    "score": 0.3,
+    "begruendung": "Offline-Zeiten helfen indirekt, aber lösen das Kaufproblem nicht."
+  },
+  "M01_W04": {
+    "score": 0.2,
+    "begruendung": "Mythen aufklären hilft nicht direkt gegen In-App-Abzocker."
+  },
+  "M01_W05": {
+    "score": 0.3,
+    "begruendung": "Die Wissenskarte behandelt Fehlinformationen, nicht In-App-Käufe."
+  },
+  "M01_W06": {
+    "score": 0.1,
+    "begruendung": "Die Wissenskarte behandelt ein anderes Thema und ist irrelevant."
+  },
+  "M01_W07": {
+    "score": 0.6,
+    "begruendung": "Die Karte fördert Grenzen, aber nicht spezifisch gegen In-App-Käufe."
+  },
+  "M01_W08": {
+    "score": 0.3,
+    "begruendung": "Die Wissenskarte behandelt keine finanziellen Grenzen im Spiel."
+  },
+  "M01_W09": {
+    "score": 0.3,
+    "begruendung": "Die Karte thematisiert Selbstwert, nicht In-App-Käufe."
+  },
+  "M01_W10": {
+    "score": 0.2,
+    "begruendung": "Die Wissenskarte behandelt nicht das In-App-Kauf-Problem."
+  },
+  "M01_W11": {
+    "score": 0.3,
+    "begruendung": "Fakten checken hilft, aber nicht direkt gegen In-App-Käufe."
+  },
+  "M01_W12": {
+    "score": 0.1,
+    "begruendung": "Die Wissenskarte behandelt ein anderes Thema als das Monster-Problem."
+  },
+  "M01_W13": {
+    "score": 0.1,
+    "begruendung": "Die Wissenskarte behandelt Mobbing, nicht In-App-Käufe."
+  },
+  "M01_W14": {
+    "score": 0.1,
+    "begruendung": "Die Wissenskarte behandelt nicht das In-App-Kauf-Problem."
+  },
+  "M01_W15": {
+    "score": 0.7,
+    "begruendung": "Die Karte warnt vor verlockenden Angeboten, aber nicht spezifisch genug."
+  },
+  "M01_W16": {
+    "score": 0.2,
+    "begruendung": "Die Karte behandelt nicht das Thema In-App-Käufe."
+  },
+  "M01_W17": {
+    "score": 0.3,
+    "begruendung": "Reden hilft, aber es adressiert nicht direkt In-App-Käufe."
+  },
+  "M01_W18": {
+    "score": 0.4,
+    "begruendung": "Achtsamkeit hilft, aber greift das spezifische Problem nicht an."
+  },
+  "M02_W01": {
+    "score": 0.3,
+    "begruendung": "Die Karte behandelt Konsum, nicht den Druck durch Perfektion."
+  },
+  "M02_W02": {
+    "score": 0.6,
+    "begruendung": "Die Karte fördert Offline-Zeiten, aber nicht direkt gegen Perfektionismus."
+  },
+  "M02_W03": {
+    "score": 0.7,
+    "begruendung": "Offline-Zeiten helfen, den Druck von Bimsta zu reduzieren."
+  },
+  "M02_W04": {
+    "score": 0.3,
+    "begruendung": "Die Wissenskarte behandelt keine Schönheitsideale oder Druck."
+  },
+  "M02_W05": {
+    "score": 0.3,
+    "begruendung": "Die Wissenskarte behandelt Nachrichten, nicht Selbstbilddruck."
+  },
+  "M02_W06": {
+    "score": 0.3,
+    "begruendung": "Die Wissenskarte behandelt Mobbing, nicht den Druck durch Perfektion."
+  },
+  "M02_W07": {
+    "score": 0.6,
+    "begruendung": "Die Karte fördert Selbstschutz, aber nicht gegen Perfektionsdruck."
+  },
+  "M02_W08": {
+    "score": 0.6,
+    "begruendung": "Grenzen setzen hilft, aber nicht direkt gegen Perfektionsdruck."
+  },
+  "M02_W09": {
+    "score": 0.9,
+    "begruendung": "Die Karte ermutigt zur Selbstakzeptanz und entlarvt Bearbeitung."
+  },
+  "M02_W10": {
+    "score": 0.3,
+    "begruendung": "Die Wissenskarte behandelt Nachrichten, nicht das Schönheitsideal."
+  },
+  "M02_W11": {
+    "score": 0.4,
+    "begruendung": "Fakten checken hilft, aber nicht direkt gegen Schönheitsdruck."
+  },
+  "M02_W12": {
+    "score": 0.4,
+    "begruendung": "Die Karte behandelt Cybermobbing, nicht den Druck durch Perfektion."
+  },
+  "M02_W13": {
+    "score": 0.3,
+    "begruendung": "Respekt ist wichtig, aber es fehlt der direkte Bezug zur Perfektionismus-Thematik."
+  },
+  "M02_W14": {
+    "score": 0.2,
+    "begruendung": "Die Karte behandelt Sicherheit, nicht den Druck durch Perfektion."
+  },
+  "M02_W15": {
+    "score": 0.6,
+    "begruendung": "Die Karte warnt vor unrealistischen Angeboten, aber nicht spezifisch vor Schönheitsdruck."
+  },
+  "M02_W16": {
+    "score": 0.6,
+    "begruendung": "Die Karte bietet Schutz, aber nicht gegen den Druck der Perfektion."
+  },
+  "M02_W17": {
+    "score": 0.7,
+    "begruendung": "Reden hilft, um Druck zu bewältigen, aber nicht direkt gegen Perfektionismus."
+  },
+  "M02_W18": {
+    "score": 0.4,
+    "begruendung": "Achtsamkeit hilft, aber greift das Perfektionsdruck-Thema nicht direkt an."
+  },
+  "M03_W01": {
+    "score": 0.6,
+    "begruendung": "Die Karte fördert bewussten Konsum, aber nicht Zeitmanagement."
+  },
+  "M03_W02": {
+    "score": 0.7,
+    "begruendung": "Die Karte bietet einen Ansatz zur Zeitplanung, aber nicht zur Spielkontrolle."
+  },
+  "M03_W03": {
+    "score": 0.9,
+    "begruendung": "Offline-Zeiten helfen effektiv gegen Ablenkung durch Spiele."
+  },
+  "M03_W04": {
+    "score": 0.2,
+    "begruendung": "Mythenaufklärung hilft nicht gegen exzessives Spielen."
+  },
+  "M03_W05": {
+    "score": 0.3,
+    "begruendung": "Die Wissenskarte behandelt Fehlinformationen, nicht Spielsucht."
+  },
+  "M03_W06": {
+    "score": 0.2,
+    "begruendung": "Mobbing ist nicht direkt mit Spielsucht verbunden."
+  },
+  "M03_W07": {
+    "score": 0.4,
+    "begruendung": "Die Karte behandelt Datenschutz, nicht das Zeitmanagement beim Spielen."
+  },
+  "M03_W08": {
+    "score": 0.4,
+    "begruendung": "Grenzen setzen hilft, aber nicht direkt gegen exzessives Spielen."
+  },
+  "M03_W09": {
+    "score": 0.4,
+    "begruendung": "Die Karte fördert Selbstbewusstsein, greift aber nicht das Spielverhalten an."
+  },
+  "M03_W10": {
+    "score": 0.3,
+    "begruendung": "Die Wissenskarte behandelt Nachrichten, nicht das Spielverhalten."
+  },
+  "M03_W11": {
+    "score": 0.2,
+    "begruendung": "Die Wissenskarte behandelt nicht das Spielverhalten direkt."
+  },
+  "M03_W12": {
+    "score": 0.2,
+    "begruendung": "Die Wissenskarte behandelt Cybermobbing, nicht Spielsucht."
+  },
+  "M03_W13": {
+    "score": 0.2,
+    "begruendung": "Die Wissenskarte behandelt Mobbing, nicht das Zocker-Problem."
+  },
+  "M03_W14": {
+    "score": 0.2,
+    "begruendung": "Die Karte behandelt Sicherheit, nicht das Zeitmanagement beim Spielen."
+  },
+  "M03_W15": {
+    "score": 0.4,
+    "begruendung": "Die Karte warnt vor Angeboten, aber nicht direkt vor Spielsucht."
+  },
+  "M03_W16": {
+    "score": 0.3,
+    "begruendung": "Die Wissenskarte behandelt Mobbing, nicht Spielsucht."
+  },
+  "M03_W17": {
+    "score": 0.4,
+    "begruendung": "Reden hilft, aber es adressiert nicht direkt das Spielverhalten."
+  },
+  "M03_W18": {
+    "score": 0.75,
+    "begruendung": "Achtsamkeit fördert Pausen, hilft aber nicht direkt gegen Spielsucht."
+  },
+  "M04_W01": {
+    "score": 0.2,
+    "begruendung": "Die Wissenskarte behandelt nicht das Problem von Mobbing."
+  },
+  "M04_W02": {
+    "score": 0.3,
+    "begruendung": "Die Karte fördert Offline-Zeiten, adressiert aber nicht das Meme-Problem."
+  },
+  "M04_W03": {
+    "score": 0.3,
+    "begruendung": "Offline-Zeiten helfen nicht direkt gegen Meme-Mobbing."
+  },
+  "M04_W04": {
+    "score": 0.3,
+    "begruendung": "Die Wissenskarte behandelt nicht direkt beleidigende Memes."
+  },
+  "M04_W05": {
+    "score": 0.3,
+    "begruendung": "Die Wissenskarte thematisiert Fehlinformationen, nicht Mobbing."
+  },
+  "M04_W06": {
+    "score": 0.75,
+    "begruendung": "Die Karte spricht Mobbing an, könnte aber konkretere Schritte bieten."
+  },
+  "M04_W07": {
+    "score": 0.6,
+    "begruendung": "Die Karte bietet grundlegende Schutzmaßnahmen, aber keine spezifischen Lösungen."
+  },
+  "M04_W08": {
+    "score": 0.3,
+    "begruendung": "Die Karte behandelt persönliche Grenzen, nicht das Meme-Problem."
+  },
+  "M04_W09": {
+    "score": 0.3,
+    "begruendung": "Die Karte fördert Selbstakzeptanz, greift aber das Meme-Problem nicht an."
+  },
+  "M04_W10": {
+    "score": 0.3,
+    "begruendung": "Die Karte behandelt allgemeine Nachrichten, nicht spezifische Memes."
+  },
+  "M04_W11": {
+    "score": 0.4,
+    "begruendung": "Faktencheck hilft, aber greift das spezifische Problem nicht direkt an."
+  },
+  "M04_W12": {
+    "score": 0.6,
+    "begruendung": "Die Karte bietet Unterstützung, aber keine direkte Lösung gegen Memes."
+  },
+  "M04_W13": {
+    "score": 0.7,
+    "begruendung": "Die Karte fördert Respekt, greift aber nicht direkt das Mobbing an."
+  },
+  "M04_W14": {
+    "score": 0.2,
+    "begruendung": "Die Karte behandelt nicht das Problem von Online-Mobbing."
+  },
+  "M04_W15": {
+    "score": 0.2,
+    "begruendung": "Die Wissenskarte behandelt nicht das Thema Mobbing oder Memes."
+  },
+  "M04_W16": {
+    "score": 0.7,
+    "begruendung": "Die Karte bietet wichtige Handlungsmöglichkeiten gegen Mobbing."
+  },
+  "M04_W17": {
+    "score": 0.6,
+    "begruendung": "Reden hilft, aber es fehlt eine direkte Strategie gegen Memes."
+  },
+  "M04_W18": {
+    "score": 0.2,
+    "begruendung": "Achtsamkeit hilft nicht direkt gegen beleidigende Memes."
+  },
+  "M05_W01": {
+    "score": 0.2,
+    "begruendung": "Die Wissenskarte behandelt Konsumverhalten, nicht Desinformation."
+  },
+  "M05_W02": {
+    "score": 0.3,
+    "begruendung": "Die Karte fördert Offline-Zeiten, aber nicht kritisches Denken."
+  },
+  "M05_W03": {
+    "score": 0.4,
+    "begruendung": "Offline-Zeiten helfen, aber adressieren nicht direkt Verschwörungstheorien."
+  },
+  "M05_W04": {
+    "score": 0.9,
+    "begruendung": "Die Wissenskarte bietet gezielte Aufklärung gegen Fehlinformationen."
+  },
+  "M05_W05": {
+    "score": 0.9,
+    "begruendung": "Die Wissenskarte fördert kritisches Denken und Quellenbewusstsein."
+  },
+  "M05_W06": {
+    "score": 0.3,
+    "begruendung": "Mobbing ist relevant, aber nicht direkt auf Verschwörungstheorien bezogen."
+  },
+  "M05_W07": {
+    "score": 0.3,
+    "begruendung": "Die Karte behandelt Datenschutz, nicht kritisches Denken zu Lügen."
+  },
+  "M05_W08": {
+    "score": 0.2,
+    "begruendung": "Die Wissenskarte behandelt persönliche Grenzen, nicht Desinformation."
+  },
+  "M05_W09": {
+    "score": 0.3,
+    "begruendung": "Die Karte fördert Selbstakzeptanz, greift aber nicht das Virus direkt an."
+  },
+  "M05_W10": {
+    "score": 0.4,
+    "begruendung": "Die Karte hilft beim Umgang mit Nachrichten, nicht bei deren Wahrheitsgehalt."
+  },
+  "M05_W11": {
+    "score": 0.9,
+    "begruendung": "Faktencheck ist entscheidend gegen die Verbreitung von Lügen."
+  },
+  "M05_W12": {
+    "score": 0.2,
+    "begruendung": "Die Wissenskarte behandelt Cybermobbing, nicht Verschwörungstheorien."
+  },
+  "M05_W13": {
+    "score": 0.3,
+    "begruendung": "Respekt ist wichtig, aber die Karte adressiert keine Desinformation."
+  },
+  "M05_W14": {
+    "score": 0.2,
+    "begruendung": "Die Karte behandelt Sicherheit, nicht den Umgang mit Desinformation."
+  },
+  "M05_W15": {
+    "score": 0.3,
+    "begruendung": "Die Karte thematisiert Angebote, nicht gezielte Desinformation."
+  },
+  "M05_W16": {
+    "score": 0.3,
+    "begruendung": "Die Karte behandelt Mobbing, nicht gezielte Desinformation."
+  },
+  "M05_W17": {
+    "score": 0.4,
+    "begruendung": "Reden hilft, aber es adressiert nicht direkt Verschwörungstheorien."
+  },
+  "M05_W18": {
+    "score": 0.3,
+    "begruendung": "Achtsamkeit hilft, aber adressiert nicht gezielt Verschwörungstheorien."
+  },
+  "M06_W01": {
+    "score": 0.2,
+    "begruendung": "Die Wissenskarte behandelt Konsumverhalten, nicht Nachrichtenstress."
+  },
+  "M06_W02": {
+    "score": 0.6,
+    "begruendung": "Die Karte fördert Offline-Zeiten, hilft aber nicht direkt gegen Nachrichten."
+  },
+  "M06_W03": {
+    "score": 0.75,
+    "begruendung": "Offline-Zeiten helfen, negative Nachrichten zu reduzieren."
+  },
+  "M06_W04": {
+    "score": 0.4,
+    "begruendung": "Die Wissenskarte behandelt Verschwörungstheorien, nicht negative Nachrichten."
+  },
+  "M06_W05": {
+    "score": 0.7,
+    "begruendung": "Die Karte fördert kritisches Denken, aber nicht emotionale Bewältigung."
+  },
+  "M06_W06": {
+    "score": 0.2,
+    "begruendung": "Die Wissenskarte behandelt Mobbing, nicht negative Nachrichten."
+  },
+  "M06_W07": {
+    "score": 0.3,
+    "begruendung": "Die Karte behandelt Datenschutz, nicht emotionale Belastung durch Nachrichten."
+  },
+  "M06_W08": {
+    "score": 0.2,
+    "begruendung": "Die Wissenskarte behandelt persönliche Grenzen, nicht Nachrichtenstress."
+  },
+  "M06_W09": {
+    "score": 0.2,
+    "begruendung": "Die Wissenskarte behandelt Selbstwert, nicht negative Nachrichten."
+  },
+  "M06_W10": {
+    "score": 0.9,
+    "begruendung": "Die Wissenskarte bietet konkrete Strategien zur Selbstregulation."
+  },
+  "M06_W11": {
+    "score": 0.6,
+    "begruendung": "Faktencheck hilft, aber nicht direkt gegen emotionale Belastung."
+  },
+  "M06_W12": {
+    "score": 0.2,
+    "begruendung": "Die Wissenskarte behandelt Cybermobbing, nicht negative Nachrichten."
+  },
+  "M06_W13": {
+    "score": 0.2,
+    "begruendung": "Die Wissenskarte behandelt Mobbing, nicht negative Nachrichten."
+  },
+  "M06_W14": {
+    "score": 0.1,
+    "begruendung": "Die Wissenskarte behandelt Sicherheit, nicht negative Nachrichten."
+  },
+  "M06_W15": {
+    "score": 0.2,
+    "begruendung": "Die Wissenskarte behandelt nicht das Thema negative Nachrichten."
+  },
+  "M06_W16": {
+    "score": 0.3,
+    "begruendung": "Die Karte behandelt Mobbing, nicht negative Nachrichten."
+  },
+  "M06_W17": {
+    "score": 0.7,
+    "begruendung": "Reden hilft, aber es fehlt eine direkte Strategie gegen Nachrichten."
+  },
+  "M06_W18": {
+    "score": 0.6,
+    "begruendung": "Achtsamkeit kann helfen, aber greift das Nachrichtenproblem nicht direkt an."
+  },
+  "M07_W01": {
+    "score": 0.1,
+    "begruendung": "Die Wissenskarte behandelt finanzielle Entscheidungen, nicht persönliche Sicherheit."
+  },
+  "M07_W02": {
+    "score": 0.3,
+    "begruendung": "Die Karte fördert Offline-Zeiten, greift aber nicht direkt das Problem an."
+  },
+  "M07_W03": {
+    "score": 0.3,
+    "begruendung": "Offline-Zeiten helfen, aber lösen nicht das Druckproblem."
+  },
+  "M07_W04": {
+    "score": 0.2,
+    "begruendung": "Mythenaufklärung hilft nicht gegen Druck von Betrügern."
+  },
+  "M07_W05": {
+    "score": 0.2,
+    "begruendung": "Die Wissenskarte behandelt Fehlinformationen, nicht persönliche Grenzen."
+  },
+  "M07_W06": {
+    "score": 0.3,
+    "begruendung": "Die Wissenskarte behandelt Mobbing, nicht den Druck von Online-Bekanntschaften."
+  },
+  "M07_W07": {
+    "score": 0.9,
+    "begruendung": "Die Karte bietet klare Handlungsanweisungen gegen Druck im Netz."
+  },
+  "M07_W08": {
+    "score": 0.9,
+    "begruendung": "Die Karte bietet klare Handlungsanweisungen zur Grenzsetzung."
+  },
+  "M07_W09": {
+    "score": 0.4,
+    "begruendung": "Die Karte fördert Selbstwert, greift aber nicht direkt das Druckproblem an."
+  },
+  "M07_W10": {
+    "score": 0.2,
+    "begruendung": "Die Karte behandelt Nachrichten, nicht den Druck von Online-Betrügern."
+  },
+  "M07_W11": {
+    "score": 0.2,
+    "begruendung": "Die Wissenskarte behandelt nicht das spezifische Problem des Drucks."
+  },
+  "M07_W12": {
+    "score": 0.4,
+    "begruendung": "Die Karte behandelt Cybermobbing, nicht spezifisch Erpressung."
+  },
+  "M07_W13": {
+    "score": 0.3,
+    "begruendung": "Respekt ist wichtig, aber die Karte adressiert nicht den Druck."
+  },
+  "M07_W14": {
+    "score": 0.6,
+    "begruendung": "Die Karte bietet Sicherheitstipps, aber nicht gegen Druck und Grenzen."
+  },
+  "M07_W15": {
+    "score": 0.3,
+    "begruendung": "Die Karte behandelt Angebote, nicht den Druck von Online-Bekanntschaften."
+  },
+  "M07_W16": {
+    "score": 0.7,
+    "begruendung": "Die Karte bietet Schutz, aber nicht spezifische Strategien gegen Druck."
+  },
+  "M07_W17": {
+    "score": 0.7,
+    "begruendung": "Reden hilft, aber es fehlt spezifische Strategie gegen Druck."
+  },
+  "M07_W18": {
+    "score": 0.3,
+    "begruendung": "Achtsamkeit hilft nicht direkt gegen Druck von Online-Betrügern."
+  },
+  "M08_W01": {
+    "score": 0.1,
+    "begruendung": "Die Wissenskarte behandelt ein anderes Thema und ist irrelevant."
+  },
+  "M08_W02": {
+    "score": 0.2,
+    "begruendung": "Die Karte fördert Offline-Zeiten, aber nicht den Umgang mit Grenzüberschreitungen."
+  },
+  "M08_W03": {
+    "score": 0.3,
+    "begruendung": "Offline-Zeiten helfen nicht direkt gegen Grenzüberschreitungen."
+  },
+  "M08_W04": {
+    "score": 0.1,
+    "begruendung": "Die Wissenskarte behandelt nicht das Thema Grenzüberschreitung."
+  },
+  "M08_W05": {
+    "score": 0.2,
+    "begruendung": "Die Wissenskarte behandelt keine persönlichen Grenzüberschreitungen."
+  },
+  "M08_W06": {
+    "score": 0.3,
+    "begruendung": "Die Karte behandelt Mobbing, nicht direkt sexuelle Grenzüberschreitungen."
+  },
+  "M08_W07": {
+    "score": 0.9,
+    "begruendung": "Die Karte bietet klare Handlungsanweisungen gegen Grenzüberschreitungen."
+  },
+  "M08_W08": {
+    "score": 0.9,
+    "begruendung": "Die Karte bietet klare Handlungsanweisungen zur Grenzsetzung."
+  },
+  "M08_W09": {
+    "score": 0.3,
+    "begruendung": "Die Karte fördert Selbstakzeptanz, aber nicht den Umgang mit Grenzüberschreitungen."
+  },
+  "M08_W10": {
+    "score": 0.2,
+    "begruendung": "Die Wissenskarte behandelt nicht das spezifische Problem der Grenzüberschreitung."
+  },
+  "M08_W11": {
+    "score": 0.2,
+    "begruendung": "Die Wissenskarte behandelt nicht das Thema Grenzüberschreitung."
+  },
+  "M08_W12": {
+    "score": 0.3,
+    "begruendung": "Die Karte behandelt Cybermobbing, nicht direkte sexuelle Grenzüberschreitungen."
+  },
+  "M08_W13": {
+    "score": 0.2,
+    "begruendung": "Die Wissenskarte behandelt Mobbing, nicht sexuelle Grenzüberschreitungen."
+  },
+  "M08_W14": {
+    "score": 0.3,
+    "begruendung": "Die Karte behandelt Treffen, nicht den Umgang mit Nacktfotos."
+  },
+  "M08_W15": {
+    "score": 0.2,
+    "begruendung": "Die Karte behandelt keine persönlichen Grenzüberschreitungen."
+  },
+  "M08_W16": {
+    "score": 0.7,
+    "begruendung": "Die Karte bietet Handlungsmöglichkeiten, aber nicht spezifisch für Nacktfotos."
+  },
+  "M08_W17": {
+    "score": 0.7,
+    "begruendung": "Reden hilft, aber es fehlt eine direkte Handlungsanweisung."
+  },
+  "M08_W18": {
+    "score": 0.2,
+    "begruendung": "Achtsamkeit hilft nicht direkt gegen Grenzüberschreitungen."
+  },
+  "M09_W01": {
+    "score": 0.1,
+    "begruendung": "Die Wissenskarte behandelt nicht das Problem des Unbekannten."
+  },
+  "M09_W02": {
+    "score": 0.3,
+    "begruendung": "Die Karte fördert Offline-Zeiten, adressiert aber nicht das Monster-Problem."
+  },
+  "M09_W03": {
+    "score": 0.3,
+    "begruendung": "Offline-Zeiten helfen nicht direkt gegen den Unbekannten."
+  },
+  "M09_W04": {
+    "score": 0.2,
+    "begruendung": "Mythenaufklärung hilft nicht direkt bei unbekannten Kontakten."
+  },
+  "M09_W05": {
+    "score": 0.3,
+    "begruendung": "Die Wissenskarte behandelt Fehlinformationen, nicht persönliche Sicherheit."
+  },
+  "M09_W06": {
+    "score": 0.2,
+    "begruendung": "Die Wissenskarte behandelt Mobbing, nicht das Treffen mit Unbekannten."
+  },
+  "M09_W07": {
+    "score": 0.9,
+    "begruendung": "Die Karte betont wichtige Sicherheitsmaßnahmen im Netz."
+  },
+  "M09_W08": {
+    "score": 0.9,
+    "begruendung": "Grenzen setzen ist entscheidend gegen ungewisse Kontakte."
+  },
+  "M09_W09": {
+    "score": 0.3,
+    "begruendung": "Die Karte fördert Selbstwert, greift aber nicht das Sicherheitsproblem an."
+  },
+  "M09_W10": {
+    "score": 0.4,
+    "begruendung": "Die Karte spricht allgemeine Nachrichten an, nicht spezifische Risiken."
+  },
+  "M09_W11": {
+    "score": 0.3,
+    "begruendung": "Fakten checken hilft nicht direkt bei persönlichen Begegnungen."
+  },
+  "M09_W12": {
+    "score": 0.2,
+    "begruendung": "Die Karte behandelt Cybermobbing, nicht das Treffen mit Unbekannten."
+  },
+  "M09_W13": {
+    "score": 0.2,
+    "begruendung": "Respekt ist wichtig, aber nicht direkt auf das Monster-Problem bezogen."
+  },
+  "M09_W14": {
+    "score": 0.9,
+    "begruendung": "Die Karte bietet konkrete Sicherheitsmaßnahmen für das Treffen."
+  },
+  "M09_W15": {
+    "score": 0.3,
+    "begruendung": "Die Karte behandelt Angebote, nicht persönliche Kontakte."
+  },
+  "M09_W16": {
+    "score": 0.5,
+    "begruendung": "Die Karte bietet allgemeine Sicherheitstipps, aber nicht spezifisch für Unbekannte."
+  },
+  "M09_W17": {
+    "score": 0.6,
+    "begruendung": "Reden hilft, aber es adressiert nicht direkt das Treffen."
+  },
+  "M09_W18": {
+    "score": 0.3,
+    "begruendung": "Achtsamkeit hilft nicht direkt gegen ungewisse Kontakte."
+  },
+  "M10_W01": {
+    "score": 0.2,
+    "begruendung": "Die Wissenskarte behandelt nicht das Schlafproblem."
+  },
+  "M10_W02": {
+    "score": 0.7,
+    "begruendung": "Die Planung hilft, aber der direkte Bezug zum Schlaf fehlt."
+  },
+  "M10_W03": {
+    "score": 0.9,
+    "begruendung": "Offline-Zeiten helfen direkt, den Schlafräuber zu bekämpfen."
+  },
+  "M10_W04": {
+    "score": 0.2,
+    "begruendung": "Die Wissenskarte behandelt nicht das Schlafproblem direkt."
+  },
+  "M10_W05": {
+    "score": 0.2,
+    "begruendung": "Die Wissenskarte behandelt Fehlinformationen, nicht Schlafprobleme."
+  },
+  "M10_W06": {
+    "score": 0.1,
+    "begruendung": "Die Wissenskarte behandelt ein anderes Thema als Schlafräuber."
+  },
+  "M10_W07": {
+    "score": 0.3,
+    "begruendung": "Die Wissenskarte behandelt Datenschutz, nicht Schlafprobleme."
+  },
+  "M10_W08": {
+    "score": 0.3,
+    "begruendung": "Die Wissenskarte behandelt nicht das Schlafproblem direkt."
+  },
+  "M10_W09": {
+    "score": 0.3,
+    "begruendung": "Die Karte thematisiert Selbstwert, nicht Schlafprobleme."
+  },
+  "M10_W10": {
+    "score": 0.3,
+    "begruendung": "Die Wissenskarte behandelt Nachrichten, nicht Schlafgewohnheiten."
+  },
+  "M10_W11": {
+    "score": 0.3,
+    "begruendung": "Die Wissenskarte behandelt nicht direkt Schlafprobleme."
+  },
+  "M10_W12": {
+    "score": 0.1,
+    "begruendung": "Die Wissenskarte behandelt ein anderes Thema als das Schlafproblem."
+  },
+  "M10_W13": {
+    "score": 0.2,
+    "begruendung": "Die Wissenskarte behandelt Mobbing, nicht Schlafprobleme."
+  },
+  "M10_W14": {
+    "score": 0.1,
+    "begruendung": "Die Wissenskarte behandelt Sicherheit, nicht Schlafprobleme."
+  },
+  "M10_W15": {
+    "score": 0.2,
+    "begruendung": "Die Wissenskarte behandelt nicht das Schlafproblem direkt."
+  },
+  "M10_W16": {
+    "score": 0.2,
+    "begruendung": "Die Wissenskarte behandelt nicht das Schlafproblem."
+  },
+  "M10_W17": {
+    "score": 0.3,
+    "begruendung": "Die Karte spricht nicht direkt das Schlafproblem an."
+  },
+  "M10_W18": {
+    "score": 0.7,
+    "begruendung": "Achtsamkeit fördert Pausen, hilft aber nicht direkt gegen Schlafraub."
+  },
+  "M11_W01": {
+    "score": 0.2,
+    "begruendung": "Die Wissenskarte behandelt finanzielle Entscheidungen, nicht Hater."
+  },
+  "M11_W02": {
+    "score": 0.4,
+    "begruendung": "Die Karte fördert Offline-Zeiten, aber nicht den Umgang mit Hatern."
+  },
+  "M11_W03": {
+    "score": 0.6,
+    "begruendung": "Offline-Zeiten helfen, Stress abzubauen, aber nicht direkt gegen Hater."
+  },
+  "M11_W04": {
+    "score": 0.3,
+    "begruendung": "Mythen aufklären hilft nicht direkt gegen persönliche Angriffe."
+  },
+  "M11_W05": {
+    "score": 0.3,
+    "begruendung": "Die Wissenskarte behandelt Fehlinformationen, nicht persönliche Angriffe."
+  },
+  "M11_W06": {
+    "score": 0.7,
+    "begruendung": "Die Karte thematisiert Mobbing, aber nicht spezifisch Hater-Kommentare."
+  },
+  "M11_W07": {
+    "score": 0.6,
+    "begruendung": "Die Karte bietet Schutz, aber nicht direkt gegen emotionale Angriffe."
+  },
+  "M11_W08": {
+    "score": 0.3,
+    "begruendung": "Grenzen setzen hilft nicht direkt gegen fiese Kommentare."
+  },
+  "M11_W09": {
+    "score": 0.75,
+    "begruendung": "Die Karte fördert Selbstakzeptanz, aber greift Hater nicht direkt an."
+  },
+  "M11_W10": {
+    "score": 0.4,
+    "begruendung": "Die Wissenskarte hilft indirekt, aber nicht spezifisch gegen Hater."
+  },
+  "M11_W11": {
+    "score": 0.3,
+    "begruendung": "Fakten checken hilft nicht direkt gegen Hater-Kommentare."
+  },
+  "M11_W12": {
+    "score": 0.75,
+    "begruendung": "Die Karte bietet Unterstützung, aber keine konkreten Handlungsstrategien."
+  },
+  "M11_W13": {
+    "score": 0.4,
+    "begruendung": "Respekt ist wichtig, aber direkte Strategien gegen Hater fehlen."
+  },
+  "M11_W14": {
+    "score": 0.2,
+    "begruendung": "Die Wissenskarte behandelt Sicherheit, nicht den Umgang mit Hatern."
+  },
+  "M11_W15": {
+    "score": 0.2,
+    "begruendung": "Die Wissenskarte behandelt nicht direkt Hater-Kommentare."
+  },
+  "M11_W16": {
+    "score": 0.9,
+    "begruendung": "Die Karte bietet konkrete Handlungsanweisungen gegen Hater."
+  },
+  "M11_W17": {
+    "score": 0.7,
+    "begruendung": "Reden hilft, stärkt das Selbstwertgefühl gegen Hater-Kommentare."
+  },
+  "M11_W18": {
+    "score": 0.4,
+    "begruendung": "Achtsamkeit kann helfen, aber adressiert nicht direkt Hater-Kommentare."
+  },
+  "M12_W01": {
+    "score": 0.3,
+    "begruendung": "Die Karte behandelt Geldausgaben, nicht emotionale Reaktionen."
+  },
+  "M12_W02": {
+    "score": 0.7,
+    "begruendung": "Die Karte fördert Offline-Zeiten, aber nicht direkt den Umgang mit Wutausbrüchen."
+  },
+  "M12_W03": {
+    "score": 0.75,
+    "begruendung": "Offline-Zeiten helfen, Wutausbrüche zu vermeiden und Stress zu reduzieren."
+  },
+  "M12_W04": {
+    "score": 0.2,
+    "begruendung": "Die Wissenskarte behandelt nicht direkt Wut oder Kommunikation."
+  },
+  "M12_W05": {
+    "score": 0.2,
+    "begruendung": "Die Wissenskarte behandelt Fehlinformationen, nicht emotionale Reaktionen."
+  },
+  "M12_W06": {
+    "score": 0.3,
+    "begruendung": "Die Wissenskarte behandelt Mobbing, nicht Wutausbrüche."
+  },
+  "M12_W07": {
+    "score": 0.7,
+    "begruendung": "Die Karte fördert Grenzen, aber nicht direkt den Umgang mit Wutausbrüchen."
+  },
+  "M12_W08": {
+    "score": 0.6,
+    "begruendung": "Grenzen setzen ist wichtig, aber nicht direkt auf Wutausbrüche bezogen."
+  },
+  "M12_W09": {
+    "score": 0.4,
+    "begruendung": "Die Karte fördert Selbstakzeptanz, greift aber nicht direkt Wut an."
+  },
+  "M12_W10": {
+    "score": 0.6,
+    "begruendung": "Die Karte bietet allgemeine Tipps, aber nicht spezifisch für Wutausbrüche."
+  },
+  "M12_W11": {
+    "score": 0.2,
+    "begruendung": "Die Wissenskarte behandelt nicht direkt emotionale Reaktionen."
+  },
+  "M12_W12": {
+    "score": 0.3,
+    "begruendung": "Die Karte behandelt Cybermobbing, nicht Wutausbrüche."
+  },
+  "M12_W13": {
+    "score": 0.3,
+    "begruendung": "Respekt ist wichtig, aber nicht direkt auf Wutausbrüche bezogen."
+  },
+  "M12_W14": {
+    "score": 0.2,
+    "begruendung": "Die Karte behandelt Sicherheit, nicht den Umgang mit Wutausbrüchen."
+  },
+  "M12_W15": {
+    "score": 0.2,
+    "begruendung": "Die Karte behandelt Kaufangebote, nicht emotionale Reaktionen."
+  },
+  "M12_W16": {
+    "score": 0.3,
+    "begruendung": "Die Karte behandelt Mobbing, nicht Wutausbrüche bei Nachrichten."
+  },
+  "M12_W17": {
+    "score": 0.7,
+    "begruendung": "Die Karte fördert Kommunikation, aber nicht direkt Umgang mit Wutausbrüchen."
+  },
+  "M12_W18": {
+    "score": 0.7,
+    "begruendung": "Achtsamkeit hilft, aber nicht direkt gegen den Wutausbruch des Wichts."
+  },
+  "M13_W01": {
+    "score": 0.1,
+    "begruendung": "Die Wissenskarte behandelt nicht das Problem von schockierenden Inhalten."
+  },
+  "M13_W02": {
+    "score": 0.2,
+    "begruendung": "Die Karte fördert Offline-Zeiten, aber nicht den Umgang mit Inhalten."
+  },
+  "M13_W03": {
+    "score": 0.3,
+    "begruendung": "Offline-Zeiten helfen nicht direkt gegen schockierende Inhalte."
+  },
+  "M13_W04": {
+    "score": 0.2,
+    "begruendung": "Mythenaufklärung hilft nicht direkt gegen schockierende Inhalte."
+  },
+  "M13_W05": {
+    "score": 0.3,
+    "begruendung": "Die Wissenskarte thematisiert Fehlinformationen, nicht direkte Störungen."
+  },
+  "M13_W06": {
+    "score": 0.4,
+    "begruendung": "Die Karte spricht Mobbing an, aber nicht spezifisch den Video-Vandalen."
+  },
+  "M13_W07": {
+    "score": 0.6,
+    "begruendung": "Die Karte bietet grundlegende Schutzmaßnahmen, aber keine spezifischen Lösungen."
+  },
+  "M13_W08": {
+    "score": 0.3,
+    "begruendung": "Die Karte behandelt persönliche Grenzen, nicht den Umgang mit schockierenden Inhalten."
+  },
+  "M13_W09": {
+    "score": 0.3,
+    "begruendung": "Die Karte fördert Selbstakzeptanz, greift aber das Problem nicht direkt an."
+  },
+  "M13_W10": {
+    "score": 0.3,
+    "begruendung": "Die Karte hilft beim Umgang mit Nachrichten, nicht mit Vandalismus."
+  },
+  "M13_W11": {
+    "score": 0.4,
+    "begruendung": "Faktencheck hilft, aber greift nicht direkt gegen Störungen."
+  },
+  "M13_W12": {
+    "score": 0.4,
+    "begruendung": "Die Karte bietet Unterstützung, aber nicht spezifische Lösungen für Videos."
+  },
+  "M13_W13": {
+    "score": 0.3,
+    "begruendung": "Die Karte spricht Mobbing an, aber nicht spezifisch Video-Vandalismus."
+  },
+  "M13_W14": {
+    "score": 0.2,
+    "begruendung": "Die Karte behandelt persönliche Sicherheit, nicht den Umgang mit Inhalten."
+  },
+  "M13_W15": {
+    "score": 0.2,
+    "begruendung": "Die Karte behandelt nicht direkt die Inhalte des Monsters."
+  },
+  "M13_W16": {
+    "score": 0.7,
+    "begruendung": "Die Karte bietet Handlungsmöglichkeiten, aber nicht umfassende Prävention."
+  },
+  "M13_W17": {
+    "score": 0.6,
+    "begruendung": "Reden hilft, aber es fehlt eine direkte Handlungsanweisung."
+  },
+  "M13_W18": {
+    "score": 0.2,
+    "begruendung": "Achtsamkeit hilft nicht direkt gegen problematische Inhalte."
+  },
+  "M14_W01": {
+    "score": 0.3,
+    "begruendung": "Die Karte behandelt Geldausgaben, nicht Chat-Abhängigkeit."
+  },
+  "M14_W02": {
+    "score": 0.9,
+    "begruendung": "Die Karte bietet konkrete Strategien gegen ständige Erreichbarkeit."
+  },
+  "M14_W03": {
+    "score": 0.9,
+    "begruendung": "Die Karte bietet konkrete Strategien gegen ständige Erreichbarkeit."
+  },
+  "M14_W04": {
+    "score": 0.2,
+    "begruendung": "Die Wissenskarte behandelt nicht das Problem der ständigen Erreichbarkeit."
+  },
+  "M14_W05": {
+    "score": 0.3,
+    "begruendung": "Die Wissenskarte behandelt Fehlinformationen, nicht soziale Drucksituationen."
+  },
+  "M14_W06": {
+    "score": 0.3,
+    "begruendung": "Die Wissenskarte behandelt Mobbing, nicht das Chat-Druckproblem."
+  },
+  "M14_W07": {
+    "score": 0.7,
+    "begruendung": "Die Karte fördert Grenzen, aber nicht spezifisch gegen Chat-Druck."
+  },
+  "M14_W08": {
+    "score": 0.6,
+    "begruendung": "Grenzen setzen ist wichtig, aber nicht direkt gegen ständige Kontaktforderung."
+  },
+  "M14_W09": {
+    "score": 0.4,
+    "begruendung": "Die Karte fördert Selbstbewusstsein, greift aber nicht das Chat-Problem an."
+  },
+  "M14_W10": {
+    "score": 0.6,
+    "begruendung": "Die Karte bietet allgemeine Grenzen, aber nicht spezifisch für Chat-Klette."
+  },
+  "M14_W11": {
+    "score": 0.2,
+    "begruendung": "Die Wissenskarte behandelt nicht das Problem der ständigen Erreichbarkeit."
+  },
+  "M14_W12": {
+    "score": 0.3,
+    "begruendung": "Die Karte behandelt Cybermobbing, nicht das Chat-Verhalten."
+  },
+  "M14_W13": {
+    "score": 0.3,
+    "begruendung": "Respekt ist wichtig, aber nicht direkt gegen Chat-Druck gerichtet."
+  },
+  "M14_W14": {
+    "score": 0.3,
+    "begruendung": "Die Karte behandelt Sicherheit, nicht den Umgang mit Druck."
+  },
+  "M14_W15": {
+    "score": 0.3,
+    "begruendung": "Die Karte thematisiert Angebote, nicht soziale Drucksituationen."
+  },
+  "M14_W16": {
+    "score": 0.3,
+    "begruendung": "Die Karte behandelt Mobbing, nicht das ständige Chatten."
+  },
+  "M14_W17": {
+    "score": 0.7,
+    "begruendung": "Die Karte ermutigt zum Reden, was hilfreich, aber nicht direkt gegen Chat-Klette ist."
+  },
+  "M14_W18": {
+    "score": 0.75,
+    "begruendung": "Achtsamkeit fördert Pausen, hilft aber nicht direkt gegen Druck."
+  },
+  "M15_W01": {
+    "score": 0.3,
+    "begruendung": "Die Karte behandelt nur virtuelle Käufe, nicht Pillen."
+  },
+  "M15_W02": {
+    "score": 0.3,
+    "begruendung": "Die Karte fördert Offline-Zeiten, greift aber nicht das Pillen-Thema an."
+  },
+  "M15_W03": {
+    "score": 0.3,
+    "begruendung": "Offline-Zeiten helfen, aber adressieren nicht direkt den Pillen-Hype."
+  },
+  "M15_W04": {
+    "score": 0.6,
+    "begruendung": "Mythen aufklären hilft, aber spezifische Pillen-Influencer fehlen."
+  },
+  "M15_W05": {
+    "score": 0.7,
+    "begruendung": "Die Karte fördert kritisches Denken, aber nicht spezifisch zu Pillen."
+  },
+  "M15_W06": {
+    "score": 0.2,
+    "begruendung": "Die Wissenskarte behandelt Mobbing, nicht den Pillen-Hype."
+  },
+  "M15_W07": {
+    "score": 0.3,
+    "begruendung": "Die Karte behandelt Datenschutz, nicht die Gefahren von Influencern."
+  },
+  "M15_W08": {
+    "score": 0.3,
+    "begruendung": "Die Karte behandelt persönliche Grenzen, nicht Gesundheitsmythen."
+  },
+  "M15_W09": {
+    "score": 0.6,
+    "begruendung": "Die Karte fördert Selbstakzeptanz, greift aber nicht direkt Pillen an."
+  },
+  "M15_W10": {
+    "score": 0.2,
+    "begruendung": "Die Karte behandelt Nachrichten, nicht spezifisch Pillen-Influencer."
+  },
+  "M15_W11": {
+    "score": 0.75,
+    "begruendung": "Faktencheck ist wichtig, aber spezifische Pillen-Infos fehlen."
+  },
+  "M15_W12": {
+    "score": 0.2,
+    "begruendung": "Die Wissenskarte behandelt Cybermobbing, nicht Pillen-Influencer."
+  },
+  "M15_W13": {
+    "score": 0.2,
+    "begruendung": "Respekt ist wichtig, aber nicht direkt gegen Pillen-Influencer."
+  },
+  "M15_W14": {
+    "score": 0.2,
+    "begruendung": "Die Karte behandelt Sicherheit, nicht den Pillen-Hype."
+  },
+  "M15_W15": {
+    "score": 0.9,
+    "begruendung": "Die Karte warnt effektiv vor unrealistischen Versprechen."
+  },
+  "M15_W16": {
+    "score": 0.3,
+    "begruendung": "Die Karte behandelt Mobbing, nicht den Einfluss von Pillen."
+  },
+  "M15_W17": {
+    "score": 0.4,
+    "begruendung": "Die Karte fördert Kommunikation, aber nicht kritisches Denken zu Influencern."
+  },
+  "M15_W18": {
+    "score": 0.3,
+    "begruendung": "Achtsamkeit hilft, aber adressiert nicht direkt Pillen-Influencer."
+  },
+  "M16_W01": {
+    "score": 0.2,
+    "begruendung": "Die Wissenskarte behandelt Konsumverhalten, nicht Mobbing."
+  },
+  "M16_W02": {
+    "score": 0.3,
+    "begruendung": "Die Karte fördert Offline-Zeiten, greift aber nicht direkt Mobbing an."
+  },
+  "M16_W03": {
+    "score": 0.3,
+    "begruendung": "Offline-Zeiten helfen, aber adressieren nicht direkt Mobbing."
+  },
+  "M16_W04": {
+    "score": 0.3,
+    "begruendung": "Mythen aufklären hilft indirekt, aber nicht direkt gegen Mobbing."
+  },
+  "M16_W05": {
+    "score": 0.3,
+    "begruendung": "Die Wissenskarte behandelt Fehlinformationen, nicht Mobbing."
+  },
+  "M16_W06": {
+    "score": 0.9,
+    "begruendung": "Die Wissenskarte bietet klare Handlungsanweisungen gegen Mobbing."
+  },
+  "M16_W07": {
+    "score": 0.6,
+    "begruendung": "Die Karte bietet grundlegende Schutzmaßnahmen, aber keine spezifischen Strategien gegen Mobbing."
+  },
+  "M16_W08": {
+    "score": 0.6,
+    "begruendung": "Grenzen setzen ist wichtig, aber nicht spezifisch für Mobbing."
+  },
+  "M16_W09": {
+    "score": 0.6,
+    "begruendung": "Ermutigung zur Selbstakzeptanz hilft, aber greift das Mobbing nicht direkt an."
+  },
+  "M16_W10": {
+    "score": 0.3,
+    "begruendung": "Die Wissenskarte behandelt Nachrichten, nicht Mobbing direkt."
+  },
+  "M16_W11": {
+    "score": 0.3,
+    "begruendung": "Fakten checken hilft nicht direkt gegen Mobbing-Situationen."
+  },
+  "M16_W12": {
+    "score": 0.7,
+    "begruendung": "Die Karte bietet Unterstützung, aber keine konkreten Handlungsstrategien."
+  },
+  "M16_W13": {
+    "score": 0.7,
+    "begruendung": "Die Karte fördert Respekt, greift aber nicht direkt das Mobbing an."
+  },
+  "M16_W14": {
+    "score": 0.3,
+    "begruendung": "Die Karte behandelt Sicherheit, nicht Mobbing in Gruppen."
+  },
+  "M16_W15": {
+    "score": 0.2,
+    "begruendung": "Die Wissenskarte behandelt Kaufangebote, nicht Mobbing."
+  },
+  "M16_W16": {
+    "score": 0.7,
+    "begruendung": "Die Karte bietet Handlungsmöglichkeiten, aber keine Prävention."
+  },
+  "M16_W17": {
+    "score": 0.75,
+    "begruendung": "Reden hilft, aber es könnte spezifischere Strategien fehlen."
+  },
+  "M16_W18": {
+    "score": 0.3,
+    "begruendung": "Achtsamkeit hilft, aber adressiert nicht direkt Mobbing-Situationen."
+  },
+  "M17_W01": {
+    "score": 0.7,
+    "begruendung": "Die Karte fördert kritisches Denken über Konsum, aber nicht direkt gegen Trends."
+  },
+  "M17_W02": {
+    "score": 0.6,
+    "begruendung": "Die Karte fördert Offline-Zeiten, aber nicht gezielt gegen Konsumdruck."
+  },
+  "M17_W03": {
+    "score": 0.6,
+    "begruendung": "Offline-Zeiten helfen, den Druck des Trend-Tyrannen zu reduzieren."
+  },
+  "M17_W04": {
+    "score": 0.2,
+    "begruendung": "Die Wissenskarte behandelt keine Mode- oder Konsumfragen."
+  },
+  "M17_W05": {
+    "score": 0.3,
+    "begruendung": "Die Wissenskarte behandelt Fehlinformationen, nicht Mode-Druck."
+  },
+  "M17_W06": {
+    "score": 0.3,
+    "begruendung": "Die Wissenskarte behandelt Mobbing, nicht den Druck durch Trends."
+  },
+  "M17_W07": {
+    "score": 0.4,
+    "begruendung": "Die Karte schützt vor Datenmissbrauch, nicht vor Konsumdruck."
+  },
+  "M17_W08": {
+    "score": 0.3,
+    "begruendung": "Die Karte behandelt persönliche Grenzen, nicht Mode-Druck."
+  },
+  "M17_W09": {
+    "score": 0.9,
+    "begruendung": "Die Karte fördert Selbstakzeptanz gegen äußeren Druck."
+  },
+  "M17_W10": {
+    "score": 0.3,
+    "begruendung": "Die Karte behandelt Nachrichten, nicht den Druck von Trends."
+  },
+  "M17_W11": {
+    "score": 0.3,
+    "begruendung": "Fakten checken hilft wenig gegen sozialen Druck und Modezwang."
+  },
+  "M17_W12": {
+    "score": 0.2,
+    "begruendung": "Die Wissenskarte behandelt Cybermobbing, nicht Konsumdruck."
+  },
+  "M17_W13": {
+    "score": 0.3,
+    "begruendung": "Respekt ist wichtig, aber nicht direkt gegen Konsumdruck gerichtet."
+  },
+  "M17_W14": {
+    "score": 0.2,
+    "begruendung": "Die Karte behandelt Sicherheit, nicht den Druck von Trends."
+  },
+  "M17_W15": {
+    "score": 0.4,
+    "begruendung": "Die Karte warnt vor unrealistischen Angeboten, aber nicht vor Mode-Druck."
+  },
+  "M17_W16": {
+    "score": 0.3,
+    "begruendung": "Die Karte behandelt Mobbing, nicht den Druck durch Trends."
+  },
+  "M17_W17": {
+    "score": 0.5,
+    "begruendung": "Reden hilft, aber adressiert nicht direkt den Druck durch Trends."
+  },
+  "M17_W18": {
+    "score": 0.4,
+    "begruendung": "Achtsamkeit hilft, aber adressiert nicht direkt den Druck von Trends."
+  },
+  "M18_W01": {
+    "score": 0.2,
+    "begruendung": "Die Wissenskarte behandelt Konsumverhalten, nicht Verschwörungsglauben."
+  },
+  "M18_W02": {
+    "score": 0.3,
+    "begruendung": "Die Karte fördert Offline-Zeit, greift aber nicht direkt das Problem an."
+  },
+  "M18_W03": {
+    "score": 0.3,
+    "begruendung": "Offline-Zeiten helfen, aber adressieren nicht direkt Verschwörungsglauben."
+  },
+  "M18_W04": {
+    "score": 0.9,
+    "begruendung": "Die Wissenskarte bietet direkte Ansätze zur Aufklärung und Quellen."
+  },
+  "M18_W05": {
+    "score": 0.75,
+    "begruendung": "Die Karte fördert kritisches Denken, aber nicht den Umgang mit Freunden."
+  },
+  "M18_W06": {
+    "score": 0.2,
+    "begruendung": "Die Wissenskarte behandelt Mobbing, nicht Verschwörungsmythen."
+  },
+  "M18_W07": {
+    "score": 0.3,
+    "begruendung": "Die Karte behandelt Datenschutz, nicht kritisches Denken zu Mythen."
+  },
+  "M18_W08": {
+    "score": 0.3,
+    "begruendung": "Die Karte behandelt persönliche Grenzen, nicht Verschwörungsthemen."
+  },
+  "M18_W09": {
+    "score": 0.3,
+    "begruendung": "Die Karte fördert Selbstbewusstsein, greift aber nicht das Verschwörungsproblem an."
+  },
+  "M18_W10": {
+    "score": 0.4,
+    "begruendung": "Die Karte hilft beim Stressmanagement, nicht bei Argumentation gegen Mythen."
+  },
+  "M18_W11": {
+    "score": 0.9,
+    "begruendung": "Faktencheck ist entscheidend gegen Verschwörungstheorien."
+  },
+  "M18_W12": {
+    "score": 0.2,
+    "begruendung": "Die Karte behandelt Cybermobbing, nicht Verschwörungsmythen."
+  },
+  "M18_W13": {
+    "score": 0.2,
+    "begruendung": "Respekt ist wichtig, aber nicht direkt gegen Verschwörungsmythen."
+  },
+  "M18_W14": {
+    "score": 0.2,
+    "begruendung": "Die Karte behandelt Sicherheit, nicht den Umgang mit Verschwörungen."
+  },
+  "M18_W15": {
+    "score": 0.3,
+    "begruendung": "Die Karte thematisiert Angebote, nicht Verschwörungsmythen."
+  },
+  "M18_W16": {
+    "score": 0.3,
+    "begruendung": "Die Karte behandelt Mobbing, nicht den Umgang mit Verschwörungsmythen."
+  },
+  "M18_W17": {
+    "score": 0.6,
+    "begruendung": "Reden hilft, aber es fehlt spezifische Strategie gegen Verschwörungsglauben."
+  },
+  "M18_W18": {
+    "score": 0.3,
+    "begruendung": "Achtsamkeit hilft nicht direkt gegen Verschwörungsmythen."
+  }
+}

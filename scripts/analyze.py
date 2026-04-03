@@ -25,6 +25,7 @@ sys.path.insert(0, str(PROJECT_ROOT))
 from bosodo_env.env import BosodoEnv
 from bosodo_env.card_loader import CardLoader
 from bosodo_env.balancing import BalancingAnalyzer
+from llm_experts.cache import load_cache
 
 
 def run_analysis(
@@ -54,8 +55,15 @@ def run_analysis(
     # Modell laden
     model = PPO.load(model_path)
 
+    # LLM-Cache laden (optional — wird für Inhaltsprüfung genutzt)
+    llm_cache = load_cache()
+    if llm_cache:
+        print(f"LLM-Cache geladen: {len(llm_cache)} Einträge")
+    else:
+        print("LLM-Cache nicht gefunden — Inhaltsprüfung wird übersprungen")
+
     # Analyzer erstellen
-    analyzer = BalancingAnalyzer(card_pool)
+    analyzer = BalancingAnalyzer(card_pool, llm_cache=llm_cache)
 
     # Episoden durchspielen
     print(f"\nSpiele {n_episodes} Episoden...")
@@ -117,6 +125,48 @@ def run_analysis(
             f"{report.multi_symbol_defense_rate:.1%} (Ziel 30–50%)"
         )
 
+    # LLM-Inhaltsprüfung ausgeben
+    llm = report.llm_analysis
+    if llm:
+        print(f"\n{'=' * 50}")
+        print(f"LLM-INHALTSPRÜFUNG (Stufe 1)")
+        print(f"{'=' * 50}")
+        total = llm.get("total_symbol_matching_pairs", 0)
+        print(f"Symbolisch passende Paarungen analysiert: {total}")
+        print(
+            f"  Perfekt     (0.8–1.0): {llm.get('perfekt_count', 0):>3} Paarungen"
+        )
+        print(
+            f"  Grauzone    (0.4–0.7): {llm.get('grauzone_count', 0):>3} Paarungen"
+        )
+        print(
+            f"  Fehlzuordnung (0.0–0.3): {llm.get('fehlzuordnung_count', 0):>3} Paarungen"
+        )
+
+        fehlzuordnungen = llm.get("fehlzuordnungen", [])
+        if fehlzuordnungen:
+            print(f"\nFehlzuordnungen (Symbol matcht, Inhalt passt nicht):")
+            for p in fehlzuordnungen[:10]:
+                symbols = "/".join(p["shared_symbols"])
+                print(
+                    f"  [{symbols}] {p['monster_name']} vs. {p['wisdom_name']}"
+                    f" — Score {p['llm_score']:.2f}: {p['begruendung']}"
+                )
+            if len(fehlzuordnungen) > 10:
+                print(f"  ... und {len(fehlzuordnungen) - 10} weitere (siehe JSON-Report)")
+
+        grauzone = llm.get("grauzone", [])
+        if grauzone:
+            print(f"\nGrauzone (indirekter Bezug, Beschreibung evtl. anpassen):")
+            for p in grauzone[:5]:
+                symbols = "/".join(p["shared_symbols"])
+                print(
+                    f"  [{symbols}] {p['monster_name']} vs. {p['wisdom_name']}"
+                    f" — Score {p['llm_score']:.2f}: {p['begruendung']}"
+                )
+            if len(grauzone) > 5:
+                print(f"  ... und {len(grauzone) - 5} weitere (siehe JSON-Report)")
+
     # Report speichern
     output_path = Path(output_dir)
     output_path.mkdir(parents=True, exist_ok=True)
@@ -168,7 +218,7 @@ def main():
         data_dir=str(PROJECT_ROOT / args.data_dir),
         n_episodes=args.episodes,
         num_players=args.num_players,
-        output_dir=str(PROJECT_ROOT / args.output_dir),
+        output_dir=args.output_dir,
     )
 
 

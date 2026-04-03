@@ -1,13 +1,45 @@
+# Python
 .venv/
+venv/
+env/
 __pycache__/
 *.py[cod]
 *.egg-info/
+dist/
+build/
+.eggs/
+*.egg
+
+# IDE & OS
 .idea/
 .vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# Dev/local files
+.env
+.claude/
+.pytest_cache/
+.ipynb_checkpoints/
+todo/
+anleitungen/
+
+# LLM & cache (llm_experts/ wird benötigt — nicht ignorieren)
+llm_experts/__pycache__/
+
+# Output & archives
 output/
 logs/
 *.zip
 *.pkl
 *.tar.gz
-.DS_Store
-.git/
+
+# Docs
+README.md
+CLAUDE_CODE_PROMPT.md
