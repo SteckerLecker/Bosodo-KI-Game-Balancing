@@ -144,7 +144,7 @@ Definiert die Datenklassen für Karten und lädt sie aus JSON:
 - `CardLoader`: Lädt die JSON-Dateien und gibt einen `CardPool` zurück.
 
 ```python
-loader = CardLoader(data_dir="data/")
+loader = CardLoader(data_dir="../data/")
 pool = loader.load()
 print(pool.num_monsters)  # 18
 ```

@@ -44,6 +44,11 @@ class BalancingReport:
     symbol_analysis: Dict[str, Any] = field(default_factory=dict)
     overall_issues: List[str] = field(default_factory=list)
     overall_score: float = 0.0  # 0-100
+    # Erweiterte Symbol-Metriken (Abschnitt 4.3)
+    defense_rate_per_symbol: Dict[str, float] = field(default_factory=dict)
+    symbol_starvation_rate: Dict[str, float] = field(default_factory=dict)
+    avg_symbol_on_hand: Dict[str, float] = field(default_factory=dict)
+    multi_symbol_defense_rate: float = 0.0
 
 
 class BalancingAnalyzer:
@@ -68,6 +73,15 @@ class BalancingAnalyzer:
         self.winners: List[int] = []
         self.defense_rates: List[float] = []
 
+        # Aggregierte Symbol-Rohdaten (über alle Episoden)
+        self.agg_symbol_attacks: Counter = Counter()
+        self.agg_symbol_defense_success: Counter = Counter()
+        self.agg_symbol_starvation: Counter = Counter()
+        self.agg_symbol_on_hand_total: Counter = Counter()
+        self.agg_symbol_on_hand_samples: Counter = Counter()
+        self.agg_multi_symbol_attacks: int = 0
+        self.agg_multi_symbol_defenses: int = 0
+
     def add_episode(self, episode_metrics: Dict[str, Any]) -> None:
         """Fügt die Metriken einer abgeschlossenen Episode hinzu."""
         self.episodes.append(episode_metrics)
@@ -83,6 +97,20 @@ class BalancingAnalyzer:
         if "most_used_wisdoms" in episode_metrics:
             for card_id, count in episode_metrics["most_used_wisdoms"]:
                 self.wisdom_play_count[card_id] += count
+
+        # Symbol-Rohdaten aggregieren
+        for s, v in episode_metrics.get("symbol_attacks_raw", {}).items():
+            self.agg_symbol_attacks[s] += v
+        for s, v in episode_metrics.get("symbol_defense_success_raw", {}).items():
+            self.agg_symbol_defense_success[s] += v
+        for s, v in episode_metrics.get("symbol_starvation_raw", {}).items():
+            self.agg_symbol_starvation[s] += v
+        for s, v in episode_metrics.get("symbol_on_hand_total_raw", {}).items():
+            self.agg_symbol_on_hand_total[s] += v
+        for s, v in episode_metrics.get("symbol_on_hand_samples_raw", {}).items():
+            self.agg_symbol_on_hand_samples[s] += v
+        self.agg_multi_symbol_attacks += episode_metrics.get("multi_symbol_attacks", 0)
+        self.agg_multi_symbol_defenses += episode_metrics.get("multi_symbol_defenses", 0)
 
     def analyze(self) -> BalancingReport:
         """Erstellt einen umfassenden Balancing-Bericht."""
@@ -131,6 +159,27 @@ class BalancingAnalyzer:
 
         # --- Symbol-Analyse ---
         report.symbol_analysis = self._analyze_symbols()
+
+        # --- Erweiterte Symbol-Metriken ---
+        report.defense_rate_per_symbol = {
+            s: round(self.agg_symbol_defense_success[s] / self.agg_symbol_attacks[s], 3)
+            if self.agg_symbol_attacks[s] > 0 else 0.0
+            for s in SYMBOLS
+        }
+        report.symbol_starvation_rate = {
+            s: round(self.agg_symbol_starvation[s] / self.agg_symbol_attacks[s], 3)
+            if self.agg_symbol_attacks[s] > 0 else 0.0
+            for s in SYMBOLS
+        }
+        report.avg_symbol_on_hand = {
+            s: round(self.agg_symbol_on_hand_total[s] / self.agg_symbol_on_hand_samples[s], 3)
+            if self.agg_symbol_on_hand_samples[s] > 0 else 0.0
+            for s in SYMBOLS
+        }
+        if self.agg_multi_symbol_attacks > 0:
+            report.multi_symbol_defense_rate = round(
+                self.agg_multi_symbol_defenses / self.agg_multi_symbol_attacks, 3
+            )
 
         # --- Probleme identifizieren ---
         self._identify_issues(report)
@@ -198,7 +247,7 @@ class BalancingAnalyzer:
                 "Monster sind zu einfach zu besiegen."
             )
 
-        # Symbol-Balance
+        # Symbol-Balance (statisch)
         if "coverage" in report.symbol_analysis:
             for symbol, data in report.symbol_analysis["coverage"].items():
                 if not data["balanced"]:
@@ -212,6 +261,52 @@ class BalancingAnalyzer:
                             f"Symbol {symbol}: Zu viele Wissenskarten "
                             f"(Ratio {data['ratio']}). Verteidigung zu einfach."
                         )
+
+        # Erweiterte Symbol-Metriken (Abschnitt 4.3 — nur wenn Daten vorhanden)
+        for symbol, rate in report.defense_rate_per_symbol.items():
+            if rate > 0 and not (0.4 <= rate <= 0.6):
+                if rate < 0.4:
+                    report.overall_issues.append(
+                        f"Symbol {symbol}: Verteidigungsrate zu niedrig "
+                        f"({rate:.1%}, Ziel 40–60%). Zu wenige passende Wissenskarten."
+                    )
+                else:
+                    report.overall_issues.append(
+                        f"Symbol {symbol}: Verteidigungsrate zu hoch "
+                        f"({rate:.1%}, Ziel 40–60%). Symbol zu leicht abzuwehren."
+                    )
+
+        for symbol, rate in report.symbol_starvation_rate.items():
+            if rate > 0.15:
+                report.overall_issues.append(
+                    f"Symbol {symbol}: Hohe Starvation-Rate ({rate:.1%}, Ziel <15%). "
+                    "Spieler haben zu selten passende Wissenskarten auf der Hand."
+                )
+
+        for symbol, avg in report.avg_symbol_on_hand.items():
+            if avg > 0 and not (1.5 <= avg <= 3.0):
+                if avg < 1.5:
+                    report.overall_issues.append(
+                        f"Symbol {symbol}: Zu wenig auf der Hand (Ø {avg:.2f}, Ziel 1.5–3.0)."
+                    )
+                else:
+                    report.overall_issues.append(
+                        f"Symbol {symbol}: Zu viel auf der Hand (Ø {avg:.2f}, Ziel 1.5–3.0)."
+                    )
+
+        if report.multi_symbol_defense_rate > 0:
+            mdr = report.multi_symbol_defense_rate
+            if not (0.3 <= mdr <= 0.5):
+                if mdr < 0.3:
+                    report.overall_issues.append(
+                        f"Multi-Symbol-Monster: Verteidigungsrate zu niedrig "
+                        f"({mdr:.1%}, Ziel 30–50%). 2-/3-Symbol-Monster sind zu stark."
+                    )
+                else:
+                    report.overall_issues.append(
+                        f"Multi-Symbol-Monster: Verteidigungsrate zu hoch "
+                        f"({mdr:.1%}, Ziel 30–50%). 2-/3-Symbol-Monster sind zu leicht."
+                    )
 
     def _calculate_overall_score(self, report: BalancingReport) -> float:
         """Berechnet einen Gesamtscore (0-100) für das Balancing."""
@@ -244,6 +339,12 @@ class BalancingAnalyzer:
             "overall_score": report.overall_score,
             "overall_issues": report.overall_issues,
             "symbol_analysis": report.symbol_analysis,
+            "extended_symbol_metrics": {
+                "defense_rate_per_symbol": report.defense_rate_per_symbol,
+                "symbol_starvation_rate": report.symbol_starvation_rate,
+                "avg_symbol_on_hand": report.avg_symbol_on_hand,
+                "multi_symbol_defense_rate": report.multi_symbol_defense_rate,
+            },
             "card_reports": {
                 k: {
                     "card_id": v.card_id,

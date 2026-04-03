@@ -144,30 +144,57 @@ class GameState:
     def can_defend(
         self, defender: PlayerState, monster: MonsterCard
     ) -> Tuple[bool, List[WisdomCard]]:
-        """Prüft, ob ein Verteidiger ein Monster besiegen kann.
+        """Prüft, ob ein Verteidiger ein Monster besiegen kann (optimales Matching).
 
-        Gibt (kann_verteidigen, benötigte_karten) zurück.
-        Die Logik: Jedes Symbol des Monsters muss durch mindestens eine
-        Wissenskarte mit dem gleichen Symbol gedeckt werden.
+        Findet die optimale Kartenzuordnung via Backtracking:
+        - Jedes Symbol des Monsters wird einer Wissenskarte zugeteilt
+        - Minimiert die Gesamtanzahl genutzter Symbole (spart Multi-Symbol-Karten auf)
+
+        Gibt (kann_verteidigen, verwendete_karten) zurück.
         """
-        needed_symbols = list(monster.kampfwerte)  # z.B. ["BO", "SO"]
-        used_cards: List[WisdomCard] = []
-        remaining = list(needed_symbols)
-
-        # Greedy-Matching: Versuche jedes benötigte Symbol zu matchen
+        needed_symbols = list(monster.kampfwerte)
         available = list(defender.wisdom_hand)
-        for symbol in remaining[:]:
-            matched = False
-            for card in available:
-                if symbol in card.kampfwerte and card not in used_cards:
-                    used_cards.append(card)
-                    remaining.remove(symbol)
-                    available.remove(card)
-                    matched = True
-                    break
+        result = self._find_optimal_defense(needed_symbols, available)
+        if result is None:
+            return False, []
+        return True, result
 
-        can_defend = len(remaining) == 0
-        return can_defend, used_cards
+    def _find_optimal_defense(
+        self, needed_symbols: List[str], available: List[WisdomCard]
+    ) -> Optional[List[WisdomCard]]:
+        """Findet die optimale Verteidigung via Backtracking.
+
+        Optimierungsziel: Minimale Summe der Symbolanzahlen genutzter Karten,
+        damit wertvolle Multi-Symbol-Karten für spätere Züge aufgehoben werden.
+
+        Returns None wenn keine Verteidigung möglich.
+        """
+        best: List = [None]
+        best_cost: List = [float("inf")]
+
+        def backtrack(
+            sym_idx: int,
+            remaining: List[WisdomCard],
+            used: List[WisdomCard],
+            cost: int,
+        ) -> None:
+            if sym_idx == len(needed_symbols):
+                if cost < best_cost[0]:
+                    best_cost[0] = cost
+                    best[0] = list(used)
+                return
+            symbol = needed_symbols[sym_idx]
+            for i, card in enumerate(remaining):
+                if symbol in card.kampfwerte:
+                    backtrack(
+                        sym_idx + 1,
+                        remaining[:i] + remaining[i + 1 :],
+                        used + [card],
+                        cost + len(card.kampfwerte),
+                    )
+
+        backtrack(0, available, [], 0)
+        return best[0]
 
     def execute_attack(
         self,
@@ -192,6 +219,18 @@ class GameState:
         monster = attacker.monster_hand[monster_idx]
         attacker.monster_hand.pop(monster_idx)
 
+        # Symbole auf der Hand des Verteidigers (vor Verteidigung)
+        defender_symbol_counts = {s: 0 for s in SYMBOLS}
+        for card in defender.wisdom_hand:
+            for s in card.kampfwerte:
+                defender_symbol_counts[s] += 1
+
+        # Symbole für die der Verteidiger gar keine passende Karte hat
+        starvation_symbols = [
+            s for s in monster.kampfwerte
+            if not any(s in card.kampfwerte for card in defender.wisdom_hand)
+        ]
+
         # Verteidigung prüfen
         can_defend, defense_cards = self.can_defend(defender, monster)
 
@@ -202,6 +241,8 @@ class GameState:
             "defender": target_player_idx,
             "defense_cards": defense_cards,
             "trophy_awarded": False,
+            "starvation_symbols": starvation_symbols,
+            "defender_symbol_counts": defender_symbol_counts,
         }
 
         if can_defend:

@@ -92,7 +92,7 @@ def run_analysis(
             print(f"  ⚠ {issue}")
 
     if report.symbol_analysis.get("coverage"):
-        print(f"\nSymbol-Abdeckung:")
+        print(f"\nSymbol-Abdeckung (statisch):")
         for symbol, data in report.symbol_analysis["coverage"].items():
             status = "✓" if data["balanced"] else "✗"
             print(
@@ -101,6 +101,21 @@ def run_analysis(
                 f"Wissen={data['wisdom_count']}, "
                 f"Ratio={data['ratio']}"
             )
+
+    if report.defense_rate_per_symbol:
+        print(f"\nErweiterte Symbol-Metriken (Laufzeit):")
+        print(f"  {'Symbol':<6} {'Verteidigungs-':<18} {'Starvation-':<16} {'Ø auf Hand':<12}")
+        print(f"  {'':6} {'rate (Ziel 40-60%)':<18} {'rate (Ziel <15%)':<16} {'(Ziel 1.5-3.0)':<12}")
+        print(f"  {'-' * 54}")
+        for s in ["BO", "SO", "DO"]:
+            dr = report.defense_rate_per_symbol.get(s, 0.0)
+            sr = report.symbol_starvation_rate.get(s, 0.0)
+            ah = report.avg_symbol_on_hand.get(s, 0.0)
+            print(f"  {s:<6} {dr:.1%}{'':11} {sr:.1%}{'':9} {ah:.2f}")
+        print(
+            f"\n  Multi-Symbol-Verteidigungsrate: "
+            f"{report.multi_symbol_defense_rate:.1%} (Ziel 30–50%)"
+        )
 
     # Report speichern
     output_path = Path(output_dir)
