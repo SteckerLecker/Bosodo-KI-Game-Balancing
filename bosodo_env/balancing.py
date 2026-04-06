@@ -107,10 +107,17 @@ class BalancingAnalyzer:
             self.game_lengths.append(episode_metrics["total_attacks"])
         if "defense_rate" in episode_metrics:
             self.defense_rates.append(episode_metrics["defense_rate"])
-        if "most_used_monsters" in episode_metrics:
+        if "all_monster_usage" in episode_metrics:
+            for card_id, count in episode_metrics["all_monster_usage"].items():
+                self.monster_play_count[card_id] += count
+        elif "most_used_monsters" in episode_metrics:
+            # Fallback für ältere Reports (nur Top-5)
             for card_id, count in episode_metrics["most_used_monsters"]:
                 self.monster_play_count[card_id] += count
-        if "most_used_wisdoms" in episode_metrics:
+        if "all_wisdom_usage" in episode_metrics:
+            for card_id, count in episode_metrics["all_wisdom_usage"].items():
+                self.wisdom_play_count[card_id] += count
+        elif "most_used_wisdoms" in episode_metrics:
             for card_id, count in episode_metrics["most_used_wisdoms"]:
                 self.wisdom_play_count[card_id] += count
 
@@ -389,25 +396,64 @@ class BalancingAnalyzer:
                     )
 
     def _calculate_overall_score(self, report: BalancingReport) -> float:
-        """Berechnet einen Gesamtscore (0-100) für das Balancing."""
-        score = 100.0
+        """Berechnet einen Gesamtscore (0-100) für das Balancing.
 
-        # Abzüge für Probleme
-        score -= len(report.overall_issues) * 10
+        Bewertungskomponenten (je 0-100, dann gewichtet):
+        - Verteidigungsrate (Ziel 40-60%):     Gewicht 40%
+        - Spiellänge (Ziel 20-40 Züge):        Gewicht 30%
+        - Symbol-Balance (Starvation, Ø Hand): Gewicht 20%
+        - Kritische Issues (Abzüge):            Gewicht 10%
+        """
+        # --- Teilscores (0-100) ---
 
-        # Verteidigungsrate (ideal: 40-60%)
+        # 1. Verteidigungsrate
         if report.avg_defense_rate > 0:
-            dr_deviation = abs(report.avg_defense_rate - 0.5)
-            score -= dr_deviation * 40
+            dr = report.avg_defense_rate
+            if 0.4 <= dr <= 0.6:
+                defense_score = 100.0
+            else:
+                deviation = abs(dr - 0.5) - 0.1  # Abzug ab 10% Abweichung
+                defense_score = max(0.0, 100.0 - deviation * 400)
+        else:
+            defense_score = 0.0
 
-        # Spiellänge (ideal: 20-40 Züge)
-        if report.avg_game_length > 0:
-            if report.avg_game_length < 20:
-                score -= (20 - report.avg_game_length) * 2
-            elif report.avg_game_length > 40:
-                score -= (report.avg_game_length - 40) * 1
+        # 2. Spiellänge
+        gl = report.avg_game_length
+        if 20 <= gl <= 40:
+            length_score = 100.0
+        elif gl < 20:
+            length_score = max(0.0, 100.0 - (20 - gl) * 4)
+        else:
+            length_score = max(0.0, 100.0 - (gl - 40) * 2)
 
-        return max(0.0, min(100.0, score))
+        # 3. Symbol-Balance (Starvation + Ø auf Hand)
+        symbol_penalties = 0.0
+        for rate in report.symbol_starvation_rate.values():
+            if rate > 0.15:
+                symbol_penalties += (rate - 0.15) * 200  # Max ~17 pro Symbol
+        for avg in report.avg_symbol_on_hand.values():
+            if avg > 0 and avg < 1.5:
+                symbol_penalties += (1.5 - avg) * 30
+            elif avg > 3.0:
+                symbol_penalties += (avg - 3.0) * 15
+        symbol_score = max(0.0, 100.0 - symbol_penalties)
+
+        # 4. Kritische Issues (pauschal, aber gedeckelt)
+        critical_keywords = ["zu kurz", "zu lang", "sehr niedrig", "sehr hoch"]
+        critical_count = sum(
+            1 for issue in report.overall_issues
+            if any(kw in issue for kw in critical_keywords)
+        )
+        issue_score = max(0.0, 100.0 - critical_count * 25)
+
+        # --- Gewichteter Gesamtscore ---
+        total = (
+            defense_score * 0.40
+            + length_score * 0.30
+            + symbol_score * 0.20
+            + issue_score * 0.10
+        )
+        return round(max(0.0, min(100.0, total)), 1)
 
     def export_report(self, path: str) -> None:
         """Exportiert den Bericht als JSON."""

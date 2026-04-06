@@ -87,12 +87,16 @@ Ziel: drei Profile — Aggressiv / Defensiv / Strategisch — zufällig oder kon
 
 ---
 
-### 🔄 Mittelfristig: LLM in Gameplay integrieren (Bericht 3.4 Stufe 2)
-**Zu ändern:** `bosodo_env/game_state.py` — `can_defend()`
+### ✅ LLM in Gameplay integrieren (Bericht 3.4 Stufe 2)
+**Geändert:** `bosodo_env/game_state.py` — `can_defend()`, `_llm_score()`
 
-LLM-Score als Multiplikator: Verteidigung gilt als ungültig wenn Score < Schwellenwert (z.B. 0.3), auch wenn Symbole matchen. Schwellenwert über Config steuerbar.
+Wissenskarten dürfen nur zur Verteidigung eingesetzt werden, wenn ihr LLM-Score mit dem angreifenden Monster den konfigurierten Threshold erreicht. Karten darunter werden blockiert, auch wenn das Symbol passt.
 
-**Voraussetzung:** Erst das iterative Skript fertigstellen, damit der Effekt messbar ist.
+**Konfiguration:** `config/training_config.yaml` → `game.llm_threshold` (Standard: 0.5)
+- `0.0` = deaktiviert (altes Verhalten)
+- Analyse: `python scripts/analyze.py --llm-threshold 0.5`
+
+**Hinweis:** Mit aktuellem Kartensatz (nur 21 perfekte Paarungen) wirkt Threshold 0.5 stark — 55 % der symbolisch passenden Paarungen sind Fehlzuordnungen und werden blockiert. Threshold sollte nach iterativem Balancing auf Werte ≥ 0.8 erhöht werden.
 
 ---
 

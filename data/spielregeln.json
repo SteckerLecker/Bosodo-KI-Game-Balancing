@@ -1,0 +1,74 @@
+{
+  "spiel": "BOSODO - Digitale Achtsamkeit - Teen-Edition",
+  "version": "1.0",
+  "spielregeln": {
+    "casual": {
+      "titel": "Spielregeln Casual – Standardregeln",
+      "aufbau": {
+        "beschreibung": "Mischt die Monster- und Wissens-Karten zu je einem Stapel. Lasst Platz für je einen offenen Ablagestapel. Die übrigen Karten (Charakter-, Lebenspunkte-Karten) benötigt ihr nur für die Expert-Regeln.",
+        "starthand": "Jede Person zieht je zwei Wissens- und Monster-Karten.",
+        "erster_spieler": "Die Person, die zuletzt eine Nachricht verschickt hat, beginnt. Sie bekommt die Angriffs-Karte.",
+        "spielrichtung": "Es wird im Uhrzeigersinn gespielt."
+      },
+      "rundenablauf": [
+        {
+          "schritt": 1,
+          "aktion": "Angreifen",
+          "beschreibung": "Die Person, an der Reihe ist, muss mit einer Monster-Karte angreifen. Sie entscheidet, wen sie angreift."
+        },
+        {
+          "schritt": 2,
+          "aktion": "Verteidigen",
+          "beschreibung": "Die verteidigende Person versucht, das Monster zu besiegen, indem sie eine oder mehrere Wissens-Karten ausspielt. Jedes BO-, SO- & DO-Symbol (links oben) der Monster-Karte muss mit dem gleichen Symbol einer Wissens-Karte übereinstimmen. Außerdem muss sie argumentieren können, warum das verwendete Wissen gegen dieses Monster hilfreich ist.",
+          "entscheidung_bei_streit": "Ob das Argument gilt, entscheiden die Mitspielenden. Kommt es zu längeren Unstimmigkeiten, entscheidet die nächste Person, die nicht am Kampf beteiligt ist. Bei nur zwei Spielenden entscheidet die angreifende Person."
+        },
+        {
+          "schritt": 3,
+          "aktion": "Karten nachziehen",
+          "beschreibung": "Alle ziehen Karten nach, bis sie wieder mindestens zwei Monster- und zwei Wissens-Karten haben."
+        },
+        {
+          "schritt": 4,
+          "aktion": "Karte tauschen (optional)",
+          "beschreibung": "Alle dürfen zusätzlich eine Karte ablegen und neu ziehen."
+        },
+        {
+          "schritt": 5,
+          "aktion": "Angriffs-Karte weitergeben",
+          "beschreibung": "Die nächste Person im Uhrzeigersinn bekommt nun die Angriffs-Karte."
+        }
+      ],
+      "monster_besiegen": {
+        "erfolg": "Sind alle Symbole gematcht und das Wissen ist anwendbar, hast du das Monster besiegt und darfst es als Trophäe vor dich legen.",
+        "misserfolg": "Wird das Monster nicht besiegt, kommt es auf den Ablagestapel."
+      },
+      "nachziehstapel_leer": "Ist ein Nachzieh-Stapel leer, wird der entsprechende Ablagestapel neu gemischt.",
+      "siegbedingung": "Wer als erstes drei Monster-Trophäen gesammelt hat, gewinnt das Spiel."
+    },
+    "kampfwerte_erklaerung": {
+      "beschreibung": "Jede Monster- und Wissens-Karte trägt oben links ein oder mehrere Symbole, die die Kampfwerte anzeigen.",
+      "symbole": [
+        {
+          "kuerzel": "BO",
+          "bedeutung": "BO-Symbol (pink/magenta)"
+        },
+        {
+          "kuerzel": "SO",
+          "bedeutung": "SO-Symbol (cyan/türkis)"
+        },
+        {
+          "kuerzel": "DO",
+          "bedeutung": "DO-Symbol (gelb)"
+        }
+      ],
+      "regel": "Jedes BO-, SO- & DO-Symbol der Monster-Karte muss mit dem gleichen Symbol einer Wissens-Karte übereinstimmen, um das Monster zu besiegen."
+    },
+    "kartentypen": {
+      "monster_karten": "Rote Karten mit Monster-Illustration. Werden zum Angreifen verwendet.",
+      "wissens_karten": "Grüne Karten mit Ratschlägen zu digitalem Wohlbefinden. Werden zur Verteidigung verwendet.",
+      "angriffs_karte": "Zeigt an, wer gerade an der Reihe ist.",
+      "charakter_karten": "Dunkle Karten mit Charakteren (nur Expert-Modus).",
+      "lebenspunkte_karten": "Karten mit Herzen zur Lebensanzeige (nur Expert-Modus)."
+    }
+  }
+}

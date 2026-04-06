@@ -10,6 +10,9 @@ game:
   data_dir: "data/"                  # Pfad zu den Kartendaten-JSONs
   num_players: 4                     # Anzahl Spieler pro Runde (2-6)
   trophies_to_win: 3                 # Trophäen zum Sieg
+  llm_threshold: 0.5                 # Min. LLM-Score für Wissenskarte (0.0 = deaktiviert)
+  max_turns: 200                     # Max. Runden pro Episode (verhindert Endlosschleifen)
+  bot_strategy: "strongest"          # Bot-Monster-Auswahl: "strongest", "weakest", "random"
 
 # --- PPO Hyperparameter ---
 training:

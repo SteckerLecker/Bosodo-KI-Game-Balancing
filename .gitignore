@@ -1,4 +1,10 @@
 bosodo-balancing.tar.gz
+reports/report.html
+reports/balancing_report.json
+
+# Claude
+tests/
+scripts/
 
 # Python
 __pycache__/
@@ -35,3 +41,5 @@ Thumbs.db
 
 # Jupyter
 .ipynb_checkpoints/
+
+

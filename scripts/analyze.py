@@ -34,12 +34,15 @@ def run_analysis(
     n_episodes: int = 500,
     num_players: int = 4,
     output_dir: str = "output/reports/",
+    llm_threshold: float = 0.0,
 ) -> None:
     """Führt die Balancing-Analyse durch."""
 
     print(f"=== BOSODO Balancing-Analyse ===")
     print(f"Modell: {model_path}")
     print(f"Episoden: {n_episodes}")
+    if llm_threshold > 0.0:
+        print(f"LLM-Threshold: {llm_threshold}")
 
     # Karten laden
     loader = CardLoader(data_dir=data_dir)
@@ -50,6 +53,8 @@ def run_analysis(
         data_dir=data_dir,
         num_players=num_players,
         card_pool=card_pool,
+        llm_cache=llm_cache if llm_threshold > 0.0 else None,
+        llm_threshold=llm_threshold,
     )
 
     # Modell laden
@@ -67,6 +72,9 @@ def run_analysis(
 
     # Episoden durchspielen
     print(f"\nSpiele {n_episodes} Episoden...")
+    truncated_count = 0
+    abort_monster_counter: dict = {}
+
     for ep in range(n_episodes):
         obs, info = env.reset(seed=ep)
         done = False
@@ -77,10 +85,34 @@ def run_analysis(
             done = terminated or truncated
 
         if "episode_metrics" in info:
-            analyzer.add_episode(info["episode_metrics"])
+            metrics = info["episode_metrics"]
+            analyzer.add_episode(metrics)
+
+            if metrics.get("truncated"):
+                truncated_count += 1
+                reason = metrics.get("abort_reason") or {}
+                m_id = reason.get("monster_id")
+                m_name = reason.get("monster_name") or m_id or "unbekannt"
+                m_syms = "/".join(reason.get("monster_symbols", []))
+                key = f"{m_name} [{m_syms}]" if m_syms else (m_name or "unbekannt")
+                abort_monster_counter[key] = abort_monster_counter.get(key, 0) + 1
 
         if (ep + 1) % 100 == 0:
             print(f"  Episode {ep + 1}/{n_episodes} abgeschlossen")
+
+    # Abbruch-Zusammenfassung
+    if truncated_count > 0:
+        print(f"\n{'=' * 50}")
+        print(f"ABGEBROCHENE EPISODEN")
+        print(f"{'=' * 50}")
+        print(f"Abgebrochen (Max-Runden erreicht): {truncated_count}/{n_episodes} "
+              f"({truncated_count / n_episodes:.1%})")
+        if abort_monster_counter:
+            print(f"\nHäufigste unbesiegbare Monster bei Abbruch:")
+            for monster, count in sorted(
+                abort_monster_counter.items(), key=lambda x: -x[1]
+            )[:10]:
+                print(f"  {count:>4}x  {monster}")
 
     # Analyse erstellen
     report = analyzer.analyze()
@@ -211,6 +243,12 @@ def main():
         default="output/reports/",
         help="Ausgabeverzeichnis für Reports",
     )
+    parser.add_argument(
+        "--llm-threshold",
+        type=float,
+        default=0.0,
+        help="Min. LLM-Score für Wissenskarte (0.0 = deaktiviert)",
+    )
     args = parser.parse_args()
 
     run_analysis(
@@ -219,6 +257,7 @@ def main():
         n_episodes=args.episodes,
         num_players=args.num_players,
         output_dir=args.output_dir,
+        llm_threshold=args.llm_threshold,
     )
 
 

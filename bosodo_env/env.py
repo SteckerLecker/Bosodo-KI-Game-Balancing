@@ -55,6 +55,10 @@ class BosodoEnv(gym.Env):
         reward_config: Optional[RewardConfig] = None,
         render_mode: Optional[str] = None,
         card_pool: Optional[CardPool] = None,
+        llm_cache: Optional[dict] = None,
+        llm_threshold: float = 0.0,
+        max_turns: int = 200,
+        bot_strategy: str = "strongest",
     ):
         """
         Args:
@@ -72,6 +76,8 @@ class BosodoEnv(gym.Env):
         self.trophies_to_win = trophies_to_win
         self.agent_player_idx = agent_player_idx
         self.render_mode = render_mode
+        self.max_turns = max_turns
+        self.bot_strategy = bot_strategy
 
         # Karten laden
         if card_pool is not None:
@@ -85,6 +91,8 @@ class BosodoEnv(gym.Env):
             card_pool=self.card_pool,
             num_players=num_players,
             trophies_to_win=trophies_to_win,
+            llm_cache=llm_cache,
+            llm_threshold=llm_threshold,
         )
 
         # Reward-System
@@ -181,29 +189,41 @@ class BosodoEnv(gym.Env):
         )
 
         terminated = self.game_state.done
-        truncated = False
+        truncated = self.game_state.turn_count >= self.max_turns and not terminated
         obs = self._get_obs()
         info = self._get_info()
 
-        if terminated:
-            info["episode_metrics"] = self.episode_metrics.summary()
+        if terminated or truncated:
+            if truncated:
+                m = self.game_state.last_unbeatable_monster
+                info["abort_reason"] = {
+                    "monster_id": m.id if m else None,
+                    "monster_name": getattr(m, "name", None) if m else None,
+                    "monster_symbols": list(m.kampfwerte) if m else [],
+                }
+            info["episode_metrics"] = self.episode_metrics.summary(
+                truncated=truncated,
+                abort_reason=info.get("abort_reason"),
+            )
 
         return obs, reward, terminated, truncated, info
 
     def _play_bot_turns_until_agent(self) -> None:
-        """Spielt Bot-Züge bis der Agent dran ist oder das Spiel endet."""
+        """Spielt Bot-Züge bis der Agent dran ist oder das Spiel endet/abgebrochen wird."""
         while (
             self.game_state.current_attacker_idx != self.agent_player_idx
             and not self.game_state.done
+            and self.game_state.turn_count < self.max_turns
         ):
             self._play_bot_turn()
 
     def _play_bot_turn(self) -> None:
         """Ein regelbasierter Bot spielt einen Zug.
 
-        Bot-Strategie (einfach):
-        - Wählt das schwächste Monster (wenigste Symbole)
-        - Greift den Spieler mit den meisten Trophäen an
+        Bot-Strategie (konfigurierbar über bot_strategy):
+        - "strongest": Stärkstes Monster zuerst (meiste Symbole)
+        - "weakest":   Schwächstes Monster zuerst (wenigste Symbole)
+        - "random":    Zufälliges Monster aus der Hand
         """
         bot = self.game_state.get_attacker()
 
@@ -211,11 +231,19 @@ class BosodoEnv(gym.Env):
             self.game_state.advance_turn()
             return
 
-        # Schwächstes Monster wählen
-        monster_idx = min(
-            range(len(bot.monster_hand)),
-            key=lambda i: bot.monster_hand[i].difficulty,
-        )
+        # Monster nach Strategie wählen
+        if self.bot_strategy == "random":
+            monster_idx = self.game_state.rng.randint(0, len(bot.monster_hand) - 1)
+        elif self.bot_strategy == "weakest":
+            monster_idx = min(
+                range(len(bot.monster_hand)),
+                key=lambda i: bot.monster_hand[i].difficulty,
+            )
+        else:  # "strongest" (Standard)
+            monster_idx = max(
+                range(len(bot.monster_hand)),
+                key=lambda i: bot.monster_hand[i].difficulty,
+            )
 
         # Ziel mit meisten Trophäen (die größte Bedrohung)
         valid_targets = self.game_state.get_valid_targets()

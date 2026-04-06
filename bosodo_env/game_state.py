@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import random
 from dataclasses import dataclass, field
-from typing import List, Optional, Tuple
+from typing import Dict, List, Optional, Tuple
 
 from bosodo_env.card_loader import (
     CardPool,
@@ -55,11 +55,15 @@ class GameState:
         num_players: int = 4,
         trophies_to_win: int = 3,
         seed: Optional[int] = None,
+        llm_cache: Optional[Dict] = None,
+        llm_threshold: float = 0.0,
     ):
         self.card_pool = card_pool
         self.num_players = num_players
         self.trophies_to_win = trophies_to_win
         self.rng = random.Random(seed)
+        self.llm_cache: Dict = llm_cache or {}
+        self.llm_threshold: float = llm_threshold
 
         # Decks (Nachziehstapel)
         self.monster_deck: List[MonsterCard] = []
@@ -77,6 +81,9 @@ class GameState:
         self.turn_count: int = 0
         self.done: bool = False
         self.winner: Optional[int] = None
+
+        # Letztes Monster, das nicht verteidigt werden konnte
+        self.last_unbeatable_monster: Optional[MonsterCard] = None
 
     def reset(self, seed: Optional[int] = None) -> None:
         """Setzt das Spiel komplett zurück und teilt neue Karten aus."""
@@ -105,6 +112,7 @@ class GameState:
         self.turn_count = 0
         self.done = False
         self.winner = None
+        self.last_unbeatable_monster = None
 
     def _draw_monster(self) -> MonsterCard:
         """Zieht eine Monster-Karte. Mischt Ablagestapel wenn nötig."""
@@ -149,15 +157,34 @@ class GameState:
         Findet die optimale Kartenzuordnung via Backtracking:
         - Jedes Symbol des Monsters wird einer Wissenskarte zugeteilt
         - Minimiert die Gesamtanzahl genutzter Symbole (spart Multi-Symbol-Karten auf)
+        - Wenn llm_threshold > 0: nur Wissenskarten mit LLM-Score >= Threshold erlaubt
 
         Gibt (kann_verteidigen, verwendete_karten) zurück.
         """
         needed_symbols = list(monster.kampfwerte)
         available = list(defender.wisdom_hand)
+
+        if self.llm_cache and self.llm_threshold > 0.0:
+            available = [
+                card for card in available
+                if self._llm_score(monster.id, card.id) >= self.llm_threshold
+            ]
+
         result = self._find_optimal_defense(needed_symbols, available)
         if result is None:
             return False, []
         return True, result
+
+    def _llm_score(self, monster_id: str, wisdom_id: str) -> float:
+        """Gibt den LLM-Score für eine Monster-Wissenskarten-Paarung zurück.
+
+        Gibt 1.0 zurück wenn kein Score vorhanden (kein Symbol-Match → Karte
+        wird ohnehin von _find_optimal_defense verworfen).
+        """
+        entry = self.llm_cache.get(f"{monster_id}_{wisdom_id}")
+        if entry is None:
+            return 1.0
+        return entry["score"]
 
     def _find_optimal_defense(
         self, needed_symbols: List[str], available: List[WisdomCard]
@@ -260,6 +287,7 @@ class GameState:
         else:
             # Verteidigung fehlgeschlagen → Monster auf Ablagestapel
             self.monster_discard.append(monster)
+            self.last_unbeatable_monster = monster
 
         return result
 

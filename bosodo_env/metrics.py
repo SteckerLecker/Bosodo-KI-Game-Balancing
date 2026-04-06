@@ -8,7 +8,7 @@ die für die Balancing-Analyse verwendet werden.
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Dict, Any, List
+from typing import Dict, Any, List, Optional
 from collections import Counter
 
 from bosodo_env.card_loader import SYMBOLS
@@ -32,6 +32,10 @@ class EpisodeMetrics:
 
     # Tracking der Verteidigbarkeit
     impossible_defenses: int = 0
+
+    # Abbruch-Tracking
+    truncated: bool = False
+    abort_reason: Optional[Dict[str, Any]] = None
 
     # Symbol-Matching-Statistiken
     symbol_matches: List[Dict[str, Any]] = field(default_factory=list)
@@ -151,9 +155,17 @@ class EpisodeMetrics:
         max_entropy = math.log(n)
         return entropy / max_entropy if max_entropy > 0 else 0.0
 
-    def summary(self) -> Dict[str, Any]:
+    def summary(
+        self,
+        truncated: bool = False,
+        abort_reason: Optional[Dict[str, Any]] = None,
+    ) -> Dict[str, Any]:
+        self.truncated = truncated
+        self.abort_reason = abort_reason
         """Gibt eine Zusammenfassung aller Metriken zurück."""
         return {
+            "truncated": self.truncated,
+            "abort_reason": self.abort_reason,
             "total_attacks": self.total_attacks,
             "successful_defenses": self.successful_defenses,
             "failed_defenses": self.failed_defenses,
@@ -164,6 +176,8 @@ class EpisodeMetrics:
             "unique_wisdoms_used": len(self.wisdom_usage),
             "most_used_monsters": self.monster_usage.most_common(5),
             "most_used_wisdoms": self.wisdom_usage.most_common(5),
+            "all_monster_usage": dict(self.monster_usage),
+            "all_wisdom_usage": dict(self.wisdom_usage),
             "attack_target_distribution": dict(self.attack_targets),
             # Erweiterte Symbol-Metriken (Abschnitt 4.3)
             "defense_rate_per_symbol": self.defense_rate_per_symbol,

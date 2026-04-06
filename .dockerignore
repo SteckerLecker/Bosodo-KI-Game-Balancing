@@ -29,6 +29,7 @@ Thumbs.db
 .ipynb_checkpoints/
 todo/
 anleitungen/
+reports/
 
 # LLM & cache (llm_experts/ wird benötigt — nicht ignorieren)
 llm_experts/__pycache__/

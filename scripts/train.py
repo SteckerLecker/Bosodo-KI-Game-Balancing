@@ -22,6 +22,7 @@ sys.path.insert(0, str(PROJECT_ROOT))
 
 from agents import train_agent
 from bosodo_env.rewards import RewardConfig
+from llm_experts.cache import load_cache
 
 
 def load_config(config_path: str) -> dict:
@@ -75,9 +76,22 @@ def main():
     game_cfg = cfg.get("game", {})
     output_cfg = cfg.get("output", {})
 
+    llm_cache = load_cache()
+    if llm_cache:
+        print(f"LLM-Cache geladen: {len(llm_cache)} Einträge")
+    llm_threshold = game_cfg.get("llm_threshold", 0.0)
+    if llm_threshold > 0.0:
+        print(f"LLM-Threshold aktiv: {llm_threshold}")
+    max_turns = game_cfg.get("max_turns", 200)
+    print(f"Max. Runden pro Episode: {max_turns}")
+    bot_strategy = game_cfg.get("bot_strategy", "strongest")
+    print(f"Bot-Strategie: {bot_strategy}")
+
     train_config = {
         "data_dir": str(PROJECT_ROOT / game_cfg.get("data_dir", "data/")),
         "num_players": game_cfg.get("num_players", 4),
+        "max_turns": max_turns,
+        "bot_strategy": bot_strategy,
         "total_timesteps": args.timesteps or training_cfg.get("total_timesteps", 500_000),
         "n_envs": args.n_envs or training_cfg.get("n_envs", 8),
         "learning_rate": training_cfg.get("learning_rate", 3e-4),
@@ -87,6 +101,8 @@ def main():
         "output_dir": str(PROJECT_ROOT / output_cfg.get("dir", "output/")),
         "reward_config": build_reward_config(cfg),
         "device": args.device or training_cfg.get("device", "auto"),
+        "llm_cache": llm_cache,
+        "llm_threshold": llm_threshold,
     }
 
     # Training starten
