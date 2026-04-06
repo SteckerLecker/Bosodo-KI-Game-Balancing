@@ -34,8 +34,8 @@ import yaml
 APP_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(APP_ROOT))
 
-# Standard: aktuelles Arbeitsverzeichnis (im Container = /proj = gemountetes Volume)
-WORK_DIR = Path.cwd()
+# Standard: Projekt-Root (dort liegen data/, config/, output/)
+WORK_DIR = APP_ROOT
 
 from agents import train_agent
 from bosodo_env.balancing import BalancingAnalyzer, BalancingReport
@@ -160,14 +160,22 @@ def check_convergence(
             f"Knappe Spiele: {close_ratio:.1%} (Ziel ≥{cfg.target_close_game_ratio:.0%})"
         )
 
-    # 5. Kein Monster < 2 % oder > 15 % aller Spiele
-    total_episodes = report.total_episodes if report.total_episodes > 0 else 1
+    # 5. Kein Monster < 2 % oder > 15 % aller Angriffe
+    # times_played = absolute Anzahl gespielter Einsätze über alle Episoden.
+    # Normierung durch Gesamtangriffe (nicht Episoden), damit Werte 0–1 ergeben.
+    total_attacks = sum(
+        report.card_reports[m.id].times_played
+        for m in card_pool.monsters
+        if m.id in report.card_reports
+    )
+    if total_attacks == 0:
+        total_attacks = 1
     all_mu_ok = True
     for monster in card_pool.monsters:
         cr = report.card_reports.get(monster.id)
         if cr is None:
             continue
-        usage_ratio = cr.times_played / total_episodes
+        usage_ratio = cr.times_played / total_attacks
         if not (lo_mu <= usage_ratio <= hi_mu):
             all_mu_ok = False
             result.details.append(

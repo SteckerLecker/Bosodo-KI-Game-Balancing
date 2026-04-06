@@ -191,36 +191,57 @@ class GameState:
     ) -> Optional[List[WisdomCard]]:
         """Findet die optimale Verteidigung via Backtracking.
 
-        Optimierungsziel: Minimale Summe der Symbolanzahlen genutzter Karten,
-        damit wertvolle Multi-Symbol-Karten für spätere Züge aufgehoben werden.
+        Eine einzelne Wissenskarte kann mehrere Symbole eines Monsters
+        abdecken, wenn sie diese Symbole in ihren Kampfwerten hat.
+        Z.B. deckt eine Karte mit ["BO", "SO"] beide Symbole eines
+        ["BO", "SO"]-Monsters ab.
+
+        Optimierungsziel: Minimale Anzahl genutzter Karten,
+        damit Handkarten für spätere Züge aufgehoben werden.
 
         Returns None wenn keine Verteidigung möglich.
         """
+        from collections import Counter
+
+        needed = Counter(needed_symbols)
+
         best: List = [None]
-        best_cost: List = [float("inf")]
+        best_size: List = [float("inf")]
 
         def backtrack(
-            sym_idx: int,
-            remaining: List[WisdomCard],
+            remaining: Dict[str, int],
+            card_idx: int,
             used: List[WisdomCard],
-            cost: int,
         ) -> None:
-            if sym_idx == len(needed_symbols):
-                if cost < best_cost[0]:
-                    best_cost[0] = cost
+            # Alle Symbole abgedeckt?
+            if all(v <= 0 for v in remaining.values()):
+                if len(used) < best_size[0]:
+                    best_size[0] = len(used)
                     best[0] = list(used)
                 return
-            symbol = needed_symbols[sym_idx]
-            for i, card in enumerate(remaining):
-                if symbol in card.kampfwerte:
-                    backtrack(
-                        sym_idx + 1,
-                        remaining[:i] + remaining[i + 1 :],
-                        used + [card],
-                        cost + len(card.kampfwerte),
-                    )
+            # Keine Karten mehr?
+            if card_idx >= len(available):
+                return
+            # Pruning: schon so viele Karten wie beste Lösung?
+            if len(used) >= best_size[0]:
+                return
 
-        backtrack(0, available, [], 0)
+            card = available[card_idx]
+
+            # Prüfe ob diese Karte mindestens ein benötigtes Symbol abdeckt
+            covers = [s for s in card.kampfwerte if remaining.get(s, 0) > 0]
+
+            if covers:
+                # Versuch MIT dieser Karte
+                new_remaining = dict(remaining)
+                for s in covers:
+                    new_remaining[s] -= 1
+                backtrack(new_remaining, card_idx + 1, used + [card])
+
+            # Versuch OHNE diese Karte
+            backtrack(remaining, card_idx + 1, used)
+
+        backtrack(dict(needed), 0, [])
         return best[0]
 
     def execute_attack(

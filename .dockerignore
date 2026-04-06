@@ -1,3 +1,6 @@
+data/llmCacheAuswertung
+results/
+
 # Python
 .venv/
 venv/

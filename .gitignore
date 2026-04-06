@@ -1,9 +1,11 @@
 bosodo-balancing.tar.gz
 reports/report.html
 reports/balancing_report.json
+data/llmCacheAuswertung
 
 # Claude
 tests/
+results/
 
 # Python
 __pycache__/

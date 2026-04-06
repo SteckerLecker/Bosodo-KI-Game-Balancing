@@ -104,6 +104,72 @@ class TestGameState:
         can, cards = gs.can_defend(gs.players[1], monster)
         assert not can
 
+    def test_can_defend_multi_symbol_single_card(self):
+        """Eine Wissenskarte mit ['BO', 'SO'] deckt beide Symbole eines
+        ['BO', 'SO']-Monsters ab — braucht nur 1 Karte statt 2."""
+        gs = GameState(self.pool, num_players=2, seed=42)
+        gs.reset()
+        monster = MonsterCard(
+            id="T", name="T", kurzbeschreibung="",
+            kampfwerte=["BO", "SO"], beschreibung="", zitat=""
+        )
+        gs.players[1].wisdom_hand = [
+            WisdomCard(id="TW", name="TW", kurzbeschreibung="",
+                       kampfwerte=["BO", "SO"], beschreibung="", zitat="")
+        ]
+        can, cards = gs.can_defend(gs.players[1], monster)
+        assert can
+        assert len(cards) == 1
+
+    def test_can_defend_multi_symbol_two_cards(self):
+        """Zwei einzelne Karten decken ein 2-Symbol-Monster ab."""
+        gs = GameState(self.pool, num_players=2, seed=42)
+        gs.reset()
+        monster = MonsterCard(
+            id="T", name="T", kurzbeschreibung="",
+            kampfwerte=["BO", "SO"], beschreibung="", zitat=""
+        )
+        gs.players[1].wisdom_hand = [
+            WisdomCard(id="TW1", name="TW1", kurzbeschreibung="",
+                       kampfwerte=["BO"], beschreibung="", zitat=""),
+            WisdomCard(id="TW2", name="TW2", kurzbeschreibung="",
+                       kampfwerte=["SO"], beschreibung="", zitat=""),
+        ]
+        can, cards = gs.can_defend(gs.players[1], monster)
+        assert can
+        assert len(cards) == 2
+
+    def test_can_defend_triple_symbol_single_card(self):
+        """Eine ['BO', 'SO', 'DO']-Karte deckt ein 3-Symbol-Monster allein ab."""
+        gs = GameState(self.pool, num_players=2, seed=42)
+        gs.reset()
+        monster = MonsterCard(
+            id="T", name="T", kurzbeschreibung="",
+            kampfwerte=["BO", "SO", "DO"], beschreibung="", zitat=""
+        )
+        gs.players[1].wisdom_hand = [
+            WisdomCard(id="TW", name="TW", kurzbeschreibung="",
+                       kampfwerte=["BO", "SO", "DO"], beschreibung="", zitat="")
+        ]
+        can, cards = gs.can_defend(gs.players[1], monster)
+        assert can
+        assert len(cards) == 1
+
+    def test_can_defend_multi_symbol_not_enough(self):
+        """Eine ['BO']-Karte reicht nicht gegen ein ['BO', 'SO']-Monster."""
+        gs = GameState(self.pool, num_players=2, seed=42)
+        gs.reset()
+        monster = MonsterCard(
+            id="T", name="T", kurzbeschreibung="",
+            kampfwerte=["BO", "SO"], beschreibung="", zitat=""
+        )
+        gs.players[1].wisdom_hand = [
+            WisdomCard(id="TW", name="TW", kurzbeschreibung="",
+                       kampfwerte=["BO"], beschreibung="", zitat="")
+        ]
+        can, cards = gs.can_defend(gs.players[1], monster)
+        assert not can
+
     def test_victory_condition(self):
         gs = GameState(self.pool, num_players=2, trophies_to_win=1, seed=42)
         gs.reset()
