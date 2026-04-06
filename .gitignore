@@ -4,7 +4,6 @@ reports/balancing_report.json
 
 # Claude
 tests/
-scripts/
 
 # Python
 __pycache__/

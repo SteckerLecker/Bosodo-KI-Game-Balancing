@@ -53,16 +53,25 @@ Die Fehlzuordnungen und Grauzone-Fälle werden in der Konsolenausgabe und im `ba
 
 ## Offene Aufgaben (priorisiert)
 
-### 🔜 Nächster Schritt: Iteratives Balancing-Skript (Bericht 4.1–4.6)
-**Zu erstellen:** `scripts/iterative_balance.py`
+### ✅ 5. Iteratives Balancing-Skript (Bericht 4.1–4.6)
+**Datei:** `scripts/iterative_balance.py`
 
-Das Herzstück des automatisierten Balancings. Ablauf:
-1. Kartendaten laden (aus `data_vN/`)
-2. Agent trainieren (z.B. 500k Timesteps)
+Das Herzstück des automatisierten Balancings. Implementierter Ablauf:
+1. Kartendaten laden (aus `data/` oder `data_vN/`)
+2. PPO-Agent trainieren (konfigurierbar, Standard 500k Timesteps)
 3. Balancing analysieren (inkl. LLM-Report)
-4. Konvergenz prüfen (Kriterien aus Bericht 4.6)
-5. Falls nicht konvergiert: Symbole anpassen nach Regeln aus Bericht 4.4
+4. Konvergenz prüfen (5 Kriterien aus Bericht 4.6)
+5. Falls nicht konvergiert: Symbole automatisch anpassen (Regeln aus Bericht 4.4)
 6. Neue Kartenversion speichern (`data_v{N+1}/`) und wiederholen
+
+**Verwendung:**
+```bash
+python scripts/iterative_balance.py                        # Standard (10 Iterationen)
+python scripts/iterative_balance.py --max-iterations 15    # Mehr Iterationen
+python scripts/iterative_balance.py --timesteps 1000000    # Längeres Training
+python scripts/iterative_balance.py --start-version 3      # Ab data_v3/ weitermachen
+python scripts/iterative_balance.py --dry-run              # Nur Analyse, kein Training
+```
 
 **Konvergenzkriterien** (alle drei aufeinanderfolgenden Iterationen erfüllt):
 - Verteidigungsrate aller Symbole: 40–60 %
@@ -77,9 +86,11 @@ Das Herzstück des automatisierten Balancings. Ablauf:
 - Regel 3 — Multi-Symbol: `multi_symbol_defense_rate < 25 %` → mehr Multi-Symbol-Wissenskarten
 - Regel 4 — Max. 2 Kartenänderungen pro Iteration
 
+**Ausgabe:** Iterationslogs + Balancing-Reports unter `output/iterative_balancing/`
+
 ---
 
-### 🔜 Danach: Erweiterte Bot-Strategien (Bericht 2.3)
+### 🔜 Nächster Schritt: Erweiterte Bot-Strategien (Bericht 2.3)
 **Zu ändern:** `bosodo_env/env.py` (Bot-Logik)
 
 Aktuell: nur eine Strategie (schwächstes Monster, stärkster Gegner).
