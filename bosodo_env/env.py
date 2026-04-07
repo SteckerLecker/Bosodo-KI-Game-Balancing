@@ -59,6 +59,7 @@ class BosodoEnv(gym.Env):
         llm_threshold: float = 0.0,
         max_turns: int = 200,
         bot_strategy: str = "strongest",
+        bot_target_strategy: str = "weakest",
     ):
         """
         Args:
@@ -78,6 +79,7 @@ class BosodoEnv(gym.Env):
         self.render_mode = render_mode
         self.max_turns = max_turns
         self.bot_strategy = bot_strategy
+        self.bot_target_strategy = bot_target_strategy
 
         # Karten laden
         if card_pool is not None:
@@ -224,6 +226,11 @@ class BosodoEnv(gym.Env):
         - "strongest": Stärkstes Monster zuerst (meiste Symbole)
         - "weakest":   Schwächstes Monster zuerst (wenigste Symbole)
         - "random":    Zufälliges Monster aus der Hand
+
+        Bot-Zielwahl (konfigurierbar über bot_target_strategy):
+        - "weakest":   Spieler mit wenigsten Trophäen (Standard)
+        - "strongest": Spieler mit meisten Trophäen
+        - "random":    Zufälliges Ziel
         """
         bot = self.game_state.get_attacker()
 
@@ -245,12 +252,20 @@ class BosodoEnv(gym.Env):
                 key=lambda i: bot.monster_hand[i].difficulty,
             )
 
-        # Ziel mit meisten Trophäen (die größte Bedrohung)
+        # Ziel nach Target-Strategie wählen
         valid_targets = self.game_state.get_valid_targets()
-        target_idx = max(
-            valid_targets,
-            key=lambda i: self.game_state.players[i].num_trophies,
-        )
+        if self.bot_target_strategy == "random":
+            target_idx = self.game_state.rng.choice(valid_targets)
+        elif self.bot_target_strategy == "strongest":
+            target_idx = max(
+                valid_targets,
+                key=lambda i: self.game_state.players[i].num_trophies,
+            )
+        else:  # "weakest" (Standard)
+            target_idx = min(
+                valid_targets,
+                key=lambda i: self.game_state.players[i].num_trophies,
+            )
 
         result = self.game_state.execute_attack(monster_idx, target_idx)
         self.episode_metrics.record_attack(result)

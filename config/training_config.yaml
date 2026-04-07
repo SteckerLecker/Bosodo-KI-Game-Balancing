@@ -13,6 +13,7 @@ game:
   llm_threshold: 0.5                 # Min. LLM-Score für Wissenskarte (0.0 = deaktiviert)
   max_turns: 200                     # Max. Runden pro Episode (verhindert Endlosschleifen)
   bot_strategy: "strongest"          # Bot-Monster-Auswahl: "strongest", "weakest", "random"
+  bot_target_strategy: "weakest"     # Bot-Zielwahl: "weakest" (wenigste Trophäen), "strongest" (meiste), "random"
 
 # --- PPO Hyperparameter ---
 training:

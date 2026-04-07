@@ -83,6 +83,7 @@ def make_env(
     llm_threshold: float = 0.0,
     max_turns: int = 200,
     bot_strategy: str = "strongest",
+    bot_target_strategy: str = "weakest",
 ) -> BosodoEnv:
     """Factory-Funktion für Environment-Erstellung."""
 
@@ -95,6 +96,7 @@ def make_env(
             llm_threshold=llm_threshold,
             max_turns=max_turns,
             bot_strategy=bot_strategy,
+            bot_target_strategy=bot_target_strategy,
         )
         env.reset(seed=seed)
         return env
@@ -136,6 +138,7 @@ def train_agent(config: Dict[str, Any]) -> PPO:
     llm_threshold = config.get("llm_threshold", 0.0)
     max_turns = config.get("max_turns", 200)
     bot_strategy = config.get("bot_strategy", "strongest")
+    bot_target_strategy = config.get("bot_target_strategy", "weakest")
 
     output_path = Path(output_dir)
     output_path.mkdir(parents=True, exist_ok=True)
@@ -151,6 +154,7 @@ def train_agent(config: Dict[str, Any]) -> PPO:
             llm_threshold=llm_threshold,
             max_turns=max_turns,
             bot_strategy=bot_strategy,
+            bot_target_strategy=bot_target_strategy,
         )
         for i in range(n_envs)
     ]
@@ -165,6 +169,7 @@ def train_agent(config: Dict[str, Any]) -> PPO:
         llm_threshold=llm_threshold,
         max_turns=max_turns,
         bot_strategy=bot_strategy,
+        bot_target_strategy=bot_target_strategy,
     )
 
     # PPO-Modell erstellen

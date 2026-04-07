@@ -59,6 +59,7 @@ class IterativeConfig:
     num_players: int = 4
     max_turns: int = 200
     bot_strategy: str = "strongest"
+    bot_target_strategy: str = "weakest"
     llm_threshold: float = 0.0
     n_envs: int = 8
     device: str = "auto"
@@ -424,6 +425,7 @@ def train_for_iteration(
         "num_players": cfg.num_players,
         "max_turns": cfg.max_turns,
         "bot_strategy": cfg.bot_strategy,
+        "bot_target_strategy": cfg.bot_target_strategy,
         "total_timesteps": cfg.timesteps_per_iteration,
         "n_envs": cfg.n_envs,
         "learning_rate": 3e-4,
@@ -459,6 +461,7 @@ def run_analysis(
         llm_threshold=cfg.llm_threshold,
         max_turns=cfg.max_turns,
         bot_strategy=cfg.bot_strategy,
+        bot_target_strategy=cfg.bot_target_strategy,
     )
 
     analyzer = BalancingAnalyzer(card_pool, llm_cache=llm_cache)
@@ -709,6 +712,7 @@ def main():
         num_players=game_cfg.get("num_players", 4),
         max_turns=game_cfg.get("max_turns", 200),
         bot_strategy=game_cfg.get("bot_strategy", "strongest"),
+        bot_target_strategy=game_cfg.get("bot_target_strategy", "weakest"),
         llm_threshold=game_cfg.get("llm_threshold", 0.0),
         n_envs=training_cfg.get("n_envs", 8),
         device=args.device or training_cfg.get("device", "auto"),
