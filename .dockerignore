@@ -1,5 +1,5 @@
-data/llmCacheAuswertung
 results/
+llm_experts
 
 # Python
 .venv/

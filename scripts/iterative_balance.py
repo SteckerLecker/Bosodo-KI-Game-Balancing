@@ -37,6 +37,9 @@ sys.path.insert(0, str(APP_ROOT))
 # Standard: Projekt-Root (dort liegen data/, config/, output/)
 WORK_DIR = APP_ROOT
 
+# Basis-Edition-Verzeichnis (wird in main() aus Config gesetzt)
+BASE_DATA_DIR: Optional[Path] = None
+
 from agents import train_agent
 from bosodo_env.balancing import BalancingAnalyzer, BalancingReport
 from bosodo_env.card_loader import SYMBOLS, CardLoader, CardPool
@@ -360,10 +363,15 @@ def apply_balancing_rules(
 # ---------------------------------------------------------------------------
 
 def get_data_dir(version: int) -> Path:
-    """Gibt den Pfad zum Kartendaten-Verzeichnis für eine Version zurück."""
+    """Gibt den Pfad zum Kartendaten-Verzeichnis für eine Version zurück.
+
+    Version 0  → BASE_DATA_DIR (z.B. data/teen_edition)
+    Version N  → Geschwister-Verzeichnis mit _vN-Suffix (z.B. data/teen_edition_v1)
+    """
+    base = BASE_DATA_DIR if BASE_DATA_DIR is not None else WORK_DIR / "data"
     if version == 0:
-        return WORK_DIR / "data"
-    return WORK_DIR / f"data_v{version}"
+        return base
+    return base.parent / f"{base.name}_v{version}"
 
 
 def save_card_version(card_pool: CardPool, version: int, source_dir: Path) -> Path:
@@ -663,7 +671,7 @@ def main():
         "--start-version",
         type=int,
         default=0,
-        help="Startversion der Kartendaten (0 = data/, N = data_vN/)",
+        help="Startversion der Kartendaten (0 = data_dir aus Config, N = data_dir_vN/)",
     )
     parser.add_argument(
         "--device",
@@ -685,7 +693,7 @@ def main():
     args = parser.parse_args()
 
     # Work-Dir setzen (global)
-    global WORK_DIR
+    global WORK_DIR, BASE_DATA_DIR
     if args.work_dir:
         WORK_DIR = Path(args.work_dir).resolve()
     print(f"Arbeitsverzeichnis: {WORK_DIR}")
@@ -700,6 +708,9 @@ def main():
     game_cfg = yaml_cfg.get("game", {})
     training_cfg = yaml_cfg.get("training", {})
     rewards_cfg = yaml_cfg.get("rewards", {})
+
+    # Edition-Verzeichnis aus Config setzen (global)
+    BASE_DATA_DIR = WORK_DIR / game_cfg.get("data_dir", "data")
     reward_config = RewardConfig(**{
         k: v for k, v in rewards_cfg.items() if hasattr(RewardConfig, k)
     })
@@ -719,8 +730,8 @@ def main():
         start_version=args.start_version,
     )
 
-    # LLM-Cache laden
-    llm_cache = load_cache()
+    # LLM-Cache laden (aus dem Edition-Verzeichnis)
+    llm_cache = load_cache(data_dir=str(BASE_DATA_DIR))
     if llm_cache:
         print(f"LLM-Cache geladen: {len(llm_cache)} Einträge")
     if cfg.llm_threshold > 0.0:

@@ -76,7 +76,8 @@ def main():
     game_cfg = cfg.get("game", {})
     output_cfg = cfg.get("output", {})
 
-    llm_cache = load_cache()
+    data_dir = str(PROJECT_ROOT / game_cfg.get("data_dir", "data/"))
+    llm_cache = load_cache(data_dir=data_dir)
     if llm_cache:
         print(f"LLM-Cache geladen: {len(llm_cache)} Einträge")
     llm_threshold = game_cfg.get("llm_threshold", 0.0)
@@ -88,7 +89,7 @@ def main():
     print(f"Bot-Strategie: {bot_strategy}")
 
     train_config = {
-        "data_dir": str(PROJECT_ROOT / game_cfg.get("data_dir", "data/")),
+        "data_dir": data_dir,
         "num_players": game_cfg.get("num_players", 4),
         "max_turns": max_turns,
         "bot_strategy": bot_strategy,

@@ -15,6 +15,7 @@ import sys
 from pathlib import Path
 
 import numpy as np
+import yaml
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
@@ -24,12 +25,22 @@ from bosodo_env.card_loader import CardLoader
 from bosodo_env.balancing import BalancingAnalyzer
 
 
+def _default_data_dir() -> str:
+    config_path = PROJECT_ROOT / "config" / "training_config.yaml"
+    try:
+        with open(config_path, "r", encoding="utf-8") as f:
+            cfg = yaml.safe_load(f)
+        return cfg.get("game", {}).get("data_dir", "data/")
+    except Exception:
+        return "data/"
+
+
 def main():
     parser = argparse.ArgumentParser(
         description="BOSODO Quick-Simulation"
     )
     parser.add_argument("--episodes", type=int, default=50)
-    parser.add_argument("--data-dir", type=str, default="data/")
+    parser.add_argument("--data-dir", type=str, default=_default_data_dir())
     parser.add_argument("--render", action="store_true")
     parser.add_argument("--num-players", type=int, default=4)
     args = parser.parse_args()

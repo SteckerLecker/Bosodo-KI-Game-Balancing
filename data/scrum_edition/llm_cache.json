@@ -1,0 +1,1298 @@
+{
+  "M01_K01": {
+    "score": 0.9,
+    "begruendung": "Klare Kriterien fördern Effizienz und verhindern Überplanung."
+  },
+  "M01_K02": {
+    "score": 0.7,
+    "begruendung": "Die Wissenskarte fördert Flexibilität, aber nicht direkt Agilität."
+  },
+  "M01_K03": {
+    "score": 0.9,
+    "begruendung": "Sprint-Ziele fördern Agilität und verhindern übermäßige Planung."
+  },
+  "M01_K04": {
+    "score": 0.9,
+    "begruendung": "Nutzerfeedback fördert Agilität und verhindert übermäßige Planung."
+  },
+  "M01_K05": {
+    "score": 0.9,
+    "begruendung": "Visualisierung fördert Agilität und reduziert übermäßige Planung."
+  },
+  "M01_K06": {
+    "score": 0.7,
+    "begruendung": "Die Wissenskarte fördert Flexibilität, aber nicht direkt gegen Planung."
+  },
+  "M01_K07": {
+    "score": 0.7,
+    "begruendung": "Die Wissenskarte fördert Agilität, könnte aber konkreter sein."
+  },
+  "M01_K08": {
+    "score": 0.7,
+    "begruendung": "Die Wissenskarte fördert agile Schätzung, aber nicht Planungskritik."
+  },
+  "M01_K09": {
+    "score": 0.9,
+    "begruendung": "Die Wissenskarte fördert agiles Arbeiten gegen übermäßige Planung."
+  },
+  "M01_K10": {
+    "score": 0.9,
+    "begruendung": "Die Analogie zu DJs fördert Flexibilität und Anpassungsfähigkeit."
+  },
+  "M01_K11": {
+    "score": 0.9,
+    "begruendung": "Die Wissenskarte fördert schnelles Feedback und Agilität."
+  },
+  "M01_K12": {
+    "score": 0.7,
+    "begruendung": "Klare Kriterien helfen, aber Planung bleibt ein zentrales Problem."
+  },
+  "M01_K13": {
+    "score": 0.7,
+    "begruendung": "Die Werte fördern Agilität, aber nicht direkt gegen Überplanung."
+  },
+  "M01_K14": {
+    "score": 0.9,
+    "begruendung": "Die Karte fördert realistische Planung und vermeidet Überlastung."
+  },
+  "M01_K15": {
+    "score": 0.7,
+    "begruendung": "Datenorientierung fördert Agilität, könnte aber Planung nicht ganz ersetzen."
+  },
+  "M01_K16": {
+    "score": 0.9,
+    "begruendung": "Die Wissenskarte fördert Selbstorganisation gegen übermäßige Planung."
+  },
+  "M01_K17": {
+    "score": 0.7,
+    "begruendung": "Risiken identifizieren hilft, aber nicht gegen übermäßige Planung."
+  },
+  "M01_K18": {
+    "score": 0.9,
+    "begruendung": "Die Wissenskarte fördert effiziente Dokumentation und vermeidet Überplanung."
+  },
+  "M02_K01": {
+    "score": 0.7,
+    "begruendung": "Kriterien helfen, alte Features kritisch zu hinterfragen."
+  },
+  "M02_K02": {
+    "score": 0.6,
+    "begruendung": "Die Wissenskarte fördert Vielfalt, aber nicht den Umgang mit veralteten Ideen."
+  },
+  "M02_K03": {
+    "score": 0.9,
+    "begruendung": "Zielorientierung hilft, veraltete Features zu hinterfragen."
+  },
+  "M02_K04": {
+    "score": 0.9,
+    "begruendung": "Die Karte fördert Nutzerfeedback und bricht mit alten Annahmen."
+  },
+  "M02_K05": {
+    "score": 0.7,
+    "begruendung": "Visualisierung fördert Fortschritt, könnte Rudi aber nicht überzeugen."
+  },
+  "M02_K06": {
+    "score": 0.6,
+    "begruendung": "Automatisierte Tests fördern aktuelle Standards, aber nicht spezifisch Rudis Problem."
+  },
+  "M02_K07": {
+    "score": 0.7,
+    "begruendung": "Die Wissenskarte fördert moderne Ansätze, aber nicht direkt gegen Rudi."
+  },
+  "M02_K08": {
+    "score": 0.4,
+    "begruendung": "Die Wissenskarte hilft wenig gegen veraltete Ansichten."
+  },
+  "M02_K09": {
+    "score": 0.6,
+    "begruendung": "Die Wissenskarte fördert Forschung, aber nicht den Wandel von Features."
+  },
+  "M02_K10": {
+    "score": 0.9,
+    "begruendung": "Die Analogie zu DJs fördert Flexibilität und Anpassungsfähigkeit."
+  },
+  "M02_K11": {
+    "score": 0.9,
+    "begruendung": "Schnelles Feedback hilft, veraltete Features zu vermeiden."
+  },
+  "M02_K12": {
+    "score": 0.7,
+    "begruendung": "Klare Kriterien helfen, alte Features zu hinterfragen."
+  },
+  "M02_K13": {
+    "score": 0.4,
+    "begruendung": "Wissenskarte fördert Werte, aber nicht spezifisch gegen veraltete Features."
+  },
+  "M02_K14": {
+    "score": 0.6,
+    "begruendung": "Die Karte fördert nachhaltige Planung, aber nicht spezifisch gegen Rudi."
+  },
+  "M02_K15": {
+    "score": 0.9,
+    "begruendung": "Datenorientierte Entscheidungen kontern Rudis veraltete Argumente."
+  },
+  "M02_K16": {
+    "score": 0.4,
+    "begruendung": "Die Wissenskarte fördert Selbstorganisation, nicht den Umgang mit veralteten Features."
+  },
+  "M02_K17": {
+    "score": 0.7,
+    "begruendung": "Risiken frühzeitig zu identifizieren hilft, alte Features zu hinterfragen."
+  },
+  "M02_K18": {
+    "score": 0.7,
+    "begruendung": "Die Wissenskarte fördert Relevanz, könnte aber konkreter auf Rudi eingehen."
+  },
+  "M03_K01": {
+    "score": 0.9,
+    "begruendung": "Klare Kriterien verhindern spätes Feedback und Missverständnisse."
+  },
+  "M03_K02": {
+    "score": 0.7,
+    "begruendung": "T-förmiges Wissen fördert frühzeitiges Feedback im Team."
+  },
+  "M03_K03": {
+    "score": 0.9,
+    "begruendung": "Sprint-Ziele fördern frühzeitiges Feedback und klare Erwartungen."
+  },
+  "M03_K04": {
+    "score": 0.9,
+    "begruendung": "Nutzerfeedback vor dem Launch verhindert späte Kritik."
+  },
+  "M03_K05": {
+    "score": 0.9,
+    "begruendung": "Tägliche Visualisierung fördert rechtzeitiges Feedback und Anpassungen."
+  },
+  "M03_K06": {
+    "score": 0.7,
+    "begruendung": "Testbarer Code fördert frühes Feedback, mindert späte Kommentare."
+  },
+  "M03_K07": {
+    "score": 0.75,
+    "begruendung": "Teilen von User Stories fördert frühzeitiges Feedback und Klarheit."
+  },
+  "M03_K08": {
+    "score": 0.6,
+    "begruendung": "Die Wissenskarte fördert Planung, aber nicht rechtzeitiges Feedback."
+  },
+  "M03_K09": {
+    "score": 0.7,
+    "begruendung": "Spikes helfen, frühzeitig Klarheit zu schaffen und Feedback zu integrieren."
+  },
+  "M03_K10": {
+    "score": 0.9,
+    "begruendung": "Rollierende Planung fördert rechtzeitiges Feedback und Anpassung."
+  },
+  "M03_K11": {
+    "score": 0.9,
+    "begruendung": "Schnelles Feedback verhindert späte Probleme im Projektverlauf."
+  },
+  "M03_K12": {
+    "score": 0.9,
+    "begruendung": "Klare Kriterien verhindern spätes Feedback und Missverständnisse."
+  },
+  "M03_K13": {
+    "score": 0.7,
+    "begruendung": "Commitment fördert frühzeitiges Feedback, aber nicht direkt die Lösung."
+  },
+  "M03_K14": {
+    "score": 0.7,
+    "begruendung": "Die Karte fördert Planung, aber nicht direkt Feedback-Integration."
+  },
+  "M03_K15": {
+    "score": 0.7,
+    "begruendung": "Daten helfen, frühzeitig fundierte Entscheidungen zu treffen."
+  },
+  "M03_K16": {
+    "score": 0.7,
+    "begruendung": "Selbstführung fördert proaktive Kommunikation und Feedback."
+  },
+  "M03_K17": {
+    "score": 0.9,
+    "begruendung": "Risiken frühzeitig identifizieren hilft, die Feedback-Fee zu vermeiden."
+  },
+  "M03_K18": {
+    "score": 0.7,
+    "begruendung": "Dokumentation fördert rechtzeitiges Feedback, aber nicht direkt."
+  },
+  "M04_K01": {
+    "score": 0.9,
+    "begruendung": "Klare Kriterien helfen, das 'fast fertig'-Problem zu vermeiden."
+  },
+  "M04_K02": {
+    "score": 0.6,
+    "begruendung": "Die Wissenskarte fördert Teamarbeit, löst aber nicht das Prokrastinationsproblem."
+  },
+  "M04_K03": {
+    "score": 0.9,
+    "begruendung": "Sprint-Ziele fördern Fokus und verhindern Task-Streckung."
+  },
+  "M04_K04": {
+    "score": 0.6,
+    "begruendung": "Nutzerfeedback kann helfen, aber nicht direkt gegen Prokrastination wirken."
+  },
+  "M04_K05": {
+    "score": 0.9,
+    "begruendung": "Das Burn-Down-Chart fördert Transparenz und Verantwortlichkeit."
+  },
+  "M04_K06": {
+    "score": 0.9,
+    "begruendung": "Testbarer Code fördert effizientes Arbeiten und verhindert Aufschub."
+  },
+  "M04_K07": {
+    "score": 0.9,
+    "begruendung": "Die Wissenskarte fördert das Aufteilen von Tasks, was Nils' Trick entgegentritt."
+  },
+  "M04_K08": {
+    "score": 0.7,
+    "begruendung": "Die Schätzung hilft, aber das Monster erfordert tiefere Lösungen."
+  },
+  "M04_K09": {
+    "score": 0.7,
+    "begruendung": "Die Wissenskarte bietet einen Ansatz, um Aufgaben zielgerichtet zu bearbeiten."
+  },
+  "M04_K10": {
+    "score": 0.7,
+    "begruendung": "Die Wissenskarte fördert Flexibilität, aber nicht spezifisch gegen Nils' Trick."
+  },
+  "M04_K11": {
+    "score": 0.9,
+    "begruendung": "Schnelles Feedback hilft, unnötige Tasks frühzeitig zu erkennen."
+  },
+  "M04_K12": {
+    "score": 0.9,
+    "begruendung": "Klare Kriterien helfen, das Strecken von Tasks zu verhindern."
+  },
+  "M04_K13": {
+    "score": 0.7,
+    "begruendung": "Commitment fördert Fokus, könnte aber Nils' Trick nicht stoppen."
+  },
+  "M04_K14": {
+    "score": 0.9,
+    "begruendung": "Die Karte fördert realistische Planung und vermeidet Überlastung."
+  },
+  "M04_K15": {
+    "score": 0.7,
+    "begruendung": "Datenorientierung kann helfen, Fortschritt objektiv zu messen."
+  },
+  "M04_K16": {
+    "score": 0.6,
+    "begruendung": "Selbstführung kann helfen, aber nicht direkt gegen Prokrastination."
+  },
+  "M04_K17": {
+    "score": 0.7,
+    "begruendung": "Risiken identifizieren hilft, aber nicht gegen ständige Task-Erfindung."
+  },
+  "M04_K18": {
+    "score": 0.7,
+    "begruendung": "Die Wissenskarte fördert Effizienz, könnte aber spezifische Lösungen fehlen."
+  },
+  "M05_K01": {
+    "score": 0.7,
+    "begruendung": "Klare Kriterien fördern Verantwortung, helfen aber nicht bei Adis Silo."
+  },
+  "M05_K02": {
+    "score": 0.9,
+    "begruendung": "T-förmige Teams fördern Zusammenarbeit und brechen Silos auf."
+  },
+  "M05_K03": {
+    "score": 0.7,
+    "begruendung": "Zielorientierung fördert Zusammenarbeit, könnte Adi jedoch nicht überzeugen."
+  },
+  "M05_K04": {
+    "score": 0.9,
+    "begruendung": "Die Karte fördert Nutzerfeedback und bricht Abteilungsgrenzen."
+  },
+  "M05_K05": {
+    "score": 0.4,
+    "begruendung": "Die Wissenskarte fördert Transparenz, löst aber nicht Adis Silo-Denken."
+  },
+  "M05_K06": {
+    "score": 0.6,
+    "begruendung": "Automatisierte Tests fördern Zusammenarbeit, aber nicht direkt Adis Silo."
+  },
+  "M05_K07": {
+    "score": 0.6,
+    "begruendung": "Die Wissenskarte fördert Kommunikation, aber nicht die Zusammenarbeit."
+  },
+  "M05_K08": {
+    "score": 0.3,
+    "begruendung": "Die Wissenskarte behandelt Schätzungen, nicht Zuständigkeitskonflikte."
+  },
+  "M05_K09": {
+    "score": 0.6,
+    "begruendung": "Die Wissenskarte fördert Zielorientierung, aber nicht Teamarbeit."
+  },
+  "M05_K10": {
+    "score": 0.7,
+    "begruendung": "Die Wissenskarte fördert Flexibilität, was Adis Starrheit entgegenwirkt."
+  },
+  "M05_K11": {
+    "score": 0.7,
+    "begruendung": "Schnelles Feedback kann Adis Silo aufbrechen, aber nicht vollständig."
+  },
+  "M05_K12": {
+    "score": 0.7,
+    "begruendung": "Klare Kriterien fördern Zusammenarbeit, aber nicht direkt gegen Adis Silo."
+  },
+  "M05_K13": {
+    "score": 0.6,
+    "begruendung": "Werte fördern Zusammenarbeit, aber nicht direkt Adis Silo-Denken."
+  },
+  "M05_K14": {
+    "score": 0.4,
+    "begruendung": "Die Karte thematisiert Überlastung, nicht Adis Silo-Mentalität."
+  },
+  "M05_K15": {
+    "score": 0.7,
+    "begruendung": "Datenorientierung fördert Zusammenarbeit, könnte Adi jedoch nicht überzeugen."
+  },
+  "M05_K16": {
+    "score": 0.7,
+    "begruendung": "Selbstführung fördert Eigenverantwortung, könnte Adi jedoch nicht direkt ansprechen."
+  },
+  "M05_K17": {
+    "score": 0.7,
+    "begruendung": "Die Karte fördert proaktives Risikomanagement, aber nicht Teamarbeit."
+  },
+  "M05_K18": {
+    "score": 0.7,
+    "begruendung": "Dokumentation fördert Zusammenarbeit, könnte Adi's Silo aufbrechen."
+  },
+  "M06_K01": {
+    "score": 0.7,
+    "begruendung": "Klare Kriterien helfen, Überstunden und Burnout zu vermeiden."
+  },
+  "M06_K02": {
+    "score": 0.7,
+    "begruendung": "Die Wissenskarte fördert Teamvielfalt, aber nicht direkt Burnout-Prävention."
+  },
+  "M06_K03": {
+    "score": 0.7,
+    "begruendung": "Zielorientierung kann Überstunden reduzieren, aber nicht direkt verhindern."
+  },
+  "M06_K04": {
+    "score": 0.3,
+    "begruendung": "Nutzerfeedback hilft, aber nicht direkt gegen Burnout-Kultur."
+  },
+  "M06_K05": {
+    "score": 0.7,
+    "begruendung": "Visualisierung fördert Transparenz, könnte aber Überstunden nicht verhindern."
+  },
+  "M06_K06": {
+    "score": 0.4,
+    "begruendung": "Testbarer Code fördert Qualität, aber nicht direkt Teamkultur."
+  },
+  "M06_K07": {
+    "score": 0.6,
+    "begruendung": "Die Wissenskarte fördert bessere Planung, aber nicht direkt gegen Burnout."
+  },
+  "M06_K08": {
+    "score": 0.7,
+    "begruendung": "Relatives Schätzen fördert realistische Planung und Teamwohl."
+  },
+  "M06_K09": {
+    "score": 0.7,
+    "begruendung": "Spikes fördern gezielte Forschung, aber nicht die Teamkultur."
+  },
+  "M06_K10": {
+    "score": 0.9,
+    "begruendung": "Die Wissenskarte fördert Flexibilität und Anpassungsfähigkeit."
+  },
+  "M06_K11": {
+    "score": 0.4,
+    "begruendung": "Feedback hilft, aber greift nicht direkt das Burnout-Problem an."
+  },
+  "M06_K12": {
+    "score": 0.3,
+    "begruendung": "Kriterien helfen, aber lösen nicht das Überstunden-Problem."
+  },
+  "M06_K13": {
+    "score": 0.9,
+    "begruendung": "Die Werte fördern ein gesundes Arbeitsumfeld und verhindern Burnout."
+  },
+  "M06_K14": {
+    "score": 0.9,
+    "begruendung": "Die Karte bietet klare Strategien gegen Überlastung und Burnout."
+  },
+  "M06_K15": {
+    "score": 0.7,
+    "begruendung": "Datenorientierte Entscheidungen können Überstunden reduzieren."
+  },
+  "M06_K16": {
+    "score": 0.9,
+    "begruendung": "Selbstführung fördert Teamverantwortung und reduziert Burnout-Risiken."
+  },
+  "M06_K17": {
+    "score": 0.9,
+    "begruendung": "Risiken frühzeitig zu identifizieren, bekämpft Überstunden und Burnout."
+  },
+  "M06_K18": {
+    "score": 0.6,
+    "begruendung": "Die Wissenskarte fördert Effizienz, könnte aber Burnout nicht direkt verhindern."
+  },
+  "M07_K01": {
+    "score": 0.9,
+    "begruendung": "Klare Kriterien helfen, technische Schulden zu vermeiden."
+  },
+  "M07_K02": {
+    "score": 0.7,
+    "begruendung": "Teamstruktur fördert Qualität, aber greift nicht direkt das Monster an."
+  },
+  "M07_K03": {
+    "score": 0.7,
+    "begruendung": "Sprint-Ziel fördert Fokus, könnte aber TechDebt nicht direkt verhindern."
+  },
+  "M07_K04": {
+    "score": 0.7,
+    "begruendung": "Nutzerfeedback kann technische Schulden reduzieren, aber nicht eliminieren."
+  },
+  "M07_K05": {
+    "score": 0.7,
+    "begruendung": "Visualisierung fördert Fortschritt, könnte aber TechDebt ignorieren."
+  },
+  "M07_K06": {
+    "score": 0.9,
+    "begruendung": "Testbarer Code bekämpft technische Schulden effektiv."
+  },
+  "M07_K07": {
+    "score": 0.6,
+    "begruendung": "Teilen von Stories fördert Klarheit, aber nicht direkt TechDebt."
+  },
+  "M07_K08": {
+    "score": 0.6,
+    "begruendung": "Schätzen hilft, aber greift nicht direkt das Monster an."
+  },
+  "M07_K09": {
+    "score": 0.7,
+    "begruendung": "Spikes helfen, aber Definition of Done fehlt als klarer Fokus."
+  },
+  "M07_K10": {
+    "score": 0.7,
+    "begruendung": "Die Analogie fördert Flexibilität, aber nicht die Definition von Done."
+  },
+  "M07_K11": {
+    "score": 0.9,
+    "begruendung": "Schnelles Feedback hilft, technische Schulden frühzeitig zu vermeiden."
+  },
+  "M07_K12": {
+    "score": 0.9,
+    "begruendung": "Klare Kriterien helfen, technische Schulden zu vermeiden."
+  },
+  "M07_K13": {
+    "score": 0.7,
+    "begruendung": "Die Werte fördern Qualität, aber nicht direkt die TechDebt-Bewältigung."
+  },
+  "M07_K14": {
+    "score": 0.7,
+    "begruendung": "Die Karte fördert nachhaltige Praktiken gegen technische Schulden."
+  },
+  "M07_K15": {
+    "score": 0.7,
+    "begruendung": "Datenorientierung hilft, technische Schulden zu vermeiden."
+  },
+  "M07_K16": {
+    "score": 0.6,
+    "begruendung": "Selbstführung fördert Verantwortung, aber nicht direkt die TechDebt-Bewältigung."
+  },
+  "M07_K17": {
+    "score": 0.9,
+    "begruendung": "Frühzeitige Risikoidentifikation bekämpft Tonis Nachlässigkeit."
+  },
+  "M07_K18": {
+    "score": 0.7,
+    "begruendung": "Dokumentation hilft, technische Schulden zu vermeiden, aber nicht direkt."
+  },
+  "M08_K01": {
+    "score": 0.9,
+    "begruendung": "Klare Kriterien helfen, vage Action Items zu vermeiden."
+  },
+  "M08_K02": {
+    "score": 0.6,
+    "begruendung": "Teamstruktur hilft, aber vage Action Items bleiben unadressiert."
+  },
+  "M08_K03": {
+    "score": 0.9,
+    "begruendung": "Zielorientierung hilft, vage Action Items zu konkretisieren."
+  },
+  "M08_K04": {
+    "score": 0.9,
+    "begruendung": "Echte Nutzerfeedbacks helfen, vage Action Items zu konkretisieren."
+  },
+  "M08_K05": {
+    "score": 0.9,
+    "begruendung": "Visualisierung fördert klare Action Items und Verantwortlichkeit."
+  },
+  "M08_K06": {
+    "score": 0.7,
+    "begruendung": "Testbarer Code fördert klare Action Items, aber nicht deren Umsetzung."
+  },
+  "M08_K07": {
+    "score": 0.9,
+    "begruendung": "Die Wissenskarte fördert klare, umsetzbare User Stories."
+  },
+  "M08_K08": {
+    "score": 0.6,
+    "begruendung": "Vage Action Items werden durch relative Schätzungen teilweise adressiert."
+  },
+  "M08_K09": {
+    "score": 0.9,
+    "begruendung": "Klare Ziele und Zeitlimits bekämpfen vage Action Items effektiv."
+  },
+  "M08_K10": {
+    "score": 0.9,
+    "begruendung": "Die Analogie fördert flexible Planung und konkrete Umsetzung."
+  },
+  "M08_K11": {
+    "score": 0.9,
+    "begruendung": "Schnelles Feedback verhindert vage Action Items effektiv."
+  },
+  "M08_K12": {
+    "score": 0.9,
+    "begruendung": "Klare Kriterien verhindern vage Action Items effektiv."
+  },
+  "M08_K13": {
+    "score": 0.7,
+    "begruendung": "Die Werte fördern Engagement, aber vage Action Items bleiben unklar."
+  },
+  "M08_K14": {
+    "score": 0.7,
+    "begruendung": "Die Karte fördert realistische Planung, aber nicht spezifische Action Items."
+  },
+  "M08_K15": {
+    "score": 0.7,
+    "begruendung": "Datenorientierung fördert konkrete Entscheidungen, aber nicht Umsetzung."
+  },
+  "M08_K16": {
+    "score": 0.6,
+    "begruendung": "Die Karte fördert Eigenverantwortung, aber nicht konkrete Action Items."
+  },
+  "M08_K17": {
+    "score": 0.9,
+    "begruendung": "Risiken frühzeitig zu identifizieren, verhindert vage Action Items."
+  },
+  "M08_K18": {
+    "score": 0.9,
+    "begruendung": "Die Wissenskarte fördert klare Dokumentation und Umsetzung."
+  },
+  "M09_K01": {
+    "score": 0.9,
+    "begruendung": "Klare Kriterien helfen, Nebel-Nina's Verwirrung zu vermeiden."
+  },
+  "M09_K02": {
+    "score": 0.7,
+    "begruendung": "T-förmige Teams fördern Transparenz und reduzieren Verwirrung."
+  },
+  "M09_K03": {
+    "score": 0.7,
+    "begruendung": "Sprint-Ziele fördern Transparenz und reduzieren Verwirrung."
+  },
+  "M09_K04": {
+    "score": 0.7,
+    "begruendung": "Nutzerfeedback kann Nebel-Nina's Unklarheiten reduzieren."
+  },
+  "M09_K05": {
+    "score": 0.9,
+    "begruendung": "Das Burn-Down-Chart fördert Transparenz und Fortschrittskontrolle."
+  },
+  "M09_K06": {
+    "score": 0.7,
+    "begruendung": "Testbarer Code fördert Transparenz, hilft aber nicht direkt gegen Nebel."
+  },
+  "M09_K07": {
+    "score": 0.7,
+    "begruendung": "Die Wissenskarte fördert Klarheit, aber nicht direkt gegen Nebel-Nina."
+  },
+  "M09_K08": {
+    "score": 0.6,
+    "begruendung": "Die Wissenskarte fördert Klarheit, aber nicht direkt gegen Nebel-Nina."
+  },
+  "M09_K09": {
+    "score": 0.7,
+    "begruendung": "Spikes fördern Klarheit, aber nicht direkt gegen Nebel-Nina."
+  },
+  "M09_K10": {
+    "score": 0.7,
+    "begruendung": "Die Analogie hilft, Flexibilität zu fördern, bleibt aber vage."
+  },
+  "M09_K11": {
+    "score": 0.9,
+    "begruendung": "Schnelles Feedback fördert Transparenz und reduziert Unsicherheit."
+  },
+  "M09_K12": {
+    "score": 0.9,
+    "begruendung": "Klare Kriterien helfen, Nebel-Nina's Unklarheiten zu vermeiden."
+  },
+  "M09_K13": {
+    "score": 0.7,
+    "begruendung": "Die Werte fördern Transparenz, aber nicht direkt gegen Nebel-Nina."
+  },
+  "M09_K14": {
+    "score": 0.75,
+    "begruendung": "Die Karte fördert Transparenz, was Nebel-Nina entgegenwirkt."
+  },
+  "M09_K15": {
+    "score": 0.7,
+    "begruendung": "Datenorientierung hilft, Nebel-Nina's Unsicherheiten zu klären."
+  },
+  "M09_K16": {
+    "score": 0.7,
+    "begruendung": "Selbstführung fördert Transparenz, könnte Nebel-Nina schwächen."
+  },
+  "M09_K17": {
+    "score": 0.9,
+    "begruendung": "Frühzeitige Risikoidentifikation schwächt Nebel-Ninas Einfluss."
+  },
+  "M09_K18": {
+    "score": 0.9,
+    "begruendung": "Dokumentation fördert Transparenz und bekämpft Nebel-Ninas Taktiken."
+  },
+  "M10_K01": {
+    "score": 0.75,
+    "begruendung": "Klare Kriterien helfen, Überstunden zu vermeiden und Balance zu fördern."
+  },
+  "M10_K02": {
+    "score": 0.4,
+    "begruendung": "Die Wissenskarte fördert Teamarbeit, aber nicht direkt Work-Life-Balance."
+  },
+  "M10_K03": {
+    "score": 0.6,
+    "begruendung": "Zielorientierung kann Überstunden reduzieren, aber nicht direkt verhindern."
+  },
+  "M10_K04": {
+    "score": 0.3,
+    "begruendung": "Die Wissenskarte behandelt Nutzerfeedback, nicht Work-Life-Balance."
+  },
+  "M10_K05": {
+    "score": 0.7,
+    "begruendung": "Visualisierung fördert Transparenz, könnte aber nicht ausreichen."
+  },
+  "M10_K06": {
+    "score": 0.4,
+    "begruendung": "Automatisierte Tests fördern Effizienz, aber nicht direkt Work-Life-Balance."
+  },
+  "M10_K07": {
+    "score": 0.4,
+    "begruendung": "Die Wissenskarte thematisiert nicht direkt Work-Life-Balance."
+  },
+  "M10_K08": {
+    "score": 0.4,
+    "begruendung": "Die Wissenskarte bietet keine direkte Lösung für Work-Life-Balance."
+  },
+  "M10_K09": {
+    "score": 0.7,
+    "begruendung": "Zielorientierung hilft, Überstunden zu vermeiden, aber nicht direkt."
+  },
+  "M10_K10": {
+    "score": 0.7,
+    "begruendung": "Die Analogie hilft, Flexibilität zu fördern, aber nicht direkt gegen Überstunden."
+  },
+  "M10_K11": {
+    "score": 0.6,
+    "begruendung": "Feedback fördert Effizienz, könnte aber Überstunden nicht verhindern."
+  },
+  "M10_K12": {
+    "score": 0.3,
+    "begruendung": "Kriterien helfen, aber nicht direkt gegen Überstunden und Balance."
+  },
+  "M10_K13": {
+    "score": 0.75,
+    "begruendung": "Die Werte fördern Balance, aber direkte Strategien fehlen."
+  },
+  "M10_K14": {
+    "score": 0.9,
+    "begruendung": "Die Karte betont nachhaltige Arbeitsweise gegen Überlastung."
+  },
+  "M10_K15": {
+    "score": 0.4,
+    "begruendung": "Datenorientierung hilft, aber nicht direkt gegen Überstunden."
+  },
+  "M10_K16": {
+    "score": 0.7,
+    "begruendung": "Selbstführung fördert Balance, könnte aber konkretere Strategien bieten."
+  },
+  "M10_K17": {
+    "score": 0.9,
+    "begruendung": "Die Wissenskarte fördert proaktives Risikomanagement gegen Crunch-Karl."
+  },
+  "M10_K18": {
+    "score": 0.6,
+    "begruendung": "Dokumentation hilft, aber greift nicht direkt die Überstunden an."
+  },
+  "M11_K01": {
+    "score": 0.9,
+    "begruendung": "Klare Kriterien helfen, Diskussionen zu fokussieren und Ergebnisse zu sichern."
+  },
+  "M11_K02": {
+    "score": 0.7,
+    "begruendung": "Die Wissenskarte fördert effiziente Diskussionen und Entscheidungsfindung."
+  },
+  "M11_K03": {
+    "score": 0.9,
+    "begruendung": "Sprint-Ziel fördert klare Diskussion und vermeidet endloses Zerreden."
+  },
+  "M11_K04": {
+    "score": 0.7,
+    "begruendung": "Nutzerfeedback kann Diskussionen fokussieren und Ergebnisse liefern."
+  },
+  "M11_K05": {
+    "score": 0.9,
+    "begruendung": "Visualisierung fördert klare Kommunikation und Handlungsorientierung."
+  },
+  "M11_K06": {
+    "score": 0.3,
+    "begruendung": "Der Fokus auf Tests hilft nicht gegen endlose Diskussionen."
+  },
+  "M11_K07": {
+    "score": 0.7,
+    "begruendung": "Die Wissenskarte fördert klare Kommunikation, aber nicht direkte Action."
+  },
+  "M11_K08": {
+    "score": 0.6,
+    "begruendung": "Die Wissenskarte fördert Struktur, aber nicht direkte Handlungsaufforderungen."
+  },
+  "M11_K09": {
+    "score": 0.9,
+    "begruendung": "Klare Ziele und Zeitlimits helfen, Berta's Zerreden zu vermeiden."
+  },
+  "M11_K10": {
+    "score": 0.9,
+    "begruendung": "Die Wissenskarte fördert flexibles Handeln gegen Bertas Zerrederei."
+  },
+  "M11_K11": {
+    "score": 0.7,
+    "begruendung": "Schnelles Feedback hilft, Diskussionen zu fokussieren und zu vermeiden."
+  },
+  "M11_K12": {
+    "score": 0.9,
+    "begruendung": "Klare Kriterien helfen, Diskussionen zu fokussieren und Ergebnisse zu sichern."
+  },
+  "M11_K13": {
+    "score": 0.7,
+    "begruendung": "Die Werte fördern Fokus, aber konkrete Maßnahmen fehlen."
+  },
+  "M11_K14": {
+    "score": 0.6,
+    "begruendung": "Die Karte fördert effizientes Arbeiten, aber nicht direkte Maßnahmen gegen Berta."
+  },
+  "M11_K15": {
+    "score": 0.9,
+    "begruendung": "Datenorientierte Entscheidungen verhindern endlose Diskussionen."
+  },
+  "M11_K16": {
+    "score": 0.6,
+    "begruendung": "Die Wissenskarte fördert Selbstorganisation, aber nicht gegen Zerreden."
+  },
+  "M11_K17": {
+    "score": 0.9,
+    "begruendung": "Die Karte fördert proaktives Handeln gegen Bertas Taktik."
+  },
+  "M11_K18": {
+    "score": 0.9,
+    "begruendung": "Dokumentation fördert klare Action Items und verhindert Zerreden."
+  },
+  "M12_K01": {
+    "score": 0.9,
+    "begruendung": "Klare Kriterien helfen, das Backlog zu reduzieren und Fokus zu schaffen."
+  },
+  "M12_K02": {
+    "score": 0.7,
+    "begruendung": "Die Wissenskarte fördert Teamvielfalt, aber nicht spezifisch Priorisierung."
+  },
+  "M12_K03": {
+    "score": 0.9,
+    "begruendung": "Sprint-Ziele helfen, den Fokus und Relevanz zu steigern."
+  },
+  "M12_K04": {
+    "score": 0.7,
+    "begruendung": "Nutzerfeedback hilft, relevante Stories zu identifizieren."
+  },
+  "M12_K05": {
+    "score": 0.9,
+    "begruendung": "Visualisierung fördert Fokus und Priorisierung im Backlog."
+  },
+  "M12_K06": {
+    "score": 0.7,
+    "begruendung": "Testbarer Code hilft, relevante Stories schneller zu identifizieren."
+  },
+  "M12_K07": {
+    "score": 0.9,
+    "begruendung": "Die Wissenskarte bietet eine klare Strategie zur Reduzierung von Irrelevanz."
+  },
+  "M12_K08": {
+    "score": 0.7,
+    "begruendung": "Relatives Schätzen hilft, Prioritäten zu setzen und Relevanz zu steigern."
+  },
+  "M12_K09": {
+    "score": 0.7,
+    "begruendung": "Die Wissenskarte bietet einen Ansatz, um Zielgerichtetheit zu fördern."
+  },
+  "M12_K10": {
+    "score": 0.9,
+    "begruendung": "Die Wissenskarte fördert Flexibilität und Anpassungsfähigkeit."
+  },
+  "M12_K11": {
+    "score": 0.9,
+    "begruendung": "Schnelles Feedback hilft, irrelevante Stories frühzeitig zu identifizieren."
+  },
+  "M12_K12": {
+    "score": 0.9,
+    "begruendung": "Klare Kriterien helfen, irrelevante Stories zu vermeiden."
+  },
+  "M12_K13": {
+    "score": 0.7,
+    "begruendung": "Die Werte fördern Fokus, aber nicht direkt Backlog-Management."
+  },
+  "M12_K14": {
+    "score": 0.9,
+    "begruendung": "Die Karte fördert realistische Planung und vermeidet Überlastung."
+  },
+  "M12_K15": {
+    "score": 0.9,
+    "begruendung": "Datenorientierte Entscheidungen helfen, irrelevante Stories zu filtern."
+  },
+  "M12_K16": {
+    "score": 0.7,
+    "begruendung": "Selbstführung kann helfen, Prioritäten im Backlog zu setzen."
+  },
+  "M12_K17": {
+    "score": 0.7,
+    "begruendung": "Risiken identifizieren hilft, aber nicht direkt gegen Überladung."
+  },
+  "M12_K18": {
+    "score": 0.9,
+    "begruendung": "Die Wissenskarte fördert gezielte Dokumentation und Relevanz."
+  },
+  "M13_K01": {
+    "score": 0.9,
+    "begruendung": "Klare Kriterien helfen, Egons unrealistische Erwartungen zu managen."
+  },
+  "M13_K02": {
+    "score": 0.7,
+    "begruendung": "Die Wissenskarte fördert Teamstruktur, löst aber nicht Egons Story-Problem."
+  },
+  "M13_K03": {
+    "score": 0.9,
+    "begruendung": "Sprint-Ziel hilft, Egons unklare Stories zu fokussieren."
+  },
+  "M13_K04": {
+    "score": 0.7,
+    "begruendung": "Nutzerfeedback kann helfen, unrealistische Features zu vermeiden."
+  },
+  "M13_K05": {
+    "score": 0.9,
+    "begruendung": "Das Burn-Down-Chart hilft, Fortschritt frühzeitig zu visualisieren."
+  },
+  "M13_K06": {
+    "score": 0.9,
+    "begruendung": "Testbarer Code hilft, Deadlines durch Qualität zu wahren."
+  },
+  "M13_K07": {
+    "score": 0.9,
+    "begruendung": "Die Wissenskarte bietet klare Anleitungen zur Story-Aufteilung."
+  },
+  "M13_K08": {
+    "score": 0.7,
+    "begruendung": "Die Schätzung hilft, aber Egons Verhalten bleibt unberücksichtigt."
+  },
+  "M13_K09": {
+    "score": 0.9,
+    "begruendung": "Die Wissenskarte bietet klare Strategien gegen unklare Sprint-Ziele."
+  },
+  "M13_K10": {
+    "score": 0.7,
+    "begruendung": "Die Analogie hilft, Flexibilität im Planen zu betonen."
+  },
+  "M13_K11": {
+    "score": 0.9,
+    "begruendung": "Schnelles Feedback hilft, Egons unrealistische Erwartungen zu vermeiden."
+  },
+  "M13_K12": {
+    "score": 0.9,
+    "begruendung": "Klare Kriterien helfen, Egons unklare Anforderungen zu vermeiden."
+  },
+  "M13_K13": {
+    "score": 0.7,
+    "begruendung": "Die Werte fördern Verantwortung, aber nicht spezifisch Egons Verhalten."
+  },
+  "M13_K14": {
+    "score": 0.9,
+    "begruendung": "Die Karte betont realistische Planung und vermeidet Überlastung."
+  },
+  "M13_K15": {
+    "score": 0.7,
+    "begruendung": "Daten helfen, realistische Sprintziele zu setzen und zu prüfen."
+  },
+  "M13_K16": {
+    "score": 0.7,
+    "begruendung": "Selbstführung fördert Verantwortung, hilft aber nicht direkt gegen Egon."
+  },
+  "M13_K17": {
+    "score": 0.9,
+    "begruendung": "Die Wissenskarte fördert proaktives Risikomanagement gegen Egons Probleme."
+  },
+  "M13_K18": {
+    "score": 0.7,
+    "begruendung": "Dokumentation hilft, aber Egons Problem erfordert stärkere Maßnahmen."
+  },
+  "M14_K01": {
+    "score": 0.9,
+    "begruendung": "Klare Kriterien helfen, vage Akzeptanzkriterien zu vermeiden."
+  },
+  "M14_K02": {
+    "score": 0.6,
+    "begruendung": "Breites Wissen kann vage Kriterien besser hinterfragen."
+  },
+  "M14_K03": {
+    "score": 0.9,
+    "begruendung": "Sprint-Ziele fördern klare Akzeptanzkriterien und verhindern Vage."
+  },
+  "M14_K04": {
+    "score": 0.9,
+    "begruendung": "Die Karte fordert Nutzerfeedback und kontert vage Kriterien effektiv."
+  },
+  "M14_K05": {
+    "score": 0.9,
+    "begruendung": "Visualisierung fördert klare Akzeptanzkriterien und Fortschrittskontrolle."
+  },
+  "M14_K06": {
+    "score": 0.7,
+    "begruendung": "Testbarer Code fördert klare Kriterien, aber nicht deren Präzision."
+  },
+  "M14_K07": {
+    "score": 0.7,
+    "begruendung": "Die Karte fördert präzise User Stories, aber nicht spezifische Kriterien."
+  },
+  "M14_K08": {
+    "score": 0.7,
+    "begruendung": "Die Schätzung relativiert Kriterien, bleibt aber vage in der Anwendung."
+  },
+  "M14_K09": {
+    "score": 0.9,
+    "begruendung": "Klare Ziele und Zeitlimits helfen, vage Kriterien zu vermeiden."
+  },
+  "M14_K10": {
+    "score": 0.7,
+    "begruendung": "Die Analogie hilft, Flexibilität zu betonen, aber bleibt vage."
+  },
+  "M14_K11": {
+    "score": 0.9,
+    "begruendung": "Schnelles Feedback hilft, vage Kriterien frühzeitig zu klären."
+  },
+  "M14_K12": {
+    "score": 1.0,
+    "begruendung": "Klare Kriterien verhindern vage Akzeptanz und stärken die Argumentation."
+  },
+  "M14_K13": {
+    "score": 0.6,
+    "begruendung": "Werte fördern Klarheit, aber vage Kriterien bleiben unaddressiert."
+  },
+  "M14_K14": {
+    "score": 0.6,
+    "begruendung": "Die Karte fördert realistische Planung, greift aber nicht direkt Karla an."
+  },
+  "M14_K15": {
+    "score": 0.9,
+    "begruendung": "Datenbasiertes Entscheiden kontert vage Kriterien effektiv."
+  },
+  "M14_K16": {
+    "score": 0.6,
+    "begruendung": "Selbstorganisation fördert Klarheit, aber nicht spezifische Kriterien."
+  },
+  "M14_K17": {
+    "score": 0.9,
+    "begruendung": "Risiken identifizieren hilft, vage Kriterien zu vermeiden."
+  },
+  "M14_K18": {
+    "score": 0.6,
+    "begruendung": "Dokumentation hilft, aber vage Kriterien bleiben unaddressiert."
+  },
+  "M15_K01": {
+    "score": 0.9,
+    "begruendung": "Klare Kriterien helfen, Missverständnisse und Zeitverschwendung zu vermeiden."
+  },
+  "M15_K02": {
+    "score": 0.7,
+    "begruendung": "Teamstruktur kann Unsicherheiten im Zeitmanagement verringern."
+  },
+  "M15_K03": {
+    "score": 0.7,
+    "begruendung": "Sprint-Ziel fördert Klarheit, hilft aber nicht gegen Zeitfokus."
+  },
+  "M15_K04": {
+    "score": 0.7,
+    "begruendung": "Nutzerfeedback hilft, Missverständnisse bei Stundenabschätzungen zu vermeiden."
+  },
+  "M15_K05": {
+    "score": 0.9,
+    "begruendung": "Visualisierung fördert klare Zielverfolgung gegen Horsts Schätzungen."
+  },
+  "M15_K06": {
+    "score": 0.7,
+    "begruendung": "Automatisierte Tests helfen, Unsicherheiten in Schätzungen zu reduzieren."
+  },
+  "M15_K07": {
+    "score": 0.7,
+    "begruendung": "Die Karte fördert das Aufteilen, aber nicht die Zeitschätzung."
+  },
+  "M15_K08": {
+    "score": 0.9,
+    "begruendung": "Die Wissenskarte bietet eine klare, relative Schätzmethode."
+  },
+  "M15_K09": {
+    "score": 0.7,
+    "begruendung": "Die Wissenskarte fördert Zielorientierung, aber nicht konkrete Lösungen."
+  },
+  "M15_K10": {
+    "score": 0.9,
+    "begruendung": "Die Wissenskarte fördert Flexibilität und Anpassungsfähigkeit."
+  },
+  "M15_K11": {
+    "score": 0.9,
+    "begruendung": "Schnelles Feedback hilft, Missverständnisse frühzeitig zu klären."
+  },
+  "M15_K12": {
+    "score": 0.7,
+    "begruendung": "Klare Kriterien helfen, Missverständnisse und Zeitverschwendung zu vermeiden."
+  },
+  "M15_K13": {
+    "score": 0.7,
+    "begruendung": "Die Werte fördern Teamarbeit, aber nicht direkt die Zeitabschätzung."
+  },
+  "M15_K14": {
+    "score": 0.7,
+    "begruendung": "Die Karte fördert realistische Planung, was Horsts Ansatz entgegenwirkt."
+  },
+  "M15_K15": {
+    "score": 0.9,
+    "begruendung": "Datenbasiertes Entscheiden kontert Horsts subjektive Schätzungen."
+  },
+  "M15_K16": {
+    "score": 0.7,
+    "begruendung": "Selbstorganisation kann Horsts Zeitrechnung entgegenwirken."
+  },
+  "M15_K17": {
+    "score": 0.7,
+    "begruendung": "Risiken frühzeitig zu identifizieren hilft, Horsts Schätzungen zu vermeiden."
+  },
+  "M15_K18": {
+    "score": 0.7,
+    "begruendung": "Die Wissenskarte fördert effiziente Dokumentation, was Horsts Ansatz entgegentritt."
+  },
+  "M16_K01": {
+    "score": 0.6,
+    "begruendung": "Kriterien helfen, aber Anker-Effekte bleiben unberücksichtigt."
+  },
+  "M16_K02": {
+    "score": 0.6,
+    "begruendung": "Breites Wissen kann Annas Einfluss mindern, aber nicht eliminieren."
+  },
+  "M16_K03": {
+    "score": 0.6,
+    "begruendung": "Zielsetzung kann Annas Einfluss reduzieren, aber nicht eliminieren."
+  },
+  "M16_K04": {
+    "score": 0.7,
+    "begruendung": "Die Karte fördert Nutzerfeedback, was Annas Einfluss mindern kann."
+  },
+  "M16_K05": {
+    "score": 0.7,
+    "begruendung": "Visualisierung fördert kritisches Denken, aber nicht direkt Annas Einfluss."
+  },
+  "M16_K06": {
+    "score": 0.3,
+    "begruendung": "Wissenskarte behandelt Tests, nicht Annas Schätzverhalten."
+  },
+  "M16_K07": {
+    "score": 0.6,
+    "begruendung": "Teilen in Häppchen hilft, aber nicht direkt gegen Ankersetzung."
+  },
+  "M16_K08": {
+    "score": 0.7,
+    "begruendung": "Relatives Schätzen hilft, aber Anna könnte trotzdem beeinflusst werden."
+  },
+  "M16_K09": {
+    "score": 0.4,
+    "begruendung": "Die Wissenskarte fördert Forschung, löst aber nicht Annas Einflussproblem."
+  },
+  "M16_K10": {
+    "score": 0.7,
+    "begruendung": "Die Wissenskarte fördert Flexibilität, könnte aber konkretere Strategien bieten."
+  },
+  "M16_K11": {
+    "score": 0.7,
+    "begruendung": "Feedback hilft, Annas Einfluss von Schätzungen zu reduzieren."
+  },
+  "M16_K12": {
+    "score": 0.7,
+    "begruendung": "Klare Kriterien helfen, subjektive Einflüsse zu minimieren."
+  },
+  "M16_K13": {
+    "score": 0.6,
+    "begruendung": "Die Werte fördern Teamarbeit, aber nicht direkt gegen Anker-Effekte."
+  },
+  "M16_K14": {
+    "score": 0.7,
+    "begruendung": "Die Karte fördert realistische Planung, aber nicht direkt gegen Anna."
+  },
+  "M16_K15": {
+    "score": 0.9,
+    "begruendung": "Datenorientierte Entscheidungen helfen, Anker-Effekte zu vermeiden."
+  },
+  "M16_K16": {
+    "score": 0.4,
+    "begruendung": "Die Karte fördert Selbstorganisation, aber nicht Schätzgenauigkeit."
+  },
+  "M16_K17": {
+    "score": 0.6,
+    "begruendung": "Risiken erkennen hilft, aber beeinflusst Annas Schätzverhalten nicht direkt."
+  },
+  "M16_K18": {
+    "score": 0.3,
+    "begruendung": "Die Wissenskarte behandelt Dokumentation, nicht Schätzverzerrung."
+  },
+  "M17_K01": {
+    "score": 0.7,
+    "begruendung": "Kriterien für 'fertig' helfen, aber nicht direkt gegen Velocity-Viktor."
+  },
+  "M17_K02": {
+    "score": 0.6,
+    "begruendung": "Die Wissenskarte fördert Teamvielfalt, aber nicht spezifisch gegen Viktor."
+  },
+  "M17_K03": {
+    "score": 0.7,
+    "begruendung": "Zielorientierung hilft, aber Viktor bleibt auf Zahlen fixiert."
+  },
+  "M17_K04": {
+    "score": 0.7,
+    "begruendung": "Nutzerfeedback hilft, Missverständnisse bei Story Points zu vermeiden."
+  },
+  "M17_K05": {
+    "score": 0.9,
+    "begruendung": "Visualisierung fördert Transparenz und realistische Planung."
+  },
+  "M17_K06": {
+    "score": 0.6,
+    "begruendung": "Testbarer Code hilft, aber greift nicht direkt Viktors Metriken an."
+  },
+  "M17_K07": {
+    "score": 0.7,
+    "begruendung": "Die Karte fördert das Teilen, aber nicht die Messung von Velocity."
+  },
+  "M17_K08": {
+    "score": 0.9,
+    "begruendung": "Die Wissenskarte bietet eine klare Alternative zu Viktor's Ansatz."
+  },
+  "M17_K09": {
+    "score": 0.7,
+    "begruendung": "Die Wissenskarte fördert gezielte Forschung, könnte aber konkreter auf Viktor eingehen."
+  },
+  "M17_K10": {
+    "score": 0.7,
+    "begruendung": "Die Analogie hilft, Flexibilität zu betonen, aber nicht konkret gegen Viktor."
+  },
+  "M17_K11": {
+    "score": 0.7,
+    "begruendung": "Schnelles Feedback hilft, aber Viktor ignoriert Nutzerbedürfnisse."
+  },
+  "M17_K12": {
+    "score": 0.7,
+    "begruendung": "Klare Kriterien helfen, Missverständnisse bei Story Points zu vermeiden."
+  },
+  "M17_K13": {
+    "score": 0.7,
+    "begruendung": "Die Werte fördern gesunde Arbeitsweise, aber nicht spezifisch gegen Viktor."
+  },
+  "M17_K14": {
+    "score": 0.9,
+    "begruendung": "Die Karte fördert nachhaltige Planung gegen übertriebene Velocity."
+  },
+  "M17_K15": {
+    "score": 0.7,
+    "begruendung": "Datenorientierung hilft, subjektive Messungen zu hinterfragen."
+  },
+  "M17_K16": {
+    "score": 0.7,
+    "begruendung": "Selbstführung fördert Eigenverantwortung, könnte Viktor's Ansatz herausfordern."
+  },
+  "M17_K17": {
+    "score": 0.7,
+    "begruendung": "Risiken identifizieren hilft, aber nicht direkt gegen Viktor's Methode."
+  },
+  "M17_K18": {
+    "score": 0.7,
+    "begruendung": "Die Karte fördert effiziente Dokumentation, was Viktors Messwahn entgegenwirkt."
+  },
+  "M18_K01": {
+    "score": 0.75,
+    "begruendung": "Klare Kriterien helfen, das Ziel nicht aus den Augen zu verlieren."
+  },
+  "M18_K02": {
+    "score": 0.7,
+    "begruendung": "Die Wissenskarte fördert Teamvielfalt, was Zorros Tunnelblick entgegenwirkt."
+  },
+  "M18_K03": {
+    "score": 0.9,
+    "begruendung": "Zielt auf sinnvolle Sprint-Ziele statt nur Tasks ab."
+  },
+  "M18_K04": {
+    "score": 0.9,
+    "begruendung": "Die Karte fördert Nutzerfeedback und verhindert Tunnelblick."
+  },
+  "M18_K05": {
+    "score": 0.9,
+    "begruendung": "Visualisierung fördert Fokus auf Fortschritt und Planung."
+  },
+  "M18_K06": {
+    "score": 0.7,
+    "begruendung": "Tests fördern Qualität, helfen aber nicht gegen Ignoranz von Zielen."
+  },
+  "M18_K07": {
+    "score": 0.7,
+    "begruendung": "Die Wissenskarte fördert das Verständnis für Nutzerbedürfnisse."
+  },
+  "M18_K08": {
+    "score": 0.6,
+    "begruendung": "Die Wissenskarte fördert relativen Fokus, aber nicht ganzheitliches Denken."
+  },
+  "M18_K09": {
+    "score": 0.7,
+    "begruendung": "Die Karte fördert Zielorientierung, aber nicht umfassend genug."
+  },
+  "M18_K10": {
+    "score": 0.9,
+    "begruendung": "Die Wissenskarte fördert Flexibilität und Anpassungsfähigkeit."
+  },
+  "M18_K11": {
+    "score": 0.9,
+    "begruendung": "Schnelles Feedback hilft, das Ziel-Zorro-Denken zu vermeiden."
+  },
+  "M18_K12": {
+    "score": 0.9,
+    "begruendung": "Klare Kriterien helfen, das Ziel fokussiert zu erreichen."
+  },
+  "M18_K13": {
+    "score": 0.7,
+    "begruendung": "Die Werte fördern Balance, aber Zorro ignoriert sie oft."
+  },
+  "M18_K14": {
+    "score": 0.9,
+    "begruendung": "Die Karte betont nachhaltige Planung gegen Überlastung."
+  },
+  "M18_K15": {
+    "score": 0.9,
+    "begruendung": "Datenorientierte Entscheidungen helfen, Zorros Tunnelblick zu vermeiden."
+  },
+  "M18_K16": {
+    "score": 0.7,
+    "begruendung": "Die Karte fördert Selbstorganisation, könnte aber Zielverfehlung begünstigen."
+  },
+  "M18_K17": {
+    "score": 0.9,
+    "begruendung": "Die Wissenskarte fördert proaktives Risikomanagement gegen Ziel-Zorro."
+  },
+  "M18_K18": {
+    "score": 0.7,
+    "begruendung": "Die Wissenskarte fördert gezielte Dokumentation, was Zorros Fokus einschränkt."
+  }
+}

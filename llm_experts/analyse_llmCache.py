@@ -7,9 +7,9 @@ import os
 # ==========================================
 # EINSTELLUNGEN (Hier zentral anpassen)
 # ==========================================
-DATEIPFAD = '../llm_cache.json'
+DATEIPFAD = '../data/scrum_edition/llm_cache.json'
 SCHWELLENWERT = 0.65
-OUTPUT_DIR = '../data/llmCacheAuswertung/'
+OUTPUT_DIR = '../data/scrum_edition/llmCacheAuswertung/'
 # ==========================================
 
 # Erstelle den Ausgabeordner, falls er nicht existiert

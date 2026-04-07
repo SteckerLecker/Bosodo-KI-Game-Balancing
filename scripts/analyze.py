@@ -44,6 +44,13 @@ def run_analysis(
     if llm_threshold > 0.0:
         print(f"LLM-Threshold: {llm_threshold}")
 
+    # LLM-Cache laden
+    llm_cache = load_cache(data_dir=data_dir)
+    if llm_cache:
+        print(f"LLM-Cache geladen: {len(llm_cache)} Einträge")
+    else:
+        print("LLM-Cache nicht gefunden — Inhaltsprüfung wird übersprungen")
+
     # Karten laden
     loader = CardLoader(data_dir=data_dir)
     card_pool = loader.load()
@@ -59,13 +66,6 @@ def run_analysis(
 
     # Modell laden
     model = PPO.load(model_path)
-
-    # LLM-Cache laden (optional — wird für Inhaltsprüfung genutzt)
-    llm_cache = load_cache()
-    if llm_cache:
-        print(f"LLM-Cache geladen: {len(llm_cache)} Einträge")
-    else:
-        print("LLM-Cache nicht gefunden — Inhaltsprüfung wird übersprungen")
 
     # Analyzer erstellen
     analyzer = BalancingAnalyzer(card_pool, llm_cache=llm_cache)

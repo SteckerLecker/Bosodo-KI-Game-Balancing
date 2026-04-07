@@ -7,7 +7,7 @@
 
 # --- Spiel-Parameter ---
 game:
-  data_dir: "data/"                  # Pfad zu den Kartendaten-JSONs
+  data_dir: "data/scrum_edition/"                  # Edition-Verzeichnis (Karten + llm_cache.json), z.B. "data/teen_edition" oder "data/scrum_edition"
   num_players: 4                     # Anzahl Spieler pro Runde (2-6)
   trophies_to_win: 3                 # Trophäen zum Sieg
   llm_threshold: 0.5                 # Min. LLM-Score für Wissenskarte (0.0 = deaktiviert)
@@ -17,7 +17,7 @@ game:
 
 # --- PPO Hyperparameter ---
 training:
-  total_timesteps: 1_000_000        # Gesamte Trainingsschritte
+  total_timesteps: 500_000          # Gesamte Trainingsschritte
   n_envs: 8                         # Parallele Environments (= CPU-Kerne)
   learning_rate: 0.0003             # Lernrate (3e-4)
   batch_size: 256                   # Mini-Batch-Größe

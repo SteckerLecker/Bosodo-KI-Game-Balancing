@@ -1,0 +1,187 @@
+{
+  "kategorie": "Wissens-Karten",
+  "spiel": "Performance Under Pressure",
+  "version": "1.0",
+  "karten": [
+    {
+      "id": "K01",
+      "name": "Done ist fertig",
+      "kurzbeschreibung": "Kein 'fast' erlaubt",
+      "thema": "Definition of Done anwenden",
+      "farben": ["Gelb"],
+      "kampfwerte": ["BO"],
+      "beschreibung": "Definiere klare Kriterien, wann eine Aufgabe wirklich erledigt ist – sonst wird \"fast fertig\" zum Dauerbrenner. Spoiler: \"Getestet\" ≠ \"funktioniert bei Oma\".",
+      "zitat": "\"Done oder nicht done!\""
+    },
+    {
+      "id": "K02",
+      "name": "T-förmig bauen",
+      "kurzbeschreibung": "Breite Basis, tiefe Skills",
+      "thema": "Cross-funktionale Teams bilden",
+      "farben": ["Blau"],
+      "kampfwerte": ["DO"],
+      "beschreibung": "Baue Teams mit breitem Wissen und tiefen Spezialkenntnissen – wie ein T: oben breit (Allrounder), unten tief (Experte). So blockiert niemand den Sprint.",
+      "zitat": "\"Einer für alle – alle fürs Ziel!\""
+    },
+    {
+      "id": "K03",
+      "name": "Sprint-Fokus",
+      "kurzbeschreibung": "Warum machen wir das?",
+      "thema": "Sprint-Ziele klar definieren",
+      "farben": ["Blau", "Gelb"],
+      "kampfwerte": ["DO", "BO"],
+      "beschreibung": "Formuliere ein gemeinsames Sprint-Ziel – nicht nur Tasks. \"Feature X bauen\" ist kein Ziel. \"Nutzer können Y schneller erledigen\" schon.",
+      "zitat": "\"Ohne Ziel kein Fokus!\""
+    },
+    {
+      "id": "K04",
+      "name": "Nutzer first",
+      "kurzbeschreibung": "Ego hat Pause",
+      "thema": "Nutzerzentriertes Arbeiten",
+      "farben": ["Rot", "Blau"],
+      "kampfwerte": ["SO", "DO"],
+      "beschreibung": "Frag echte Nutzer – nicht nur den Kollegen aus der nächsten Abteilung. Ein \"Das ist doch logisch!\"-Feature kann für User komplett unlogisch sein.",
+      "zitat": "\"Der Nutzer hat recht.\""
+    },
+    {
+      "id": "K05",
+      "name": "Burn it down!",
+      "kurzbeschreibung": "Der Chart lügt nie",
+      "thema": "Fortschrittsvisualisierung",
+      "farben": ["Rot", "Gelb"],
+      "kampfwerte": ["SO", "BO"],
+      "beschreibung": "Visualisiere Fortschritt täglich – nicht erst am Sprint-Ende. Ein Burn-Down-Chart zeigt gnadenlos, ob ihr im Plan liegt oder nur hofft.",
+      "zitat": "\"Hoffnung ist kein Plan!\""
+    },
+    {
+      "id": "K06",
+      "name": "Testbarer Code",
+      "kurzbeschreibung": "Kein Test? Kein Done!",
+      "thema": "Testbare Inkremente",
+      "farben": ["Gelb"],
+      "kampfwerte": ["BO"],
+      "beschreibung": "Baue jedes Inkrement so, dass es sofort getestet werden kann – sonst wird's zum technischen Schuldschein. Automatisierte Tests sind dein Freund.",
+      "zitat": "\"Test it or regret it!\""
+    },
+    {
+      "id": "K07",
+      "name": "Stories teilen",
+      "kurzbeschreibung": "Große Stories = Problem",
+      "thema": "Story Splitting Patterns",
+      "farben": ["Rot", "Blau", "Gelb"],
+      "kampfwerte": ["SO", "DO", "BO"],
+      "beschreibung": "Teile User Stories in kleine, wertvolle Häppchen – wie ein Elefant, den man nur stückweise essen kann. \"Als Nutzer möchte ich X\" ist kein Task, sondern ein Roman.",
+      "zitat": "\"Think small, win big!\""
+    },
+    {
+      "id": "K08",
+      "name": "Fibos schätzen",
+      "kurzbeschreibung": "Relativ, nicht absolut",
+      "thema": "Relative Schätzung mit Story Points",
+      "farben": ["Blau", "Gelb"],
+      "kampfwerte": ["DO", "BO"],
+      "beschreibung": "Schätze Stories relativ (1, 2, 3, 5, 8…) – nicht in Stunden. Ein \"3er\" ist halb so groß wie ein \"5er\", aber doppelt so groß wie ein \"2er\". Mathematik!",
+      "zitat": "\"Schätzen braucht System.\""
+    },
+    {
+      "id": "K09",
+      "name": "Spike it!",
+      "kurzbeschreibung": "Unklar? Spike hilft",
+      "thema": "Spikes für Unklarheiten nutzen",
+      "farben": ["Rot", "Gelb"],
+      "kampfwerte": ["SO", "BO"],
+      "beschreibung": "Nutze Spikes für Forschungsaufgaben – aber mit klarem Ziel und Zeitlimit. \"Wir wissen nicht, wie das geht\" ist kein Sprint-Ziel.",
+      "zitat": "\"Spike first, code later!\""
+    },
+    {
+      "id": "K10",
+      "name": "Planen wie DJs",
+      "kurzbeschreibung": "Der Mix macht's",
+      "thema": "Adaptive Planung",
+      "farben": ["Rot"],
+      "kampfwerte": ["SO"],
+      "beschreibung": "Plane rollierend und passe dich an – wie ein DJ, der auf die Stimmung der Crowd reagiert. Ein starrer Plan ist wie Techno bei einer Hochzeit.",
+      "zitat": "\"Agil sein heißt tanzen!\""
+    },
+    {
+      "id": "K11",
+      "name": "Fail fast",
+      "kurzbeschreibung": "Nutzerfeedback zählt",
+      "thema": "Frühes Nutzerfeedback",
+      "farben": ["Rot", "Blau"],
+      "kampfwerte": ["SO", "DO"],
+      "beschreibung": "Hol dir sofort Feedback von echten Nutzern – nicht erst nach 6 Monaten. Ein \"Das hätte ich nicht gedacht!\" ist besser als ein \"Das will keiner\".",
+      "zitat": "\"Feedback ist Gold!\""
+    },
+    {
+      "id": "K12",
+      "name": "Klare Kriterien",
+      "kurzbeschreibung": "Kein Wunschkonzert",
+      "thema": "Akzeptanzkriterien klar definieren",
+      "farben": ["Rot", "Blau", "Gelb"],
+      "kampfwerte": ["SO", "DO", "BO"],
+      "beschreibung": "Definiere klare Akzeptanzkriterien vor dem Sprint – nicht erst beim Review. \"Es soll cool aussehen\" ist kein Kriterium. \"Button muss blau sein\" schon.",
+      "zitat": "\"Kriterien sind Pflicht!\""
+    },
+    {
+      "id": "K13",
+      "name": "Commitment leben",
+      "kurzbeschreibung": "Werte ≠ Marketing",
+      "thema": "Scrum-Werte leben",
+      "farben": ["Blau"],
+      "kampfwerte": ["DO"],
+      "beschreibung": "Lebe die Scrum-Werte (Mut, Fokus, Offenheit, Respekt, Commitment) – nicht nur im Sprint, sondern im Daily. \"Wir schaffen das!\" ist kein Freibrief für Burnout.",
+      "zitat": "\"Werte brauchen Pflege!\""
+    },
+    {
+      "id": "K14",
+      "name": "Sprinten mit Maß",
+      "kurzbeschreibung": "100% ist kein Ziel",
+      "thema": "Nachhaltige Entwicklungsgeschwindigkeit",
+      "farben": ["Rot"],
+      "kampfwerte": ["SO"],
+      "beschreibung": "Plane realistisch – nicht optimistisch. Eine nachhaltige Velocity ist besser als ein Burnout nach 3 Sprints. Überlastung ist kein Zeichen von Engagement.",
+      "zitat": "\"Langsam ist das neue Schnell!\""
+    },
+    {
+      "id": "K15",
+      "name": "Daten first",
+      "kurzbeschreibung": "Fakten > Bauchgefühl",
+      "thema": "Empirische Entscheidungen",
+      "farben": ["Rot", "Blau", "Gelb"],
+      "kampfwerte": ["SO", "DO", "BO"],
+      "beschreibung": "Triff Entscheidungen basierend auf Daten und Erfahrungen – nicht auf Meinungen. \"Das haben wir schon immer so gemacht\" ist kein Argument.",
+      "zitat": "\"Daten lügen nie.\""
+    },
+    {
+      "id": "K16",
+      "name": "Selbst führen",
+      "kurzbeschreibung": "Teams führen sich selbst",
+      "thema": "Selbstorganisierte Teams",
+      "farben": ["Blau"],
+      "kampfwerte": ["DO"],
+      "beschreibung": "Gib Teams die Freiheit, ihre Arbeit selbst zu organisieren – aber auch die Verantwortung. Mikromanagement ist wie ein Korsett: eng und unsexy.",
+      "zitat": "\"Freiheit braucht Regeln.\""
+    },
+    {
+      "id": "K17",
+      "name": "Risiken killen",
+      "kurzbeschreibung": "Kein Sprint ohne Check",
+      "thema": "Frühes Risikomanagement",
+      "farben": ["Rot"],
+      "kampfwerte": ["SO"],
+      "beschreibung": "Identifiziere Risiken vor dem Sprint – nicht erst, wenn's brennt. Ein \"Das wird schon klappen\" ist kein Risikomanagement.",
+      "zitat": "\"Risiken früh erkennen!\""
+    },
+    {
+      "id": "K18",
+      "name": "Docu-Light",
+      "kurzbeschreibung": "So viel wie nötig",
+      "thema": "Minimale sinnvolle Dokumentation",
+      "farben": ["Gelb"],
+      "kampfwerte": ["BO"],
+      "beschreibung": "Dokumentiere nur, was wirklich gebraucht wird – nicht für die Ewigkeit. Ein Wiki, das keiner liest, ist wie ein Tagebuch ohne Leser.",
+      "zitat": "\"Doku ist wie Salz – sparsam!\""
+    }
+  ]
+}

@@ -1,0 +1,205 @@
+{
+  "kategorie": "Monster-Karten",
+  "spiel": "Performance Under Pressure",
+  "version": "1.0",
+  "karten": [
+    {
+      "id": "M01",
+      "name": "Planungs-Peter",
+      "kurzbeschreibung": "Perfektion vor dem Start!",
+      "thema": "Big Design Up Front",
+      "farben": ["Gelb"],
+      "kampfwerte": ["BO"],
+      "beschreibung": "Dieser Schnösel plant jedes Detail vorab – inklusive 800-Seiten-Doku. Sein Motto: \"Warum agil, wenn man auch drei Monate im Meeting verrotten kann?",
+      "zitat": "\"Kapitel 7.3.2, Absatz 4!\"",
+      "gegenmittel": "Planen wie DJs"
+    },
+    {
+      "id": "M02",
+      "name": "Relikt-Rudi",
+      "kurzbeschreibung": "Das war mal relevant!",
+      "thema": "Veraltete Anforderungen",
+      "farben": ["Gelb"],
+      "kampfwerte": ["BO"],
+      "beschreibung": "Rudis User Stories sind so alt wie Windows XP. Er besteht darauf, dass \"das Feature damals wichtig war\" – obwohl die Welt weiter ist.",
+      "zitat": "\"Das steht im Backlog!\"",
+      "gegenmittel": "Fail fast"
+    },
+    {
+      "id": "M03",
+      "name": "Feedback-Fee",
+      "kurzbeschreibung": "Erst nach dem Release!",
+      "thema": "Spätes Feedback",
+      "farben": ["Blau", "Gelb"],
+      "kampfwerte": ["DO", "BO"],
+      "beschreibung": "Die Fee erscheint IMMER zu spät – meistens, wenn das Projekt schon live ist. Ihr Zauberstab? Ein \"Das hätte man früher sagen müssen!\"-Kommentar. Ihr größter Feind: Sprint Reviews.",
+      "zitat": "\"Hättet ihr mal gefragt… flatter\"",
+      "gegenmittel": "Fail fast"
+    },
+    {
+      "id": "M04",
+      "name": "Neunzig-Prozent",
+      "kurzbeschreibung": "Immer fast fertig",
+      "thema": "90%-Syndrom",
+      "farben": ["Rot"],
+      "kampfwerte": ["SO"],
+      "beschreibung": "Nils' Code ist IMMER \"zu 90% fertig\" – die letzten 10% brauchen ein halbes Jahr. Sein Trick: Neue Tasks erfinden, um die Story zu strecken.",
+      "zitat": "\"Nur noch ein Bugfix!\"",
+      "gegenmittel": "Done ist fertig"
+    },
+    {
+      "id": "M05",
+      "name": "Abteilungs-Adi",
+      "kurzbeschreibung": "Nicht mein Problem!",
+      "thema": "Silodenken in Teams",
+      "farben": ["Blau"],
+      "kampfwerte": ["DO"],
+      "beschreibung": "Adis Reich ist sein Silo – wehe, jemand bittet um Hilfe! Sein Accessoire: Ein Schild mit \"Zuständigkeitsbereich verlassen\".",
+      "zitat": "\"Frag die andere Abteilung!\"",
+      "gegenmittel": "T-förmig bauen"
+    },
+    {
+      "id": "M06",
+      "name": "Überstunden-Otto",
+      "kurzbeschreibung": "150% Auslastung!",
+      "thema": "Unrealistische Kapazitätsplanung",
+      "farben": ["Rot"],
+      "kampfwerte": ["SO"],
+      "beschreibung": "Otto plant Sprints, als wären Entwickler Maschinen. Sein Tool: Excel mit roten Zellen. Sein Ziel: Burnout als Team-Kultur.",
+      "zitat": "\"Wer schläft, verliert!\"",
+      "gegenmittel": "Sprinten mit Maß"
+    },
+    {
+      "id": "M07",
+      "name": "TechDebt-Toni",
+      "kurzbeschreibung": "Das fixen wir später!",
+      "thema": "Qualitätsprobleme aufschieben",
+      "farben": ["Gelb"],
+      "kampfwerte": ["BO"],
+      "beschreibung": "Toni sammelt technische Schulden wie andere Leute Briefmarken. Sein Motto: \"Hauptsache, es läuft irgendwie!\" Sein größter Feind: Definition of Done.",
+      "zitat": "\"Das ist doch nur ein kleiner Bug!\"",
+      "gegenmittel": "Testbarer Code"
+    },
+    {
+      "id": "M08",
+      "name": "Retro-Rudi",
+      "kurzbeschreibung": "Nie wieder! (Bis morgen)",
+      "thema": "Lessons Learned ignorieren",
+      "farben": ["Blau", "Gelb"],
+      "kampfwerte": ["DO", "BO"],
+      "beschreibung": "Rudi liebt Retros – aber ignoriert sie. Sein Trick: Action Items so vage, dass sie nie umgesetzt werden.",
+      "zitat": "\"Das war ein Ausrutscher!\"",
+      "gegenmittel": "Commitment leben"
+    },
+    {
+      "id": "M09",
+      "name": "Nebel-Nina",
+      "kurzbeschreibung": "Transparenz? Nie gehört!",
+      "thema": "Keine Fortschrittsichtbarkeit",
+      "farben": ["Blau"],
+      "kampfwerte": ["DO"],
+      "beschreibung": "Nina liebt es, wenn niemand weiß, was eigentlich passiert. Ihr Lieblingstool: Ein undurchdringlicher Jira-Dschungel. Ihr größter Albtraum: Ein funktionierendes Burndown-Chart.",
+      "zitat": "\"Das geht dich nichts an!\"",
+      "gegenmittel": "Burn it down!"
+    },
+    {
+      "id": "M10",
+      "name": "Crunch-Karl",
+      "kurzbeschreibung": "Überstunden sind Pflicht!",
+      "thema": "Crunch-Kultur fördern",
+      "farben": ["Rot"],
+      "kampfwerte": ["SO"],
+      "beschreibung": "Karl liebt Überstunden wie Kaffee. Sein Spruch: \"Das schafft ihr schon!\" Sein Feind: Work-Life-Balance.",
+      "zitat": "\"Schlaf ist für Schwache!\"",
+      "gegenmittel": "Sprinten mit Maß"
+    },
+    {
+      "id": "M11",
+      "name": "BlaBla-Berta",
+      "kurzbeschreibung": "Reden statt handeln!",
+      "thema": "Retrospektive ohne Maßnahmen",
+      "farben": ["Blau"],
+      "kampfwerte": ["DO"],
+      "beschreibung": "Berta diskutiert stundenlang in Retros – aber Action Items? Fehlanzeige! Ihr Trick: Themen zerreden, bis alle vergessen.",
+      "zitat": "\"Tolle Diskussion!\"",
+      "gegenmittel": "Klare Kriterien"
+    },
+    {
+      "id": "M12",
+      "name": "Backlog-Bert",
+      "kurzbeschreibung": "Alles ist wichtig!",
+      "thema": "Überladener Product Backlog",
+      "farben": ["Rot", "Gelb"],
+      "kampfwerte": ["SO", "BO"],
+      "beschreibung": "Berts Backlog ist ein schwarzes Loch – 500 Stories, 90% irrelevant. Sein Motto: \"Lieber zu viel als zu wenig!\"",
+      "zitat": "\"Könnte mal wichtig sein!\"",
+      "gegenmittel": "Stories teilen"
+    },
+    {
+      "id": "M13",
+      "name": "Epik-Egon",
+      "kurzbeschreibung": "Ein Sprint – ein Epos!",
+      "thema": "Zu große User Stories",
+      "farben": ["Rot", "Blau", "Gelb"],
+      "kampfwerte": ["SO", "DO", "BO"],
+      "beschreibung": "Egons Stories sprengen jeden Sprint. Sein Spruch: \"Das passt in einen Sprint!\" (Spoiler: Tut es nie – und bricht Deadlines.)",
+      "zitat": "\"Nur ein Feature! Packen wir's!\"",
+      "gegenmittel": "Stories teilen"
+    },
+    {
+      "id": "M14",
+      "name": "Kriterien-Karla",
+      "kurzbeschreibung": "Selbsterklärend!",
+      "thema": "Fehlende Akzeptanzkriterien",
+      "farben": ["Rot", "Blau", "Gelb"],
+      "kampfwerte": ["SO", "DO", "BO"],
+      "beschreibung": "Karla hält Akzeptanzkriterien so vage, dass sie alles rechtfertigt. Ihr Trick: \"Das sieht man doch!\"",
+      "zitat": "\"Man sieht's doch!\"",
+      "gegenmittel": "Klare Kriterien"
+    },
+    {
+      "id": "M15",
+      "name": "Stunden-Horst",
+      "kurzbeschreibung": "Exakt 17,3 Stunden!",
+      "thema": "Absolute Schätzungen erzwingen",
+      "farben": ["Rot", "Gelb"],
+      "kampfwerte": ["SO", "BO"],
+      "beschreibung": "Horst schätzt jede Story in Stunden – selbst wenn niemand weiß, was zu tun ist. Sein Tool: Taschenrechner mit 12 Nachkommastellen.",
+      "zitat": "\"17,3! Nicht 17,2!\"",
+      "gegenmittel": "Fibos schätzen"
+    },
+    {
+      "id": "M16",
+      "name": "Anker-Anna",
+      "kurzbeschreibung": "Der Chef sagt 5, also 5!",
+      "thema": "Anchoring-Bias in Schätzrunden",
+      "farben": ["Rot", "Blau"],
+      "kampfwerte": ["SO", "DO"],
+      "beschreibung": "Anna lässt sich IMMER von der ersten Schätzung beeinflussen – egal wie falsch sie ist. Ihr Motto: \"Wenn der Chef 5 sagt, dann ist das Gesetz!\" Ihr größter Feind: Planning Poker.",
+      "zitat": "\"Der Chef hat doch Ahnung, oder?\"",
+      "gegenmittel": "Daten first"
+    },
+    {
+      "id": "M17",
+      "name": "Velocity-Viktor",
+      "kurzbeschreibung": "Points = Leistung?",
+      "thema": "Velocity als Leistungs-KPI",
+      "farben": ["Rot", "Blau"],
+      "kampfwerte": ["SO", "DO"],
+      "beschreibung": "Viktor misst alles in Story Points – sogar Kaffeepausen. Sein Credo: \"Letzte Woche 50, also diese Woche 60!\"",
+      "zitat": "\"Wer nicht liefert, bremst!\"",
+      "gegenmittel": "Daten first"
+    },
+    {
+      "id": "M18",
+      "name": "Ziel-Zorro",
+      "kurzbeschreibung": "Ziel vor Augen – Weg egal!",
+      "thema": "Tunnelblick im Projekt",
+      "farben": ["Rot", "Blau", "Gelb"],
+      "kampfwerte": ["SO", "DO", "BO"],
+      "beschreibung": "Zorro sieht nur das Sprint-Ziel – und ignoriert alles andere. Sein Motto: \"Hauptsache, wir liefern!\"",
+      "zitat": "\"Nicht mein Problem!\"",
+      "gegenmittel": "Sprint-Fokus"
+    }
+  ]
+}
