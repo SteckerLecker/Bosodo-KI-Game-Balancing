@@ -55,5 +55,5 @@ echo "   scp -r -P 22122 ps-stud5@141.39.193.212:~/data/stud5/bosodo-balancing/o
 echo "   scp -r -P 22122 "ps-stud5@141.39.193.212:~/data/stud5/bosodo-balancing/data_v*" ./results/iterative_balancing"
 echo ""
 echo "   Alternativ manuell trainieren/analysieren:"
-echo "   scp -P 22122 ps-stud5@141.39.193.212:~/data/stud5/bosodo-balancing/output/reports/balancing_report.json ./reports/"
+echo "   scp -P 22122 ps-stud5@141.39.193.212:~/data/stud5/bosodo-balancing/output/reports/balancing_report.json ./results/manual_reports/"
 echo "============================================================"
