@@ -10,6 +10,7 @@ Ablauf:
 
 import copy
 import json
+import math
 import os
 import time
 from datetime import datetime
@@ -35,6 +36,13 @@ TARGET_AVG_MATCHES = 5
 MIN_MATCHES = 2  # Karten mit weniger Matches gelten als zu schwach
 MAX_ITERATIONS = 15
 MAX_STALE_ITERATIONS = 10
+STABLE_RANGE = (MIN_MATCHES, TARGET_AVG_MATCHES + 1)  # 2-6 Matches = Zielbereich
+LOCK_AFTER_STABLE_ITERS = 2  # Karte sperren nach N Iterationen im Zielbereich
+TEMP_BASE = 0.4  # Basis-Temperatur für LLM-Calls
+TEMP_ESCALATION = 0.15  # Temperatur-Erhöhung pro Stagnation
+TEMP_MAX = 0.8  # Maximale Temperatur
+STALE_ESCALATION_THRESHOLD = 3  # Ab wann Temperatur eskaliert wird
+MIN_SEMANTIC_DIFF_RATIO = 0.15  # Mindest-Unterschied (Wort-Ebene) für Änderungsannahme
 
 
 def _build_llm_client() -> tuple[OpenAI, str]:
@@ -61,7 +69,8 @@ def _build_llm_client() -> tuple[OpenAI, str]:
     return client, model
 
 
-def _llm_json_call(client: OpenAI, model: str, prompt: str, retries: int = 3) -> dict:
+def _llm_json_call(client: OpenAI, model: str, prompt: str, retries: int = 3,
+                    temperature: float = TEMP_BASE) -> dict:
     """Sendet einen Prompt und parsed die JSON-Antwort."""
     for attempt in range(retries):
         try:
@@ -69,7 +78,7 @@ def _llm_json_call(client: OpenAI, model: str, prompt: str, retries: int = 3) ->
                 model=model,
                 messages=[{"role": "user", "content": prompt}],
                 response_format={"type": "json_object"},
-                temperature=0.4,
+                temperature=temperature,
             )
             content = resp.choices[0].message.content
             if not content:
@@ -81,6 +90,19 @@ def _llm_json_call(client: OpenAI, model: str, prompt: str, retries: int = 3) ->
                 raise
             time.sleep(5 * (attempt + 1))
     return {}
+
+
+def _word_diff_ratio(text_a: str, text_b: str) -> float:
+    """Berechnet den Anteil unterschiedlicher Wörter zwischen zwei Texten (0-1)."""
+    words_a = set(text_a.lower().split())
+    words_b = set(text_b.lower().split())
+    if not words_a and not words_b:
+        return 0.0
+    union = words_a | words_b
+    if not union:
+        return 0.0
+    diff = words_a.symmetric_difference(words_b)
+    return len(diff) / len(union)
 
 
 def _compute_match_stats(
@@ -108,6 +130,14 @@ def _compute_match_stats(
     all_counts = list(monster_counts.values()) + list(wissen_counts.values())
     too_weak_count = sum(1 for c in all_counts if c < MIN_MATCHES)
 
+    # Standardabweichung der Match-Verteilung
+    avg_total = (avg_monster + avg_wissen) / 2
+    if all_counts:
+        variance = sum((c - avg_total) ** 2 for c in all_counts) / len(all_counts)
+        std_dev = round(math.sqrt(variance), 2)
+    else:
+        std_dev = 0.0
+
     return {
         "monster_matches": monster_matches,
         "wissen_matches": wissen_matches,
@@ -115,7 +145,8 @@ def _compute_match_stats(
         "wissen_counts": wissen_counts,
         "avg_matches_monster": round(avg_monster, 2),
         "avg_matches_wissen": round(avg_wissen, 2),
-        "avg_total": round((avg_monster + avg_wissen) / 2, 2),
+        "avg_total": round(avg_total, 2),
+        "std_dev": std_dev,
         "too_weak_count": too_weak_count,
     }
 
@@ -141,6 +172,10 @@ class BalancingAnalyst:
         monster_karten: list[dict],
         wissens_karten: list[dict],
         iteration: int,
+        change_history: Optional[dict[str, list[dict]]] = None,
+        locked_cards: Optional[set[str]] = None,
+        failed_changes: Optional[list[dict]] = None,
+        temperature: float = TEMP_BASE,
     ) -> dict:
         monster_ids = [m["id"] for m in monster_karten]
         wissen_ids = [k["id"] for k in wissens_karten]
@@ -148,12 +183,15 @@ class BalancingAnalyst:
 
         m_by_id = _cards_by_id(monster_karten)
         k_by_id = _cards_by_id(wissens_karten)
+        locked = locked_cards or set()
 
         # Top-Problemkarten sammeln: zu starke (> TARGET) UND zu schwache (< MIN)
         too_strong = []
         too_weak = []
 
         for m_id, count in stats["monster_counts"].items():
+            if m_id in locked:
+                continue
             card = m_by_id[m_id]
             entry = {
                 "id": m_id,
@@ -171,6 +209,8 @@ class BalancingAnalyst:
                 too_weak.append(entry)
 
         for k_id, count in stats["wissen_counts"].items():
+            if k_id in locked:
+                continue
             card = k_by_id[k_id]
             entry = {
                 "id": k_id,
@@ -200,6 +240,7 @@ class BalancingAnalyst:
                 "zusammenfassung": {
                     "avg_matches_monster": stats["avg_matches_monster"],
                     "avg_matches_wissen": stats["avg_matches_wissen"],
+                    "std_dev": stats["std_dev"],
                     "too_weak_count": stats["too_weak_count"],
                 },
                 "problemkarten": [],
@@ -219,6 +260,40 @@ class BalancingAnalyst:
         else:
             problem_beschreibung = f"Es gibt {strong_count} zu starke Karten (> {TARGET_AVG_MATCHES} Matches), die zu breit matchen."
 
+        # Change-History für relevante Karten aufbereiten
+        history_section = ""
+        if change_history:
+            relevant_ids = {p["id"] for p in top_problems}
+            history_entries = []
+            for card_id in relevant_ids:
+                if card_id in change_history and change_history[card_id]:
+                    changes = change_history[card_id]
+                    entry_lines = [f"  {card_id} ({len(changes)} bisherige Änderungen):"]
+                    for ch in changes[-3:]:  # Maximal letzte 3 Änderungen zeigen
+                        result_label = "✓ verbessert" if ch.get("improved") else "✗ verschlechtert/neutral"
+                        entry_lines.append(
+                            f"    - Iter {ch['iteration']}: \"{ch['alt'][:60]}...\" → \"{ch['neu'][:60]}...\" ({result_label})"
+                        )
+                    history_entries.append("\n".join(entry_lines))
+            if history_entries:
+                history_section = "\n\nBISHERIGE ÄNDERUNGEN an diesen Karten (vermeide Wiederholung gescheiterter Ansätze!):\n" + "\n".join(history_entries)
+
+        # Gescheiterte Änderungen als Negativbeispiele
+        blacklist_section = ""
+        if failed_changes:
+            relevant_ids = {p["id"] for p in top_problems}
+            relevant_fails = [f for f in failed_changes if f["id"] in relevant_ids]
+            if relevant_fails:
+                fail_lines = ["GESCHEITERTE ANSÄTZE (diese Änderungen haben NICHT funktioniert, versuche etwas Anderes!):"]
+                for f in relevant_fails[-5:]:
+                    fail_lines.append(f"  - {f['id']} Iter {f['iteration']}: \"{f['neu'][:80]}...\"")
+                blacklist_section = "\n\n" + "\n".join(fail_lines)
+
+        # Gesperrte Karten erwähnen
+        lock_section = ""
+        if locked:
+            lock_section = f"\n\nGESPERRTE KARTEN (diese Karten sind im Zielbereich und dürfen NICHT verändert werden): {', '.join(sorted(locked))}"
+
         prompt = f"""Du bist ein Balancing-Analyst für ein Lernkartenspiel über agile Methoden (Scrum).
 
 Das Spiel hat Monster-Karten (agile Anti-Patterns) und Wissens-Karten (agile Methoden).
@@ -228,8 +303,9 @@ ZIEL: Jede Karte soll mit 4-6 Partnern stark matchen (Score ≥ {MATCH_THRESHOLD
 - Karten mit > {TARGET_AVG_MATCHES} Matches sind ZU STARK (zu generisch, matchen mit zu vielen Partnern)
 - Karten mit < {MIN_MATCHES} Matches sind ZU SCHWACH (zu spezifisch oder schlecht formuliert, matchen mit fast niemandem)
 Aktuell ist der Durchschnitt: Monster {stats['avg_matches_monster']}, Wissen {stats['avg_matches_wissen']}.
+Standardabweichung der Matches: {stats['std_dev']} (Ziel: möglichst niedrig, ideal < 2.0).
 
-{problem_beschreibung}
+{problem_beschreibung}{history_section}{blacklist_section}{lock_section}
 
 Hier sind die problematischen Karten:
 
@@ -246,6 +322,9 @@ Für jede Karte:
    - ZU STARK: Text spezifischer formulieren, Fokus einengen
    - ZU SCHWACH: Text so umformulieren, dass er klar zu 4-6 passenden Partnern matcht, ohne zu allgemein zu werden
 
+WICHTIG: Vermeide Über-Spezifizierung auf bestimmte Technologien (z.B. "Webanwendung", "React", "API").
+Verengte den Kontext stattdessen auf spezifische agile Situationen oder Scrum-Rollen.
+
 Antworte als JSON:
 {{
   "problemkarten": [
@@ -260,13 +339,14 @@ Antworte als JSON:
   ]
 }}"""
 
-        result = _llm_json_call(self.client, self.model, prompt)
+        result = _llm_json_call(self.client, self.model, prompt, temperature=temperature)
 
         return {
             "iteration": iteration,
             "zusammenfassung": {
                 "avg_matches_monster": stats["avg_matches_monster"],
                 "avg_matches_wissen": stats["avg_matches_wissen"],
+                "std_dev": stats["std_dev"],
             },
             "problemkarten": result.get("problemkarten", []),
             "ziel_erreicht": False,
@@ -289,6 +369,9 @@ class GameDesigner:
         anweisungen: list[dict],
         monster_karten: list[dict],
         wissens_karten: list[dict],
+        match_details: Optional[dict] = None,
+        change_history: Optional[dict[str, list[dict]]] = None,
+        temperature: float = TEMP_BASE,
     ) -> list[dict]:
         if not anweisungen:
             return []
@@ -298,6 +381,7 @@ class GameDesigner:
 
         m_by_id = _cards_by_id(monster_karten)
         k_by_id = _cards_by_id(wissens_karten)
+        all_by_id = {**m_by_id, **k_by_id}
 
         cards_context = []
         for aw in anweisungen:
@@ -307,7 +391,7 @@ class GameDesigner:
             else:
                 card = k_by_id.get(card_id)
             if card:
-                cards_context.append({
+                entry = {
                     "id": card_id,
                     "name": card["name"],
                     "thema": card.get("thema", ""),
@@ -315,9 +399,33 @@ class GameDesigner:
                     "problem": aw.get("problem", "zu_stark"),
                     "anweisung": aw.get("anweisung", ""),
                     "analyse": aw.get("analyse", ""),
-                })
+                }
+                # Match-Partner mit Namen anzeigen
+                if match_details and card_id in match_details:
+                    partner_infos = []
+                    for p_id in match_details[card_id]:
+                        p_card = all_by_id.get(p_id)
+                        if p_card:
+                            partner_infos.append(f"{p_id} ({p_card['name']})")
+                    entry["aktuelle_partner"] = partner_infos
+                cards_context.append(entry)
 
         context_json = json.dumps(cards_context, ensure_ascii=False, indent=2)
+
+        # Change-History aufbereiten
+        history_section = ""
+        if change_history:
+            history_lines = []
+            for aw in anweisungen:
+                card_id = aw["id"]
+                if card_id in change_history and change_history[card_id]:
+                    changes = change_history[card_id]
+                    history_lines.append(f"\n{card_id} — bisherige Änderungen:")
+                    for ch in changes[-3:]:
+                        result_label = "✓ verbessert" if ch.get("improved") else "✗ gescheitert"
+                        history_lines.append(f"  Iter {ch['iteration']} ({result_label}): \"{ch['neu'][:80]}\"")
+            if history_lines:
+                history_section = "\n\nBISHERIGE ÄNDERUNGEN (vermeide Wiederholung gescheiterter Ansätze!):" + "\n".join(history_lines)
 
         prompt = f"""Du bist ein Game Designer für ein Scrum-Lernkartenspiel.
 
@@ -335,10 +443,14 @@ REGELN:
 - Der Name und das Thema der Karte bleiben gleich
 - Die Beschreibung soll weiterhin unterhaltsam und im gleichen Stil sein
 - Beschreibungen sollen ähnlich lang bleiben (1-3 Sätze)
+- WICHTIG: Vermeide Über-Spezifizierung auf Technologien (z.B. "Webanwendung", "React", "API"). Verengte den Kontext auf agile Situationen und Scrum-Rollen stattdessen.
+- Die neue Beschreibung muss sich INHALTLICH deutlich vom alten Text unterscheiden, nicht nur umformuliert sein!
+
+Bei ZU STARKEN Karten siehst du die aktuellen Match-Partner. Überlege gezielt, mit welchen Partnern die Karte NICHT mehr matchen soll, und formuliere entsprechend spezifischer.
 
 Hier sind die Karten mit Überarbeitungsanweisungen:
 
-{context_json}
+{context_json}{history_section}
 
 Antworte als JSON:
 {{
@@ -352,7 +464,7 @@ Antworte als JSON:
   ]
 }}"""
 
-        result = _llm_json_call(self.client, self.model, prompt)
+        result = _llm_json_call(self.client, self.model, prompt, temperature=temperature)
         return result.get("aenderungen", [])
 
 
@@ -438,6 +550,12 @@ class BalancingPipeline:
         )
         self.cache = load_cache(data_dir=str(self.data_dir))
 
+        # Neue Tracking-Strukturen
+        self.change_history: dict[str, list[dict]] = {}  # card_id → [{iteration, alt, neu, improved}]
+        self.failed_changes: list[dict] = []  # [{id, iteration, alt, neu}]
+        self.locked_cards: set[str] = set()  # Karten im Zielbereich, die nicht mehr geändert werden
+        self._stable_counts: dict[str, int] = {}  # card_id → Anzahl aufeinanderfolgender Iterationen im Zielbereich
+
     def _snapshot(self, iteration: int, label: str) -> Path:
         """Speichert einen Snapshot der aktuellen Daten."""
         snap_dir = self.output_dir / f"iteration_{iteration:02d}"
@@ -502,6 +620,7 @@ class BalancingPipeline:
             f"| Ø Matches Monster | {stats['avg_matches_monster']} |",
             f"| Ø Matches Wissen | {stats['avg_matches_wissen']} |",
             f"| Ø Gesamt | {stats['avg_total']} |",
+            f"| Std-Abweichung | {stats.get('std_dev', '–')} |",
             f"| Ziel | ≤ {TARGET_AVG_MATCHES} |",
             "",
             "## Monster-Matches",
@@ -526,6 +645,10 @@ class BalancingPipeline:
             count = stats["wissen_counts"][k_id]
             lines.append(f"| {k_id} | {name} | {count} |")
 
+        if self.locked_cards:
+            lines += ["", f"## Gesperrte Karten ({len(self.locked_cards)})",
+                       ", ".join(sorted(self.locked_cards))]
+
         if aenderungen:
             lines += ["", "## Änderungen in dieser Iteration"]
             for ch in aenderungen:
@@ -533,15 +656,77 @@ class BalancingPipeline:
                 lines.append(f"**Alt:** {ch.get('alt', '–')}")
                 lines.append(f"**Neu:** {ch.get('neu', '–')}")
                 lines.append(f"**Begründung:** {ch.get('begruendung', '–')}")
+                # Semantische Diff-Info
+                if ch.get("alt") and ch.get("neu"):
+                    diff_ratio = _word_diff_ratio(ch["alt"], ch["neu"])
+                    lines.append(f"**Semantische Differenz:** {diff_ratio:.0%}")
 
         report_path = snap_dir / "balance_report.md"
         report_path.write_text("\n".join(lines), encoding="utf-8")
         return report_path
 
+    def _update_card_locks(self, stats: dict):
+        """Sperrt Karten, die N Iterationen in Folge im Zielbereich liegen."""
+        all_counts = {**stats["monster_counts"], **stats["wissen_counts"]}
+        for card_id, count in all_counts.items():
+            if card_id in self.locked_cards:
+                continue
+            if STABLE_RANGE[0] <= count <= STABLE_RANGE[1]:
+                self._stable_counts[card_id] = self._stable_counts.get(card_id, 0) + 1
+                if self._stable_counts[card_id] >= LOCK_AFTER_STABLE_ITERS:
+                    self.locked_cards.add(card_id)
+                    print(f"  🔒 {card_id} gesperrt (stabil im Zielbereich seit {LOCK_AFTER_STABLE_ITERS} Iterationen)")
+            else:
+                self._stable_counts[card_id] = 0
+
+    def _get_temperature(self, stale_count: int) -> float:
+        """Berechnet die aktuelle LLM-Temperatur basierend auf Stagnation."""
+        if stale_count < STALE_ESCALATION_THRESHOLD:
+            return TEMP_BASE
+        escalation_steps = stale_count - STALE_ESCALATION_THRESHOLD + 1
+        return min(TEMP_BASE + escalation_steps * TEMP_ESCALATION, TEMP_MAX)
+
+    def _filter_semantic_diffs(self, aenderungen: list[dict]) -> list[dict]:
+        """Filtert Änderungen heraus, die nur kosmetische Umformulierungen sind."""
+        accepted = []
+        for ch in aenderungen:
+            alt = ch.get("alt", "")
+            neu = ch.get("neu", "")
+            if not alt or not neu:
+                accepted.append(ch)
+                continue
+            diff_ratio = _word_diff_ratio(alt, neu)
+            if diff_ratio >= MIN_SEMANTIC_DIFF_RATIO:
+                accepted.append(ch)
+                print(f"  ✓ {ch['id']}: Semantische Differenz {diff_ratio:.0%} – akzeptiert")
+            else:
+                print(f"  ✗ {ch['id']}: Semantische Differenz nur {diff_ratio:.0%} – abgelehnt (Minimum: {MIN_SEMANTIC_DIFF_RATIO:.0%})")
+        return accepted
+
+    def _record_history(self, iteration: int, aenderungen: list[dict], improved: bool):
+        """Zeichnet Änderungen in der Change-History auf."""
+        for ch in aenderungen:
+            card_id = ch["id"]
+            if card_id not in self.change_history:
+                self.change_history[card_id] = []
+            self.change_history[card_id].append({
+                "iteration": iteration,
+                "alt": ch.get("alt", ""),
+                "neu": ch.get("neu", ""),
+                "improved": improved,
+            })
+            if not improved:
+                self.failed_changes.append({
+                    "id": card_id,
+                    "iteration": iteration,
+                    "alt": ch.get("alt", ""),
+                    "neu": ch.get("neu", ""),
+                })
+
     def run(self) -> dict:
         """Führt die iterative Balancing-Pipeline aus."""
         print("=" * 60)
-        print("  BOSODO Balancing-Pipeline")
+        print("  BOSODO Balancing-Pipeline (v2 – mit History/Lock/Diff)")
         print(f"  Daten: {self.data_dir}")
         print(f"  LLM: {self.model}")
         print(f"  Ziel: Ø ≤ {TARGET_AVG_MATCHES} Matches/Karte (Threshold {MATCH_THRESHOLD})")
@@ -556,10 +741,12 @@ class BalancingPipeline:
         print(f"  Ø Monster-Matches: {initial_stats['avg_matches_monster']}")
         print(f"  Ø Wissen-Matches:  {initial_stats['avg_matches_wissen']}")
         print(f"  Ø Gesamt:          {initial_stats['avg_total']}")
+        print(f"  Std-Abweichung:    {initial_stats['std_dev']}")
         if initial_stats["too_weak_count"] > 0:
             print(f"  ⚠ Zu schwache Karten (< {MIN_MATCHES} Matches): {initial_stats['too_weak_count']}")
 
         best_avg = initial_stats["avg_total"]
+        best_std = initial_stats["std_dev"]
         best_weak = initial_stats["too_weak_count"]
         best_cache = copy.deepcopy(self.cache)
         best_monster = copy.deepcopy(self.monster_karten)
@@ -569,12 +756,24 @@ class BalancingPipeline:
         history = []
 
         for iteration in range(1, MAX_ITERATIONS + 1):
+            current_temp = self._get_temperature(stale_count)
+            temp_info = f" (Temperatur: {current_temp:.2f})" if current_temp > TEMP_BASE else ""
+
             print(f"\n{'─' * 60}")
-            print(f"  Iteration {iteration}")
+            print(f"  Iteration {iteration}{temp_info}")
+            if self.locked_cards:
+                print(f"  Gesperrte Karten: {', '.join(sorted(self.locked_cards))}")
             print(f"{'─' * 60}")
 
             # Snapshot VOR der Iteration
             self._snapshot(iteration, "vor")
+
+            # Card-Lock aktualisieren
+            current_stats = _compute_match_stats(self.cache, monster_ids, wissen_ids)
+            self._update_card_locks(current_stats)
+
+            # Match-Details für Designer vorbereiten
+            match_details = {**current_stats["monster_matches"], **current_stats["wissen_matches"]}
 
             # --- Persona 1: Analyst ---
             print("\n[1/3] Analyst: Analysiere Score-Matrix...")
@@ -583,6 +782,10 @@ class BalancingPipeline:
                 self.monster_karten["karten"],
                 self.wissens_karten["karten"],
                 iteration,
+                change_history=self.change_history,
+                locked_cards=self.locked_cards,
+                failed_changes=self.failed_changes,
+                temperature=current_temp,
             )
 
             if analyse.get("ziel_erreicht"):
@@ -603,11 +806,35 @@ class BalancingPipeline:
                 analyse.get("problemkarten", []),
                 self.monster_karten["karten"],
                 self.wissens_karten["karten"],
+                match_details=match_details,
+                change_history=self.change_history,
+                temperature=current_temp,
             )
 
             if not aenderungen:
                 print("  Keine Änderungen vorgeschlagen. Abbruch.")
                 break
+
+            # Semantische Diff-Prüfung
+            print("\n  Semantische Diff-Prüfung:")
+            aenderungen = self._filter_semantic_diffs(aenderungen)
+
+            if not aenderungen:
+                print("  Alle Änderungen als kosmetisch abgelehnt. Zählt als Stagnation.")
+                stale_count += 1
+                snap_dir = self._snapshot(iteration, "nach")
+                self._write_report(iteration, current_stats, analyse, [], snap_dir)
+                history.append({
+                    "iteration": iteration,
+                    "avg_before": best_avg,
+                    "avg_after": best_avg,
+                    "changed_cards": [],
+                    "note": "alle Änderungen als kosmetisch abgelehnt",
+                })
+                if stale_count >= MAX_STALE_ITERATIONS:
+                    print(f"\n  ✗ Abbruch: {MAX_STALE_ITERATIONS} Iterationen ohne Verbesserung.")
+                    break
+                continue
 
             changed_ids = []
             for ch in aenderungen:
@@ -628,8 +855,9 @@ class BalancingPipeline:
             # Neue Statistik berechnen
             new_stats = _compute_match_stats(self.cache, monster_ids, wissen_ids)
             new_avg = new_stats["avg_total"]
+            new_std = new_stats["std_dev"]
 
-            print(f"\n  Ergebnis: Ø {new_avg} (vorher: {best_avg})")
+            print(f"\n  Ergebnis: Ø {new_avg} (vorher: {best_avg}), Std {new_std} (vorher: {best_std})")
             if new_stats["too_weak_count"] > 0:
                 print(f"  ⚠ Zu schwache Karten (< {MIN_MATCHES} Matches): {new_stats['too_weak_count']}")
 
@@ -641,14 +869,19 @@ class BalancingPipeline:
                 "iteration": iteration,
                 "avg_before": best_avg,
                 "avg_after": new_avg,
+                "std_before": best_std,
+                "std_after": new_std,
                 "changed_cards": changed_ids,
+                "temperature": current_temp,
             })
 
             # Rollback-Check: Verbesserung = weniger schwache Karten ODER (gleich viele + niedrigerer Avg)
+            # Neu: Bei gleichem Avg UND gleicher Weak-Zahl → niedrigere Std-Abweichung ist besser
             new_weak = new_stats["too_weak_count"]
             is_better = (
                 new_weak < best_weak
                 or (new_weak == best_weak and new_avg < best_avg)
+                or (new_weak == best_weak and new_avg == best_avg and new_std < best_std)
             )
             is_worse = (
                 new_weak > best_weak
@@ -657,6 +890,7 @@ class BalancingPipeline:
 
             if is_worse:
                 print(f"  ✗ Verschlechterung! Rollback auf vorherige Version.")
+                self._record_history(iteration, aenderungen, improved=False)
                 self.cache = copy.deepcopy(best_cache)
                 self.monster_karten = copy.deepcopy(best_monster)
                 self.wissens_karten = copy.deepcopy(best_wissen)
@@ -667,8 +901,12 @@ class BalancingPipeline:
                     details.append(f"schwache Karten: {best_weak} → {new_weak}")
                 if new_avg != best_avg:
                     details.append(f"Ø: {best_avg} → {new_avg}")
+                if new_std != best_std:
+                    details.append(f"Std: {best_std} → {new_std}")
                 print(f"  ✓ Verbesserung: {', '.join(details)}")
+                self._record_history(iteration, aenderungen, improved=True)
                 best_avg = new_avg
+                best_std = new_std
                 best_weak = new_weak
                 best_cache = copy.deepcopy(self.cache)
                 best_monster = copy.deepcopy(self.monster_karten)
@@ -676,11 +914,12 @@ class BalancingPipeline:
                 stale_count = 0
             else:
                 print(f"  – Keine Veränderung.")
+                self._record_history(iteration, aenderungen, improved=False)
                 stale_count += 1
 
             # Ziel erreicht? (Durchschnitt OK UND keine zu schwachen Karten)
             if new_avg <= TARGET_AVG_MATCHES and new_stats["too_weak_count"] == 0:
-                print(f"\n  ★ ZIEL ERREICHT! Ø {new_avg} ≤ {TARGET_AVG_MATCHES}, keine zu schwachen Karten")
+                print(f"\n  ★ ZIEL ERREICHT! Ø {new_avg} ≤ {TARGET_AVG_MATCHES}, Std {new_std}, keine zu schwachen Karten")
                 self._save_best()
                 return {"status": "erfolg", "iterationen": iteration, "stats": new_stats, "history": history}
 
@@ -704,12 +943,18 @@ class BalancingPipeline:
             "iterationen": len(history),
             "initial_avg": initial_stats["avg_total"],
             "final_avg": final_stats["avg_total"],
+            "initial_std": initial_stats["std_dev"],
+            "final_std": final_stats["std_dev"],
+            "locked_cards": sorted(self.locked_cards),
+            "total_changes": sum(len(v) for v in self.change_history.values()),
+            "failed_changes": len(self.failed_changes),
             "history": history,
         }, ensure_ascii=False, indent=2), encoding="utf-8")
 
         print(f"\n{'=' * 60}")
         print(f"  Pipeline beendet nach {len(history)} Iterationen")
-        print(f"  Initial: Ø {initial_stats['avg_total']} → Final: Ø {final_stats['avg_total']}")
+        print(f"  Initial: Ø {initial_stats['avg_total']} (Std {initial_stats['std_dev']}) → Final: Ø {final_stats['avg_total']} (Std {final_stats['std_dev']})")
+        print(f"  Gesperrte Karten: {len(self.locked_cards)}, Gescheiterte Änderungen: {len(self.failed_changes)}")
         print(f"  Ergebnisse: {self.output_dir}")
         print(f"{'=' * 60}")
 
