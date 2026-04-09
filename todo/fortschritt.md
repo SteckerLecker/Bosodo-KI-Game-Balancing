@@ -90,6 +90,33 @@ python scripts/iterative_balance.py --dry-run              # Nur Analyse, kein T
 
 ---
 
+### ✅ 6. LLM-basierte Balancing-Pipeline (3-Persona-Workflow)
+**Dateien:** `llm_experts/balancing_pipeline.py`, `scripts/run_balancing_pipeline.py`
+
+Iterative Pipeline, die Kartentexte automatisiert spezifischer formuliert, damit jede Karte nur noch mit 4–6 Partnern stark matcht (Score ≥ 0.75). Drei LLM-Personas arbeiten in einer Schleife:
+
+1. **Balancing-Analyst** — Analysiert Score-Matrix, identifiziert Top-3 Problemkarten, gibt konkrete Überarbeitungsanweisungen
+2. **Game Designer** — Überarbeitet max. 3 Kartentexte pro Iteration (spezifischere Formulierung, gleicher Lerninhalt)
+3. **Matcher** — Re-scored nur die geänderten Paare mit dem bestehenden `ArgumentationScorer`
+
+**Ausgangslage (Scrum-Edition):** Ø 6.89 Matches/Karte — schlimmste: K01 (13), K05/K11 (12), M08 (11)
+
+**Features:**
+- Automatischer Rollback bei Verschlechterung
+- Snapshots jeder Iteration (Karten + Cache vor/nach)
+- Markdown-Balance-Report pro Iteration
+- Abbruch nach 10 Iterationen ohne Verbesserung oder bei Ø ≤ 5
+
+**Verwendung:**
+```bash
+python -m scripts.run_balancing_pipeline
+python -m scripts.run_balancing_pipeline --data-dir data/scrum_edition --max-iterations 20
+```
+
+**Anleitung:** `anleitungen/balancing_pipeline.md`
+
+---
+
 ### 🔜 Nächster Schritt: Erweiterte Bot-Strategien (Bericht 2.3)
 **Zu ändern:** `bosodo_env/env.py` (Bot-Logik)
 
