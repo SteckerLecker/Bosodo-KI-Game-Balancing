@@ -3,14 +3,25 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 import os
+import argparse
 
 # ==========================================
-# EINSTELLUNGEN (Hier zentral anpassen)
+# EINSTELLUNGEN (Defaults – überschreibbar per CLI)
 # ==========================================
-DATEIPFAD = '../data/scrum_edition/llm_cache.json'
-SCHWELLENWERT = 0.65
-OUTPUT_DIR = '../data/scrum_edition/llmCacheAuswertung/'
+DEFAULT_INPUT  = '../data/scrum_edition/llm_cache.json'
+DEFAULT_OUTPUT = '../data/scrum_edition/llmCacheAuswertung/'
+DEFAULT_SCHWELLENWERT = 0.65
 # ==========================================
+
+parser = argparse.ArgumentParser(description='Analysiert einen LLM-Cache und erstellt Auswertungsbilder.')
+parser.add_argument('--input',  '-i', default=DEFAULT_INPUT,          help=f'Pfad zur llm_cache.json (default: {DEFAULT_INPUT})')
+parser.add_argument('--output', '-o', default=DEFAULT_OUTPUT,         help=f'Ausgabeordner für Bilder (default: {DEFAULT_OUTPUT})')
+parser.add_argument('--schwellenwert', '-s', type=float, default=DEFAULT_SCHWELLENWERT, help=f'Match-Schwellenwert (default: {DEFAULT_SCHWELLENWERT})')
+args = parser.parse_args()
+
+DATEIPFAD      = args.input
+OUTPUT_DIR     = args.output
+SCHWELLENWERT  = args.schwellenwert
 
 # Erstelle den Ausgabeordner, falls er nicht existiert
 os.makedirs(OUTPUT_DIR, exist_ok=True)

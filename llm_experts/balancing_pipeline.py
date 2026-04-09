@@ -32,6 +32,7 @@ _PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
 MATCH_THRESHOLD = 0.75
 TARGET_AVG_MATCHES = 5
+MIN_MATCHES = 2  # Karten mit weniger Matches gelten als zu schwach
 MAX_ITERATIONS = 15
 MAX_STALE_ITERATIONS = 10
 
@@ -103,6 +104,10 @@ def _compute_match_stats(
     avg_monster = sum(monster_counts.values()) / max(len(monster_counts), 1)
     avg_wissen = sum(wissen_counts.values()) / max(len(wissen_counts), 1)
 
+    # Karten mit zu wenig Matches zählen
+    all_counts = list(monster_counts.values()) + list(wissen_counts.values())
+    too_weak_count = sum(1 for c in all_counts if c < MIN_MATCHES)
+
     return {
         "monster_matches": monster_matches,
         "wissen_matches": wissen_matches,
@@ -111,6 +116,7 @@ def _compute_match_stats(
         "avg_matches_monster": round(avg_monster, 2),
         "avg_matches_wissen": round(avg_wissen, 2),
         "avg_total": round((avg_monster + avg_wissen) / 2, 2),
+        "too_weak_count": too_weak_count,
     }
 
 
@@ -143,35 +149,50 @@ class BalancingAnalyst:
         m_by_id = _cards_by_id(monster_karten)
         k_by_id = _cards_by_id(wissens_karten)
 
-        # Top-Problemkarten sammeln (Monster + Wissen gemischt, nach Anzahl Matches)
-        problem_candidates = []
-        for m_id, count in stats["monster_counts"].items():
-            if count > TARGET_AVG_MATCHES:
-                partners = stats["monster_matches"][m_id]
-                card = m_by_id[m_id]
-                problem_candidates.append({
-                    "id": m_id,
-                    "typ": "monster",
-                    "name": card["name"],
-                    "beschreibung": card["beschreibung"],
-                    "aktuelle_matches": count,
-                    "partner": partners,
-                })
-        for k_id, count in stats["wissen_counts"].items():
-            if count > TARGET_AVG_MATCHES:
-                partners = stats["wissen_matches"][k_id]
-                card = k_by_id[k_id]
-                problem_candidates.append({
-                    "id": k_id,
-                    "typ": "wissen",
-                    "name": card["name"],
-                    "beschreibung": card["beschreibung"],
-                    "aktuelle_matches": count,
-                    "partner": partners,
-                })
+        # Top-Problemkarten sammeln: zu starke (> TARGET) UND zu schwache (< MIN)
+        too_strong = []
+        too_weak = []
 
-        problem_candidates.sort(key=lambda x: x["aktuelle_matches"], reverse=True)
-        top_problems = problem_candidates[:6]  # Mehr Kontext für das LLM
+        for m_id, count in stats["monster_counts"].items():
+            card = m_by_id[m_id]
+            entry = {
+                "id": m_id,
+                "typ": "monster",
+                "name": card["name"],
+                "beschreibung": card["beschreibung"],
+                "aktuelle_matches": count,
+                "partner": stats["monster_matches"][m_id],
+            }
+            if count > TARGET_AVG_MATCHES:
+                entry["problem"] = "zu_stark"
+                too_strong.append(entry)
+            elif count < MIN_MATCHES:
+                entry["problem"] = "zu_schwach"
+                too_weak.append(entry)
+
+        for k_id, count in stats["wissen_counts"].items():
+            card = k_by_id[k_id]
+            entry = {
+                "id": k_id,
+                "typ": "wissen",
+                "name": card["name"],
+                "beschreibung": card["beschreibung"],
+                "aktuelle_matches": count,
+                "partner": stats["wissen_matches"][k_id],
+            }
+            if count > TARGET_AVG_MATCHES:
+                entry["problem"] = "zu_stark"
+                too_strong.append(entry)
+            elif count < MIN_MATCHES:
+                entry["problem"] = "zu_schwach"
+                too_weak.append(entry)
+
+        too_strong.sort(key=lambda x: x["aktuelle_matches"], reverse=True)
+        too_weak.sort(key=lambda x: x["aktuelle_matches"])
+
+        # Zu schwache Karten haben Priorität (0 Matches = unspielbar), dann zu starke
+        # Max 6 Kandidaten für Kontext, davon mindestens die schwachen
+        top_problems = too_weak[:3] + too_strong[:max(0, 6 - len(too_weak[:3]))]
 
         if not top_problems:
             return {
@@ -179,6 +200,7 @@ class BalancingAnalyst:
                 "zusammenfassung": {
                     "avg_matches_monster": stats["avg_matches_monster"],
                     "avg_matches_wissen": stats["avg_matches_wissen"],
+                    "too_weak_count": stats["too_weak_count"],
                 },
                 "problemkarten": [],
                 "ziel_erreicht": True,
@@ -186,22 +208,43 @@ class BalancingAnalyst:
 
         # LLM-Call: Analyse & Anweisungen
         problem_json = json.dumps(top_problems, ensure_ascii=False, indent=2)
+
+        weak_count = len([p for p in top_problems if p.get("problem") == "zu_schwach"])
+        strong_count = len([p for p in top_problems if p.get("problem") == "zu_stark"])
+        problem_beschreibung = ""
+        if weak_count > 0 and strong_count > 0:
+            problem_beschreibung = f"Es gibt {weak_count} zu schwache Karten (< {MIN_MATCHES} Matches) und {strong_count} zu starke Karten (> {TARGET_AVG_MATCHES} Matches)."
+        elif weak_count > 0:
+            problem_beschreibung = f"Es gibt {weak_count} zu schwache Karten (< {MIN_MATCHES} Matches), die mit fast keinem Partner matchen."
+        else:
+            problem_beschreibung = f"Es gibt {strong_count} zu starke Karten (> {TARGET_AVG_MATCHES} Matches), die zu breit matchen."
+
         prompt = f"""Du bist ein Balancing-Analyst für ein Lernkartenspiel über agile Methoden (Scrum).
 
 Das Spiel hat Monster-Karten (agile Anti-Patterns) und Wissens-Karten (agile Methoden).
 Jedes Paar hat einen Match-Score (0-1). Ein Match zählt ab Score ≥ {MATCH_THRESHOLD}.
 
-ZIEL: Jede Karte soll nur mit 4-6 Partnern stark matchen (Score ≥ {MATCH_THRESHOLD}).
+ZIEL: Jede Karte soll mit 4-6 Partnern stark matchen (Score ≥ {MATCH_THRESHOLD}).
+- Karten mit > {TARGET_AVG_MATCHES} Matches sind ZU STARK (zu generisch, matchen mit zu vielen Partnern)
+- Karten mit < {MIN_MATCHES} Matches sind ZU SCHWACH (zu spezifisch oder schlecht formuliert, matchen mit fast niemandem)
 Aktuell ist der Durchschnitt: Monster {stats['avg_matches_monster']}, Wissen {stats['avg_matches_wissen']}.
 
-Hier sind die problematischsten Karten (zu viele Matches):
+{problem_beschreibung}
+
+Hier sind die problematischen Karten:
 
 {problem_json}
 
 Wähle die TOP 3 Karten aus, die am dringendsten überarbeitet werden müssen.
+Priorisiere dabei zu schwache Karten (0-1 Matches), da diese im Spiel unbrauchbar sind.
+
 Für jede Karte:
-1. Analysiere WARUM sie so breit matcht (zu allgemein? Überlappungen?)
-2. Gib eine KONKRETE Anweisung, wie der Text spezifischer formuliert werden soll
+1. Analysiere das Problem:
+   - ZU STARK: Warum matcht sie so breit? (zu allgemein? Überlappungen?)
+   - ZU SCHWACH: Warum matcht sie mit fast niemandem? (zu spezifisch? schlecht formuliert? thematisch isoliert?)
+2. Gib eine KONKRETE Anweisung:
+   - ZU STARK: Text spezifischer formulieren, Fokus einengen
+   - ZU SCHWACH: Text so umformulieren, dass er klar zu 4-6 passenden Partnern matcht, ohne zu allgemein zu werden
 
 Antworte als JSON:
 {{
@@ -209,8 +252,9 @@ Antworte als JSON:
     {{
       "id": "M01",
       "typ": "monster|wissen",
-      "aktuelle_matches": 18,
-      "analyse": "Warum die Karte zu breit matcht...",
+      "problem": "zu_stark|zu_schwach",
+      "aktuelle_matches": 0,
+      "analyse": "Warum die Karte problematisch ist...",
       "anweisung": "Konkrete Überarbeitungsanweisung..."
     }}
   ]
@@ -268,6 +312,7 @@ class GameDesigner:
                     "name": card["name"],
                     "thema": card.get("thema", ""),
                     "beschreibung": card["beschreibung"],
+                    "problem": aw.get("problem", "zu_stark"),
                     "anweisung": aw.get("anweisung", ""),
                     "analyse": aw.get("analyse", ""),
                 })
@@ -276,14 +321,17 @@ class GameDesigner:
 
         prompt = f"""Du bist ein Game Designer für ein Scrum-Lernkartenspiel.
 
-Deine Aufgabe: Überarbeite die folgenden Kartentexte, um sie SPEZIFISCHER zu machen.
-Das Ziel ist, dass jede Karte nur noch mit wenigen (4-6) Partnerkarten stark matcht,
-statt mit fast allen.
+Deine Aufgabe: Überarbeite die folgenden Kartentexte, damit jede Karte mit genau 4-6 Partnern matcht.
+
+Es gibt zwei Arten von Problemen:
+- **ZU STARK** (zu viele Matches): Die Karte ist zu generisch und matcht mit fast allem → SPEZIFISCHER formulieren
+- **ZU SCHWACH** (zu wenige Matches, 0-1): Die Karte matcht mit fast niemandem → so umformulieren, dass sie klar zu passenden Partnern matcht
 
 REGELN:
-- Behalte den LERNINHALT bei – nur die Formulierung wird spezifischer
+- Behalte den LERNINHALT bei – nur die Formulierung wird angepasst
 - Monster-Karten: Beschreibe ein KONKRETES Szenario (Wer? Was genau? Welcher Kontext?)
 - Wissens-Karten: Beschreibe eine KONKRETE Technik/Methode statt allgemeines Prinzip
+- Bei ZU SCHWACHEN Karten: Stelle sicher, dass die Beschreibung klar erkennen lässt, welche Probleme/Lösungen dazu passen. Die Karte darf breiter werden, aber nicht so breit, dass sie mit allem matcht.
 - Der Name und das Thema der Karte bleiben gleich
 - Die Beschreibung soll weiterhin unterhaltsam und im gleichen Stil sein
 - Beschreibungen sollen ähnlich lang bleiben (1-3 Sätze)
@@ -298,8 +346,8 @@ Antworte als JSON:
     {{
       "id": "M01",
       "alt": "Bisheriger Beschreibungstext...",
-      "neu": "Neuer spezifischerer Beschreibungstext...",
-      "begruendung": "Warum diese Änderung die Matches reduziert..."
+      "neu": "Neuer angepasster Beschreibungstext...",
+      "begruendung": "Warum diese Änderung die Matches verbessert..."
     }}
   ]
 }}"""
@@ -508,8 +556,11 @@ class BalancingPipeline:
         print(f"  Ø Monster-Matches: {initial_stats['avg_matches_monster']}")
         print(f"  Ø Wissen-Matches:  {initial_stats['avg_matches_wissen']}")
         print(f"  Ø Gesamt:          {initial_stats['avg_total']}")
+        if initial_stats["too_weak_count"] > 0:
+            print(f"  ⚠ Zu schwache Karten (< {MIN_MATCHES} Matches): {initial_stats['too_weak_count']}")
 
         best_avg = initial_stats["avg_total"]
+        best_weak = initial_stats["too_weak_count"]
         best_cache = copy.deepcopy(self.cache)
         best_monster = copy.deepcopy(self.monster_karten)
         best_wissen = copy.deepcopy(self.wissens_karten)
@@ -543,7 +594,8 @@ class BalancingPipeline:
                 return {"status": "erfolg", "iterationen": iteration, "stats": stats}
 
             for pk in analyse.get("problemkarten", []):
-                print(f"  → {pk['id']} ({pk.get('aktuelle_matches', '?')} Matches): {pk.get('anweisung', '')[:80]}")
+                problem_label = "↑ zu stark" if pk.get("problem") != "zu_schwach" else "↓ zu schwach"
+                print(f"  → {pk['id']} ({pk.get('aktuelle_matches', '?')} Matches, {problem_label}): {pk.get('anweisung', '')[:80]}")
 
             # --- Persona 2: Game Designer ---
             print("\n[2/3] Game Designer: Kartentexte überarbeiten...")
@@ -578,6 +630,8 @@ class BalancingPipeline:
             new_avg = new_stats["avg_total"]
 
             print(f"\n  Ergebnis: Ø {new_avg} (vorher: {best_avg})")
+            if new_stats["too_weak_count"] > 0:
+                print(f"  ⚠ Zu schwache Karten (< {MIN_MATCHES} Matches): {new_stats['too_weak_count']}")
 
             # Snapshot NACH der Iteration
             snap_dir = self._snapshot(iteration, "nach")
@@ -590,16 +644,32 @@ class BalancingPipeline:
                 "changed_cards": changed_ids,
             })
 
-            # Rollback-Check
-            if new_avg > best_avg:
+            # Rollback-Check: Verbesserung = weniger schwache Karten ODER (gleich viele + niedrigerer Avg)
+            new_weak = new_stats["too_weak_count"]
+            is_better = (
+                new_weak < best_weak
+                or (new_weak == best_weak and new_avg < best_avg)
+            )
+            is_worse = (
+                new_weak > best_weak
+                or (new_weak == best_weak and new_avg > best_avg)
+            )
+
+            if is_worse:
                 print(f"  ✗ Verschlechterung! Rollback auf vorherige Version.")
                 self.cache = copy.deepcopy(best_cache)
                 self.monster_karten = copy.deepcopy(best_monster)
                 self.wissens_karten = copy.deepcopy(best_wissen)
                 stale_count += 1
-            elif new_avg < best_avg:
-                print(f"  ✓ Verbesserung: {best_avg} → {new_avg}")
+            elif is_better:
+                details = []
+                if new_weak < best_weak:
+                    details.append(f"schwache Karten: {best_weak} → {new_weak}")
+                if new_avg != best_avg:
+                    details.append(f"Ø: {best_avg} → {new_avg}")
+                print(f"  ✓ Verbesserung: {', '.join(details)}")
                 best_avg = new_avg
+                best_weak = new_weak
                 best_cache = copy.deepcopy(self.cache)
                 best_monster = copy.deepcopy(self.monster_karten)
                 best_wissen = copy.deepcopy(self.wissens_karten)
@@ -608,9 +678,9 @@ class BalancingPipeline:
                 print(f"  – Keine Veränderung.")
                 stale_count += 1
 
-            # Ziel erreicht?
-            if new_avg <= TARGET_AVG_MATCHES:
-                print(f"\n  ★ ZIEL ERREICHT! Ø {new_avg} ≤ {TARGET_AVG_MATCHES}")
+            # Ziel erreicht? (Durchschnitt OK UND keine zu schwachen Karten)
+            if new_avg <= TARGET_AVG_MATCHES and new_stats["too_weak_count"] == 0:
+                print(f"\n  ★ ZIEL ERREICHT! Ø {new_avg} ≤ {TARGET_AVG_MATCHES}, keine zu schwachen Karten")
                 self._save_best()
                 return {"status": "erfolg", "iterationen": iteration, "stats": new_stats, "history": history}
 

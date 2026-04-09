@@ -60,9 +60,9 @@ OPENROUTER_MODEL=openai/gpt-4o-mini
 
 ---
 
-## Data-Dir in der Config setzen
+## Data-Dir in der Config setzen (optional)
 
-Öffne `config/training_config.yaml` und passe `data_dir` an:
+Wenn du keine Parameter übergibst, liest das Skript `data_dir` aus `config/training_config.yaml`:
 
 ```yaml
 game:
@@ -73,21 +73,47 @@ game:
 
 ## Cache erzeugen
 
+### Standard (data_dir aus Config)
+
 ```bash
 python -m llm_experts.batch_evaluate
 ```
 
+### Mit expliziten Pfaden (überschreibt Config)
+
+```bash
+# Eingabe- und Ausgabeordner identisch
+python -m llm_experts.batch_evaluate --data-dir data/meine_edition
+
+# Kurze Schreibweise
+python -m llm_experts.batch_evaluate -d data/meine_edition
+
+# Eingabe- und Ausgabeordner separat
+python -m llm_experts.batch_evaluate --data-dir data/meine_edition --output-dir data/cache_output
+
+# Kurze Schreibweise
+python -m llm_experts.batch_evaluate -d data/meine_edition -o data/cache_output
+```
+
+**Parameter:**
+
+| Parameter | Kurz | Beschreibung |
+|-----------|------|--------------|
+| `--data-dir` | `-d` | Ordner mit `monster_karten.json` und `wissens_karten.json` |
+| `--output-dir` | `-o` | Ordner, in dem `llm_cache.json` gespeichert wird (Standard: identisch mit `--data-dir`) |
+
 Das Skript:
-1. Liest `data_dir` aus `config/training_config.yaml`
+1. Liest den Eingabeordner aus `--data-dir` oder `config/training_config.yaml`
 2. Lädt alle Monster- und Wissenskarten
 3. Berechnet den Score für jede Kombination (M × W Paare)
-4. Speichert den Fortschritt nach jeder Paarung in `data/meine_edition/llm_cache.json`
+4. Speichert den Fortschritt nach jeder Paarung in `<output-dir>/llm_cache.json`
 
 Ausgabe-Beispiel:
 ```
-Provider : qwen2.5:4b
-Daten    : /app/data/meine_edition
-Gesamt   : 324 | Cache: 0 | Neu: 324
+Provider   : qwen2.5:4b
+Eingabe    : /app/data/meine_edition
+Ausgabe    : /app/data/meine_edition
+Gesamt     : 324 | Cache: 0 | Neu: 324
 
 100%|████| 324/324 [12:34<00:00, Schlafräuber_Nachrichten limitieren  0.92  Adressiert direkt...]
 

@@ -1,9 +1,14 @@
 # Balancing-Pipeline ausführen
 
-Die Balancing-Pipeline überarbeitet iterativ Kartentexte, damit jede Karte nur noch mit 4–6 Partnern stark matcht (Score ≥ 0.75) statt mit fast allen. Dazu nutzt sie drei LLM-Personas in einer Schleife:
+Die Balancing-Pipeline überarbeitet iterativ Kartentexte, damit jede Karte mit genau 4–6 Partnern stark matcht (Score ≥ 0.75). Sie erkennt und behebt zwei Probleme:
 
-1. **Analyst** — analysiert die Score-Matrix, identifiziert Problemkarten
-2. **Game Designer** — formuliert max. 3 Kartentexte pro Iteration spezifischer
+- **Zu starke Karten** (> 5 Matches) — zu generisch, matchen mit fast allem → spezifischer formulieren
+- **Zu schwache Karten** (< 2 Matches) — matchen mit fast niemandem → besser formulieren, damit sie mit passenden Partnern matchen
+
+Dazu nutzt sie drei LLM-Personas in einer Schleife:
+
+1. **Analyst** — analysiert die Score-Matrix, identifiziert zu starke und zu schwache Karten (Priorität: zu schwache Karten)
+2. **Game Designer** — formuliert max. 3 Kartentexte pro Iteration um (spezifischer oder breiter, je nach Problem)
 3. **Matcher** — berechnet die Scores für geänderte Paare neu
 
 ---
@@ -79,9 +84,12 @@ Pro Iteration durchläuft die Pipeline folgende Schritte:
 
 ```
 1. ANALYST    → Analysiert Score-Matrix, findet Top-3 Problemkarten
-2. DESIGNER   → Überarbeitet max. 3 Kartentexte (spezifischer formulieren)
+                (zu stark: > 5 Matches, zu schwach: < 2 Matches)
+2. DESIGNER   → Überarbeitet max. 3 Kartentexte
+                (zu stark → spezifischer, zu schwach → besser formulieren)
 3. MATCHER    → Bewertet alle Paare der geänderten Karten neu via LLM
-4. CHECK      → Prüft ob Ø Matches/Karte ≤ 5 → Ja: Fertig / Nein: Weiter
+4. CHECK      → Prüft ob Ø Matches/Karte ≤ 5 UND keine Karte < 2 Matches
+                → Ja: Fertig / Nein: Weiter
 ```
 
 ### Konsolenausgabe (Beispiel):
@@ -91,34 +99,35 @@ Pro Iteration durchläuft die Pipeline folgende Schritte:
   BOSODO Balancing-Pipeline
   Daten: data/scrum_edition
   LLM: openai/gpt-4o-mini
-  Ziel: Ø ≤ 5 Matches/Karte (Threshold 0.75)
+  Ziel: Ø ≤ 5 Matches/Karte, keine Karte < 2 (Threshold 0.75)
 ============================================================
 
 Initiale Statistik:
   Ø Monster-Matches: 6.89
   Ø Wissen-Matches:  6.89
   Ø Gesamt:          6.89
+  ⚠ Zu schwache Karten (< 2 Matches): 1
 
 ────────────────────────────────────────────────────────────
   Iteration 1
 ────────────────────────────────────────────────────────────
 
 [1/3] Analyst: Analysiere Score-Matrix...
-  → K01 (13 Matches): Fokus auf einen konkreten Aspekt...
-  → K05 (12 Matches): Einschränken auf spezifische Technik...
-  → M08 (11 Matches): Konkretes Szenario beschreiben...
+  → M12 (0 Matches, ↓ zu schwach): Beschreibung klarer formulieren...
+  → K01 (13 Matches, ↑ zu stark): Fokus auf einen konkreten Aspekt...
+  → K05 (12 Matches, ↑ zu stark): Einschränken auf spezifische Technik...
 
 [2/3] Game Designer: Kartentexte überarbeiten...
+  → M12: Klarer auf passendes Szenario fokussiert
   → K01: Spezifischer auf testbare Software fokussiert
   → K05: Auf Sprint-Burndown eingeschränkt
-  → M08: Konkretes Retro-Szenario beschrieben
 
 [3/3] Matcher: 3 Karten neu bewerten...
     [1/54] M01_K01: 0.45 – Kein direkter Bezug...
     ...
 
   Ergebnis: Ø 5.8 (vorher: 6.89)
-  ✓ Verbesserung: 6.89 → 5.8
+  ✓ Verbesserung: schwache Karten: 1 → 0, Ø: 6.89 → 5.8
 ```
 
 ---
@@ -182,10 +191,14 @@ Am Ende der Pipeline wird eine Zusammenfassung geschrieben:
 
 | Bedingung | Verhalten |
 |-----------|-----------|
-| Ø Matches/Karte ≤ 5 | Pipeline stoppt mit Status `erfolg` |
+| Ø Matches/Karte ≤ 5 **und** keine Karte < 2 Matches | Pipeline stoppt mit Status `erfolg` |
 | 10 Iterationen ohne Verbesserung | Pipeline stoppt mit Status `abbruch` |
 | Iteration verschlechtert Metrik | Automatischer Rollback auf vorherige Version |
 | Max. 15 Iterationen erreicht | Pipeline stoppt mit Status `abbruch` |
+
+**Verbesserung** wird in folgender Priorität bewertet:
+1. Weniger zu schwache Karten (< 2 Matches) — höchste Priorität
+2. Niedrigerer Ø Matches/Karte — bei gleich vielen schwachen Karten
 
 Bei einem Rollback werden Kartentexte und Cache auf den letzten besseren Stand zurückgesetzt. Die Pipeline versucht dann in der nächsten Iteration andere Karten zu optimieren.
 
@@ -208,4 +221,5 @@ Bei einem Rollback werden Kartentexte und Cache auf den letzten besseren Stand z
 | `llm_cache.json not found` | Cache wurde noch nicht erzeugt | Erst `python -m llm_experts.batch_evaluate` ausführen |
 | Pipeline ändert nichts | LLM liefert keine verwertbaren JSON-Antworten | Anderes/größeres Modell in `.env` konfigurieren |
 | Rollback in jeder Iteration | Änderungen verschlechtern konsistent | Threshold oder Ziel-Matches in `balancing_pipeline.py` anpassen |
+| Karte hat 0 Matches | Karte ist zu spezifisch oder schlecht formuliert | Pipeline erkennt dies automatisch und priorisiert die Überarbeitung |
 | Sehr langsam | Viele Re-Scoring-Calls bei Ollama | Auf OpenRouter wechseln oder kleineres Modell nutzen |
