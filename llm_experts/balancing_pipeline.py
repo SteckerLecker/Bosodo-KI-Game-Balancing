@@ -31,7 +31,7 @@ _PROJECT_ROOT = Path(__file__).resolve().parent.parent
 # Hilfsfunktionen
 # ---------------------------------------------------------------------------
 
-MATCH_THRESHOLD = 0.75
+MATCH_THRESHOLD = 0.6
 TARGET_AVG_MATCHES = 5
 MIN_MATCHES = 2  # Karten mit weniger Matches gelten als zu schwach
 MAX_ITERATIONS = 15

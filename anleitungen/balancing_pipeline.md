@@ -1,4 +1,4 @@
-# Balancing-Pipeline ausführen
+# Balancing-Pipeline ausführen (v2)
 
 Die Balancing-Pipeline überarbeitet iterativ Kartentexte, damit jede Karte mit genau 4–6 Partnern stark matcht (Score ≥ 0.75). Sie erkennt und behebt zwei Probleme:
 
@@ -7,9 +7,17 @@ Die Balancing-Pipeline überarbeitet iterativ Kartentexte, damit jede Karte mit 
 
 Dazu nutzt sie drei LLM-Personas in einer Schleife:
 
-1. **Analyst** — analysiert die Score-Matrix, identifiziert zu starke und zu schwache Karten (Priorität: zu schwache Karten)
-2. **Game Designer** — formuliert max. 3 Kartentexte pro Iteration um (spezifischer oder breiter, je nach Problem)
+1. **Analyst** — analysiert die Score-Matrix, identifiziert zu starke und zu schwache Karten (Priorität: zu schwache Karten). Erhält Change-History, Rollback-Blacklist und gesperrte Karten.
+2. **Game Designer** — formuliert max. 3 Kartentexte pro Iteration um (spezifischer oder breiter, je nach Problem). Sieht die konkreten Match-Partner und bisherige Änderungen.
 3. **Matcher** — berechnet die Scores für geänderte Paare neu
+
+**v2-Features** (gegenüber v1):
+- Change-History & Rollback-Blacklist im LLM-Prompt (verhindert Oszillation)
+- Card-Lock für stabilisierte Karten (verhindert Rückschritte)
+- Standardabweichung als zusätzliche Balancing-Metrik
+- Match-Partner im Designer-Prompt (gezieltere Änderungen)
+- Temperatur-Eskalation bei Stagnation (kreativere Umformulierungen)
+- Semantische Diff-Prüfung (lehnt kosmetische Umformulierungen ab)
 
 ---
 
@@ -83,29 +91,37 @@ python -m scripts.run_balancing_pipeline --data-dir data/scrum_edition --output-
 Pro Iteration durchläuft die Pipeline folgende Schritte:
 
 ```
-1. ANALYST    → Analysiert Score-Matrix, findet Top-3 Problemkarten
+1. LOCK-CHECK → Prüft ob Karten im Zielbereich (2-6 Matches) stabil sind → ggf. sperren
+2. ANALYST    → Analysiert Score-Matrix, findet Top-3 Problemkarten
                 (zu stark: > 5 Matches, zu schwach: < 2 Matches)
-2. DESIGNER   → Überarbeitet max. 3 Kartentexte
+                Erhält: Change-History, Rollback-Blacklist, gesperrte Karten
+3. DESIGNER   → Überarbeitet max. 3 Kartentexte
                 (zu stark → spezifischer, zu schwach → besser formulieren)
-3. MATCHER    → Bewertet alle Paare der geänderten Karten neu via LLM
-4. CHECK      → Prüft ob Ø Matches/Karte ≤ 5 UND keine Karte < 2 Matches
-                → Ja: Fertig / Nein: Weiter
+                Erhält: Match-Partner mit Namen, Change-History
+4. DIFF-CHECK → Prüft ob Änderungen semantisch signifikant sind (≥ 15% Wort-Differenz)
+                Kosmetische Umformulierungen werden abgelehnt
+5. MATCHER    → Bewertet alle Paare der geänderten Karten neu via LLM
+6. CHECK      → Prüft ob Ø Matches/Karte ≤ 5 UND keine Karte < 2 Matches
+                → Ja: Fertig / Nein: Weiter (ggf. Rollback + Blacklist)
 ```
+
+Bei Stagnation (3+ Iterationen ohne Verbesserung) wird die LLM-Temperatur automatisch von 0.4 auf bis zu 0.8 erhöht.
 
 ### Konsolenausgabe (Beispiel):
 
 ```
 ============================================================
-  BOSODO Balancing-Pipeline
+  BOSODO Balancing-Pipeline (v2 – mit History/Lock/Diff)
   Daten: data/scrum_edition
   LLM: openai/gpt-4o-mini
-  Ziel: Ø ≤ 5 Matches/Karte, keine Karte < 2 (Threshold 0.75)
+  Ziel: Ø ≤ 5 Matches/Karte (Threshold 0.75)
 ============================================================
 
 Initiale Statistik:
   Ø Monster-Matches: 6.89
   Ø Wissen-Matches:  6.89
   Ø Gesamt:          6.89
+  Std-Abweichung:    3.45
   ⚠ Zu schwache Karten (< 2 Matches): 1
 
 ────────────────────────────────────────────────────────────
@@ -118,16 +134,21 @@ Initiale Statistik:
   → K05 (12 Matches, ↑ zu stark): Einschränken auf spezifische Technik...
 
 [2/3] Game Designer: Kartentexte überarbeiten...
+
+  Semantische Diff-Prüfung:
+  ✓ M12: Semantische Differenz 85% – akzeptiert
+  ✓ K01: Semantische Differenz 72% – akzeptiert
+  ✗ K05: Semantische Differenz 8% – abgelehnt (Minimum: 15%)
   → M12: Klarer auf passendes Szenario fokussiert
   → K01: Spezifischer auf testbare Software fokussiert
-  → K05: Auf Sprint-Burndown eingeschränkt
 
-[3/3] Matcher: 3 Karten neu bewerten...
-    [1/54] M01_K01: 0.45 – Kein direkter Bezug...
+[3/3] Matcher: 2 Karten neu bewerten...
+    [1/36] M01_K01: 0.45 – Kein direkter Bezug...
     ...
 
-  Ergebnis: Ø 5.8 (vorher: 6.89)
-  ✓ Verbesserung: schwache Karten: 1 → 0, Ø: 6.89 → 5.8
+  Ergebnis: Ø 5.8 (vorher: 6.89), Std 2.8 (vorher: 3.45)
+  ✓ Verbesserung: schwache Karten: 1 → 0, Ø: 6.89 → 5.8, Std: 3.45 → 2.8
+  🔒 K07 gesperrt (stabil im Zielbereich seit 2 Iterationen)
 ```
 
 ---
@@ -159,10 +180,11 @@ balancing_runs/
 ### balance_report.md
 
 Jeder Iterationsreport enthält:
-- Übersichtstabelle (Ø Matches Monster/Wissen/Gesamt vs. Ziel)
+- Übersichtstabelle (Ø Matches Monster/Wissen/Gesamt/Std-Abweichung vs. Ziel)
+- Liste gesperrter Karten (falls vorhanden)
 - Monster-Match-Tabelle (sortiert nach Anzahl Matches)
 - Wissen-Match-Tabelle (sortiert nach Anzahl Matches)
-- Durchgeführte Änderungen (alt/neu/Begründung)
+- Durchgeführte Änderungen (alt/neu/Begründung/semantische Differenz)
 
 ### pipeline_summary.json
 
@@ -174,12 +196,20 @@ Am Ende der Pipeline wird eine Zusammenfassung geschrieben:
   "iterationen": 4,
   "initial_avg": 6.89,
   "final_avg": 4.8,
+  "initial_std": 3.45,
+  "final_std": 1.8,
+  "locked_cards": ["K07", "M03", "M05"],
+  "total_changes": 12,
+  "failed_changes": 3,
   "history": [
     {
       "iteration": 1,
       "avg_before": 6.89,
       "avg_after": 5.8,
-      "changed_cards": ["K01", "K05", "M08"]
+      "std_before": 3.45,
+      "std_after": 2.8,
+      "changed_cards": ["K01", "M08", "M12"],
+      "temperature": 0.4
     }
   ]
 }
@@ -193,14 +223,16 @@ Am Ende der Pipeline wird eine Zusammenfassung geschrieben:
 |-----------|-----------|
 | Ø Matches/Karte ≤ 5 **und** keine Karte < 2 Matches | Pipeline stoppt mit Status `erfolg` |
 | 10 Iterationen ohne Verbesserung | Pipeline stoppt mit Status `abbruch` |
-| Iteration verschlechtert Metrik | Automatischer Rollback auf vorherige Version |
+| Iteration verschlechtert Metrik | Automatischer Rollback + Blacklist-Eintrag |
+| Alle Änderungen einer Iteration als kosmetisch abgelehnt | Zählt als Stagnation |
 | Max. 15 Iterationen erreicht | Pipeline stoppt mit Status `abbruch` |
 
 **Verbesserung** wird in folgender Priorität bewertet:
 1. Weniger zu schwache Karten (< 2 Matches) — höchste Priorität
 2. Niedrigerer Ø Matches/Karte — bei gleich vielen schwachen Karten
+3. Niedrigere Standardabweichung — bei gleichem Ø und gleicher Weak-Zahl (Tiebreaker)
 
-Bei einem Rollback werden Kartentexte und Cache auf den letzten besseren Stand zurückgesetzt. Die Pipeline versucht dann in der nächsten Iteration andere Karten zu optimieren.
+Bei einem Rollback werden Kartentexte und Cache auf den letzten besseren Stand zurückgesetzt. Die gescheiterten Änderungen werden in der **Rollback-Blacklist** gespeichert und dem LLM in der nächsten Iteration als Negativbeispiel gezeigt.
 
 ---
 
@@ -213,6 +245,27 @@ Bei einem Rollback werden Kartentexte und Cache auf den letzten besseren Stand z
 
 ---
 
+## Konfigurierbare Konstanten
+
+In `llm_experts/balancing_pipeline.py` können folgende Werte angepasst werden:
+
+| Konstante | Default | Beschreibung |
+|-----------|---------|--------------|
+| `MATCH_THRESHOLD` | 0.75 | Ab welchem Score ein Paar als Match zählt |
+| `TARGET_AVG_MATCHES` | 5 | Ziel-Durchschnitt Matches/Karte |
+| `MIN_MATCHES` | 2 | Minimum Matches, darunter gilt Karte als zu schwach |
+| `MAX_ITERATIONS` | 15 | Maximale Iterationen |
+| `MAX_STALE_ITERATIONS` | 10 | Abbruch nach N Iterationen ohne Verbesserung |
+| `STABLE_RANGE` | (2, 6) | Zielbereich für Card-Lock |
+| `LOCK_AFTER_STABLE_ITERS` | 2 | Iterationen im Zielbereich bis eine Karte gesperrt wird |
+| `TEMP_BASE` | 0.4 | Basis-LLM-Temperatur |
+| `TEMP_ESCALATION` | 0.15 | Temperaturerhöhung pro Stagnationsiteration |
+| `TEMP_MAX` | 0.8 | Maximale Temperatur |
+| `STALE_ESCALATION_THRESHOLD` | 3 | Ab wann die Temperatur eskaliert wird |
+| `MIN_SEMANTIC_DIFF_RATIO` | 0.15 | Mindest-Wortdifferenz (Jaccard) für Änderungsannahme |
+
+---
+
 ## Typische Probleme
 
 | Problem | Ursache | Lösung |
@@ -220,6 +273,8 @@ Bei einem Rollback werden Kartentexte und Cache auf den letzten besseren Stand z
 | `OPENROUTER_API_KEY ist nicht gesetzt` | `.env` fehlt oder Provider falsch | `.env` im Projektstamm prüfen |
 | `llm_cache.json not found` | Cache wurde noch nicht erzeugt | Erst `python -m llm_experts.batch_evaluate` ausführen |
 | Pipeline ändert nichts | LLM liefert keine verwertbaren JSON-Antworten | Anderes/größeres Modell in `.env` konfigurieren |
-| Rollback in jeder Iteration | Änderungen verschlechtern konsistent | Threshold oder Ziel-Matches in `balancing_pipeline.py` anpassen |
-| Karte hat 0 Matches | Karte ist zu spezifisch oder schlecht formuliert | Pipeline erkennt dies automatisch und priorisiert die Überarbeitung |
+| Alle Änderungen als kosmetisch abgelehnt | LLM formuliert nur um statt inhaltlich zu ändern | `MIN_SEMANTIC_DIFF_RATIO` senken oder Modell wechseln |
+| Rollback in jeder Iteration | Änderungen verschlechtern konsistent | Threshold oder Ziel-Matches anpassen |
+| Karte hat 0 Matches | Karte ist zu spezifisch oder schlecht formuliert | Pipeline erkennt und priorisiert dies automatisch |
 | Sehr langsam | Viele Re-Scoring-Calls bei Ollama | Auf OpenRouter wechseln oder kleineres Modell nutzen |
+| Temperatur steigt auf Maximum | Viele Stagnationsiterationen | Prüfen ob Modell grundsätzlich geeignet ist |

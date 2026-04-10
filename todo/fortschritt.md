@@ -90,7 +90,7 @@ python scripts/iterative_balance.py --dry-run              # Nur Analyse, kein T
 
 ---
 
-### ✅ 6. LLM-basierte Balancing-Pipeline (3-Persona-Workflow)
+### ✅ 6. LLM-basierte Balancing-Pipeline v2 (3-Persona-Workflow)
 **Dateien:** `llm_experts/balancing_pipeline.py`, `scripts/run_balancing_pipeline.py`
 
 Iterative Pipeline, die Kartentexte automatisiert spezifischer formuliert, damit jede Karte nur noch mit 4–6 Partnern stark matcht (Score ≥ 0.75). Drei LLM-Personas arbeiten in einer Schleife:
@@ -101,10 +101,17 @@ Iterative Pipeline, die Kartentexte automatisiert spezifischer formuliert, damit
 
 **Ausgangslage (Scrum-Edition):** Ø 6.89 Matches/Karte — schlimmste: K01 (13), K05/K11 (12), M08 (11)
 
-**Features:**
-- Automatischer Rollback bei Verschlechterung
+**Features (v2):**
+- Automatischer Rollback bei Verschlechterung + Rollback-Blacklist
+- Change-History im LLM-Prompt (verhindert Wiederholung gescheiterter Ansätze)
+- Card-Lock für stabilisierte Karten (2+ Iterationen im Zielbereich 2-6 Matches)
+- Standardabweichung als zusätzliche Metrik + Tiebreaker
+- Match-Partner mit Namen im Designer-Prompt
+- Temperatur-Eskalation bei Stagnation (0.4 → bis 0.8)
+- Semantische Diff-Prüfung (Jaccard ≥ 15%, lehnt kosmetisches Rewording ab)
+- Anti-Über-Spezifizierung-Warnung in Prompts
 - Snapshots jeder Iteration (Karten + Cache vor/nach)
-- Markdown-Balance-Report pro Iteration
+- Markdown-Balance-Report pro Iteration mit Std-Abweichung
 - Abbruch nach 10 Iterationen ohne Verbesserung oder bei Ø ≤ 5
 
 **Verwendung:**
@@ -114,6 +121,7 @@ python -m scripts.run_balancing_pipeline --data-dir data/scrum_edition --max-ite
 ```
 
 **Anleitung:** `anleitungen/balancing_pipeline.md`
+**Analyse der Runs & Details:** `todo/fortschritt_iterative_llm_balancing.md`
 
 ---
 
