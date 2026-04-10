@@ -62,6 +62,7 @@ class BalancingReport:
     symbol_starvation_rate: Dict[str, float] = field(default_factory=dict)
     avg_symbol_on_hand: Dict[str, float] = field(default_factory=dict)
     multi_symbol_defense_rate: float = 0.0
+    avg_wisdom_cards_played: float = 0.0  # Ø Wissenskarten gelegt pro Spiel
     # LLM-basierte Inhaltsprüfung (Abschnitt 3.4 Stufe 1)
     llm_analysis: Dict[str, Any] = field(default_factory=dict)
 
@@ -85,6 +86,7 @@ class BalancingAnalyzer:
         self.monster_play_count: Counter = Counter()
         self.monster_defense_success: Counter = Counter()
         self.wisdom_play_count: Counter = Counter()
+        self.wisdom_cards_per_episode: List[int] = []
         self.game_lengths: List[int] = []
         self.winners: List[int] = []
         self.defense_rates: List[float] = []
@@ -115,8 +117,11 @@ class BalancingAnalyzer:
             for card_id, count in episode_metrics["most_used_monsters"]:
                 self.monster_play_count[card_id] += count
         if "all_wisdom_usage" in episode_metrics:
+            ep_wisdom_total = 0
             for card_id, count in episode_metrics["all_wisdom_usage"].items():
                 self.wisdom_play_count[card_id] += count
+                ep_wisdom_total += count
+            self.wisdom_cards_per_episode.append(ep_wisdom_total)
         elif "most_used_wisdoms" in episode_metrics:
             for card_id, count in episode_metrics["most_used_wisdoms"]:
                 self.wisdom_play_count[card_id] += count
@@ -154,6 +159,12 @@ class BalancingAnalyzer:
         if self.defense_rates:
             report.avg_defense_rate = sum(self.defense_rates) / len(
                 self.defense_rates
+            )
+
+        # Ø Wissenskarten gelegt pro Spiel
+        if self.wisdom_cards_per_episode:
+            report.avg_wisdom_cards_played = round(
+                sum(self.wisdom_cards_per_episode) / len(self.wisdom_cards_per_episode), 2
             )
 
         # --- Monster-Analyse ---

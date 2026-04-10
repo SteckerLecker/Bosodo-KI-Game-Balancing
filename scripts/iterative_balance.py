@@ -140,12 +140,12 @@ def check_convergence(
             )
     result.starvation_ok = all_starv_ok
 
-    # 3. Spiellänge: 20–40 Züge
+    # 3. Angriffe/Spiel: 20–40
     gl = report.avg_game_length
     result.game_length_ok = lo_gl <= gl <= hi_gl
     if not result.game_length_ok:
         result.details.append(
-            f"Spiellänge: {gl:.1f} (Ziel {lo_gl}–{hi_gl})"
+            f"Angriffe/Spiel: {gl:.1f} (Ziel {lo_gl}–{hi_gl})"
         )
 
     # 4. ≥ 50 % der Spiele enden mit Trophäen-Unterschied ≤ 1
@@ -519,6 +519,7 @@ def save_iteration_log(
             "overall_score": report.overall_score,
             "avg_game_length": report.avg_game_length,
             "avg_defense_rate": report.avg_defense_rate,
+            "avg_wisdom_cards_played": report.avg_wisdom_cards_played,
             "defense_rate_per_symbol": report.defense_rate_per_symbol,
             "symbol_starvation_rate": report.symbol_starvation_rate,
             "avg_symbol_on_hand": report.avg_symbol_on_hand,
@@ -562,6 +563,7 @@ def save_iteration_log(
         "total_episodes": report.total_episodes,
         "avg_game_length": report.avg_game_length,
         "avg_defense_rate": report.avg_defense_rate,
+        "avg_wisdom_cards_played": report.avg_wisdom_cards_played,
         "overall_score": report.overall_score,
         "overall_issues": report.overall_issues,
         "symbol_analysis": report.symbol_analysis,
@@ -592,8 +594,9 @@ def print_iteration_summary(
     print(f"  ITERATION {iteration} — Kartenversion v{version}")
     print(f"{'=' * 60}")
     print(f"  Overall Score:        {report.overall_score:.1f}/100")
-    print(f"  Ø Spiellänge:         {report.avg_game_length:.1f} Züge")
+    print(f"  Ø Angriffe/Spiel:     {report.avg_game_length:.1f}")
     print(f"  Ø Verteidigungsrate:  {report.avg_defense_rate:.1%}")
+    print(f"  Ø Wissenskarten/Spiel:{report.avg_wisdom_cards_played:.2f}")
     print()
     print(f"  {'Symbol':<6} {'Defense':<12} {'Starvation':<14} {'Ø Hand':<10}")
     print(f"  {'-' * 42}")
@@ -608,7 +611,7 @@ def print_iteration_summary(
     checks = [
         ("Defense-Rates", convergence.defense_rates_ok),
         ("Starvation", convergence.starvation_ok),
-        ("Spiellänge", convergence.game_length_ok),
+        ("Angriffe/Spiel", convergence.game_length_ok),
         ("Knappe Spiele", convergence.close_games_ok),
         ("Monster-Usage", convergence.monster_usage_ok),
     ]
@@ -633,6 +636,164 @@ def print_iteration_summary(
         print(f"\n  Keine Kartenänderungen.")
 
     print(f"{'=' * 60}\n")
+
+
+# ---------------------------------------------------------------------------
+# Markdown-Bericht
+# ---------------------------------------------------------------------------
+
+def generate_report(
+    results_dir: Path,
+    iteration_logs: List[Dict],
+    cfg: IterativeConfig,
+    is_converged: bool,
+    final_version: int,
+    final_iteration: int,
+    exit_reason: str,
+    data_folder_name: str,
+    run_timestamp: str,
+) -> Path:
+    """Erzeugt einen Markdown-Bericht über den gesamten Balancing-Run."""
+    lines: List[str] = []
+
+    # --- Header ---
+    lines.append(f"# BOSODO Iteratives Balancing — Bericht")
+    lines.append("")
+    lines.append(f"- **Datum:** {run_timestamp.replace('_', ' ', 1).replace('-', '.', 2).replace('_', ' ')}")
+    lines.append(f"- **Datensatz:** `{data_folder_name}`")
+    lines.append(f"- **Ergebnis:** {'Konvergiert' if is_converged else 'Nicht konvergiert'}")
+    lines.append(f"- **Finale Kartenversion:** v{final_version}")
+    lines.append(f"- **Iterationen:** {final_iteration}")
+    if exit_reason == "no_rules_applicable":
+        lines.append(f"- **Abbruchgrund:** Keine Regeländerungen mehr möglich")
+    elif exit_reason == "max_iterations":
+        lines.append(f"- **Abbruchgrund:** Max. Iterationen erreicht")
+    lines.append("")
+
+    # --- Konfiguration ---
+    lines.append("## Konfiguration")
+    lines.append("")
+    lines.append(f"| Parameter | Wert |")
+    lines.append(f"|---|---|")
+    lines.append(f"| Max. Iterationen | {cfg.max_iterations} |")
+    lines.append(f"| Timesteps/Iteration | {cfg.timesteps_per_iteration:,} |")
+    lines.append(f"| Analyse-Episoden | {cfg.analysis_episodes} |")
+    lines.append(f"| Spieler | {cfg.num_players} |")
+    lines.append(f"| Max. Züge | {cfg.max_turns} |")
+    lines.append(f"| Bot-Strategie | {cfg.bot_strategy} / {cfg.bot_target_strategy} |")
+    lines.append(f"| Konvergenz-Fenster | {cfg.convergence_window} |")
+    lines.append(f"| Max. Änderungen/Iteration | {cfg.max_changes_per_iteration} |")
+    lines.append(f"| Device | {cfg.device} |")
+    lines.append("")
+
+    # --- Iterationsübersicht ---
+    lines.append("## Iterationsübersicht")
+    lines.append("")
+    lines.append(
+        "| Iter | Version | Score | Ø Angriffe/Spiel | Ø Defense | Ø Wissenskarten | "
+        "Multi-Symbol | Konvergenz |"
+    )
+    lines.append("|---|---|---|---|---|---|---|---|")
+
+    for log in iteration_logs:
+        r: BalancingReport = log["report"]
+        c: ConvergenceResult = log["convergence"]
+        conv_str = "JA" if c.converged else "NEIN"
+        lines.append(
+            f"| {log['iteration']} "
+            f"| v{log['version']} "
+            f"| {r.overall_score:.1f} "
+            f"| {r.avg_game_length:.1f} "
+            f"| {r.avg_defense_rate:.1%} "
+            f"| {r.avg_wisdom_cards_played:.2f} "
+            f"| {r.multi_symbol_defense_rate:.1%} "
+            f"| {conv_str} |"
+        )
+    lines.append("")
+
+    # --- Symbol-Detail pro Iteration ---
+    lines.append("## Symbol-Metriken (letzte Iteration)")
+    lines.append("")
+    if iteration_logs:
+        last_report: BalancingReport = iteration_logs[-1]["report"]
+        lines.append("| Symbol | Defense-Rate | Starvation | Ø Hand |")
+        lines.append("|---|---|---|---|")
+        for s in SYMBOLS:
+            dr = last_report.defense_rate_per_symbol.get(s, 0.0)
+            sr = last_report.symbol_starvation_rate.get(s, 0.0)
+            ah = last_report.avg_symbol_on_hand.get(s, 0.0)
+            lines.append(f"| {s} | {dr:.1%} | {sr:.1%} | {ah:.2f} |")
+        lines.append("")
+
+    # --- Kartenänderungen ---
+    lines.append("## Kartenänderungen")
+    lines.append("")
+    any_changes = False
+    for log in iteration_logs:
+        changes: List[CardChange] = log["changes"]
+        if not changes:
+            continue
+        any_changes = True
+        lines.append(f"### Iteration {log['iteration']} (v{log['version']})")
+        lines.append("")
+        for c in changes:
+            arrow = "+" if c.change_type == "add_symbol" else "−"
+            lines.append(
+                f"- **{arrow} {c.card_id}** ({c.card_name}): "
+                f"`{c.old_symbols}` → `{c.new_symbols}`"
+            )
+            lines.append(f"  - {c.reason}")
+        lines.append("")
+
+    if not any_changes:
+        lines.append("Keine Kartenänderungen vorgenommen.")
+        lines.append("")
+
+    # --- Konvergenz-Detail ---
+    lines.append("## Konvergenz-Detail (letzte Iteration)")
+    lines.append("")
+    if iteration_logs:
+        last_conv: ConvergenceResult = iteration_logs[-1]["convergence"]
+        checks = [
+            ("Defense-Rates", last_conv.defense_rates_ok),
+            ("Starvation", last_conv.starvation_ok),
+            ("Spiellänge", last_conv.game_length_ok),
+            ("Knappe Spiele", last_conv.close_games_ok),
+            ("Monster-Usage", last_conv.monster_usage_ok),
+        ]
+        for name, ok in checks:
+            status = "OK" if ok else "NICHT OK"
+            lines.append(f"- **{name}:** {status}")
+        lines.append("")
+
+        if last_conv.details:
+            lines.append("### Offene Probleme")
+            lines.append("")
+            for detail in last_conv.details:
+                lines.append(f"- {detail}")
+            lines.append("")
+
+    # --- Endergebnis ---
+    lines.append("## Endergebnis")
+    lines.append("")
+    if is_converged:
+        lines.append(
+            f"Das Balancing ist nach **{final_iteration} Iterationen** konvergiert. "
+            f"Die finale Kartenversion ist **v{final_version}**."
+        )
+    else:
+        lines.append(
+            f"Das Balancing ist nach {final_iteration} Iterationen **nicht konvergiert**. "
+            f"Letzte Kartenversion: v{final_version}."
+        )
+    lines.append("")
+
+    report_path = results_dir / "bericht.md"
+    with open(report_path, "w", encoding="utf-8") as f:
+        f.write("\n".join(lines))
+
+    print(f"Bericht gespeichert: {report_path}")
+    return report_path
 
 
 # ---------------------------------------------------------------------------
@@ -737,9 +898,15 @@ def main():
     if cfg.llm_threshold > 0.0:
         print(f"LLM-Threshold aktiv: {cfg.llm_threshold}")
 
-    # Output-Verzeichnis
+    # Output-Verzeichnis (intern für Iterationslogs)
     output_dir = WORK_DIR / "output" / "iterative_balancing"
     output_dir.mkdir(parents=True, exist_ok=True)
+
+    # Results-Verzeichnis mit Timestamp und Datenordner-Name
+    run_timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    data_folder_name = BASE_DATA_DIR.name if BASE_DATA_DIR else "data"
+    results_dir = WORK_DIR / "results" / f"{run_timestamp}_{data_folder_name}"
+    results_dir.mkdir(parents=True, exist_ok=True)
 
     print(f"\n{'#' * 60}")
     print(f"  BOSODO ITERATIVES BALANCING")
@@ -751,6 +918,7 @@ def main():
     print(f"  Konvergenz-Fenster:  {cfg.convergence_window} aufeinanderfolgende Iterationen")
     print(f"  Max. Änderungen:     {cfg.max_changes_per_iteration} pro Iteration")
     print(f"  Device:              {cfg.device}")
+    print(f"  Results:             {results_dir}")
     print(f"{'#' * 60}\n")
 
     # Konvergenz-Historie
@@ -758,8 +926,11 @@ def main():
     iteration_logs: List[Dict] = []
 
     current_version = cfg.start_version
+    final_iteration = 0
+    exit_reason = "max_iterations"
 
     for iteration in range(1, cfg.max_iterations + 1):
+        final_iteration = iteration
         data_dir = get_data_dir(current_version)
         print(f"\n>>> Iteration {iteration}/{cfg.max_iterations} "
               f"(Kartendaten: {data_dir.name}) <<<\n")
@@ -809,6 +980,10 @@ def main():
         ):
             print_iteration_summary(iteration, current_version, report, convergence, [])
             save_iteration_log(iteration, current_version, report, convergence, [], output_dir)
+            iteration_logs.append({
+                "iteration": iteration, "version": current_version,
+                "report": report, "convergence": convergence, "changes": [],
+            })
 
             print(f"\n{'*' * 60}")
             print(f"  BALANCING KONVERGIERT nach {iteration} Iterationen!")
@@ -816,6 +991,7 @@ def main():
             print(f"  Finale Kartenversion: v{current_version}")
             print(f"  Finale Daten: {get_data_dir(current_version)}")
             print(f"{'*' * 60}\n")
+            exit_reason = "converged"
             break
 
         # --- 5. Symbole anpassen ---
@@ -827,6 +1003,10 @@ def main():
         # Zusammenfassung ausgeben
         print_iteration_summary(iteration, current_version, report, convergence, changes)
         save_iteration_log(iteration, current_version, report, convergence, changes, output_dir)
+        iteration_logs.append({
+            "iteration": iteration, "version": current_version,
+            "report": report, "convergence": convergence, "changes": changes,
+        })
 
         # --- 6. Neue Version speichern ---
         if changes:
@@ -837,6 +1017,7 @@ def main():
         elif not convergence.converged:
             print("  Keine Regeländerungen möglich — Kriterien weiterhin nicht erfüllt.")
             print("  Manuelle Anpassung empfohlen. Beende Zyklus.")
+            exit_reason = "no_rules_applicable"
             break
 
     else:
@@ -848,10 +1029,13 @@ def main():
         print(f"{'!' * 60}\n")
 
     # Gesamt-Zusammenfassung speichern
+    is_converged = (
+        len(convergence_history) >= cfg.convergence_window
+        and all(convergence_history[-cfg.convergence_window:])
+    )
     summary = {
-        "total_iterations": min(iteration, cfg.max_iterations),
-        "converged": len(convergence_history) >= cfg.convergence_window
-                     and all(convergence_history[-cfg.convergence_window:]),
+        "total_iterations": final_iteration,
+        "converged": is_converged,
         "final_version": current_version,
         "final_data_dir": str(get_data_dir(current_version)),
         "convergence_history": convergence_history,
@@ -867,6 +1051,30 @@ def main():
     with open(summary_file, "w", encoding="utf-8") as f:
         json.dump(summary, f, indent=2, ensure_ascii=False)
     print(f"Zusammenfassung gespeichert: {summary_file}")
+
+    # --- Results-Verzeichnis: JSON-Summary + Iterations-Logs kopieren ---
+    with open(results_dir / "summary.json", "w", encoding="utf-8") as f:
+        json.dump(summary, f, indent=2, ensure_ascii=False)
+
+    # Iterations-Logs ins Results-Verzeichnis kopieren
+    for log_file in sorted(output_dir.glob("iteration_*.json")):
+        shutil.copy2(log_file, results_dir / log_file.name)
+    for report_file in sorted(output_dir.glob("balancing_report_*.json")):
+        shutil.copy2(report_file, results_dir / report_file.name)
+
+    # --- Markdown-Bericht generieren ---
+    generate_report(
+        results_dir=results_dir,
+        iteration_logs=iteration_logs,
+        cfg=cfg,
+        is_converged=is_converged,
+        final_version=current_version,
+        final_iteration=final_iteration,
+        exit_reason=exit_reason,
+        data_folder_name=data_folder_name,
+        run_timestamp=run_timestamp,
+    )
+    print(f"Results gespeichert: {results_dir}")
 
 
 if __name__ == "__main__":
